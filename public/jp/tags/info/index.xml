@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Info on Fumbling - currently not indexed.</title>
+    <link>https://blog.pumpkinpie-tea.com/jp/tags/info/</link>
+    <description>Recent content in Info on Fumbling - currently not indexed.</description>
+    <image>
+      <title>Fumbling - currently not indexed.</title>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.135.0</generator>
+    <language>jp-JP</language>
+    <lastBuildDate>Tue, 15 Oct 2024 20:59:57 +0700</lastBuildDate>
+    <atom:link href="https://blog.pumpkinpie-tea.com/jp/tags/info/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Start new blog</title>
+      <link>https://blog.pumpkinpie-tea.com/jp/article/startnewblog/</link>
+      <pubDate>Tue, 15 Oct 2024 20:59:57 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/jp/article/startnewblog/</guid>
+      <description>&lt;h3 id=&#34;about-this-blog&#34;&gt;About This Blog&lt;/h3&gt;
+&lt;p&gt;このブログは、以前のサイトから引っ越してきました。
+旧ブログ　https://pumpkinpie-tea.blogspot.com/&lt;/p&gt;
+&lt;h3 id=&#34;引っ越しの目的&#34;&gt;引っ越しの目的&lt;/h3&gt;
+&lt;p&gt;このサイト移行にはいくつかの目的がありました。主に、以下のような技術的なトライアルを実施したかったためです。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;独自ドメインを取得し、サイトを立ち上げる経験&lt;/li&gt;
+&lt;li&gt;Google Analytics（GA）やSEOの設定・最適化&lt;/li&gt;
+&lt;li&gt;静的サイトジェネレーター（Hugo）を活用したWebサイトの構築&lt;/li&gt;
+&lt;li&gt;Firebase Hostingを利用したホスティングの実践&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;このサイトは、個人的なメモ帳としての役割を果たすことを目的としています。
+思いついたことや試行錯誤の記録を残し、自分自身の学びを整理する場です。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

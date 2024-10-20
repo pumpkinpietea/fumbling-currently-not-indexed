@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on Fumbling - currently not indexed.</title>
+    <link>https://blog.pumpkinpie-tea.com/tags/</link>
+    <description>Recent content in Tags on Fumbling - currently not indexed.</description>
+    <image>
+      <title>Fumbling - currently not indexed.</title>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.135.0</generator>
+    <language>en-US</language>
+    <lastBuildDate>Sat, 19 Oct 2024 22:46:18 +0700</lastBuildDate>
+    <atom:link href="https://blog.pumpkinpie-tea.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Postgresql</title>
+      <link>https://blog.pumpkinpie-tea.com/tags/postgresql/</link>
+      <pubDate>Sat, 19 Oct 2024 22:46:18 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lauguage</title>
+      <link>https://blog.pumpkinpie-tea.com/tags/lauguage/</link>
+      <pubDate>Sat, 19 Oct 2024 15:30:47 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/tags/lauguage/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Info</title>
+      <link>https://blog.pumpkinpie-tea.com/tags/info/</link>
+      <pubDate>Tue, 15 Oct 2024 20:59:57 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/tags/info/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
