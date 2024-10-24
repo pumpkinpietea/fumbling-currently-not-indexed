@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Bigquery on Fumbling - currently not indexed.</title>
+    <link>https://blog.pumpkinpie-tea.com/tags/bigquery/</link>
+    <description>Recent content in Bigquery on Fumbling - currently not indexed.</description>
+    <image>
+      <title>Fumbling - currently not indexed.</title>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.135.0</generator>
+    <language>en-US</language>
+    <lastBuildDate>Thu, 24 Oct 2024 23:08:40 +0700</lastBuildDate>
+    <atom:link href="https://blog.pumpkinpie-tea.com/tags/bigquery/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>One-liner for Bulk Deletion of Date-Suffixed Tables in BigQuery</title>
+      <link>https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/</link>
+      <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/</guid>
+      <description>&lt;h3 id=&#34;objective-and-background&#34;&gt;Objective and Background&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;In BigQuery, we often save historical data by appending suffixes like _YYYYMMDD to table names. Over time, this can lead to an accumulation of many versions of data that need to be deleted.&lt;/li&gt;
+&lt;li&gt;However, the GCP console only allows deletion of one table at a time, and the bq command does not support wildcard deletions. To address this, we use the following approach.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;one-liner&#34;&gt;One-liner&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Replace &amp;lt;Project_name&amp;gt;, &amp;lt;Dataset_Name&amp;gt;, and &amp;lt;Table_Name_Pattern_To_Delete&amp;gt; in the command below.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bq query --project_id=&amp;lt;Project_name&amp;gt; --use_legacy_sql=false --format=csv --max_rows=1000 &amp;#34;SELECT table_id FROM \`&amp;lt;Product_Name&amp;gt;.&amp;lt;Dataset_Name&amp;gt;.__TABLES__\` WHERE table_id LIKE &amp;#39;%&amp;lt;Table_Name_Pattern_To_Delete&amp;gt;%&amp;#39;&amp;#34; | tail -n +2 | xargs -I {} bq rm -f -t &amp;lt;Product_Name&amp;gt;:&amp;lt;Dataset_Name&amp;gt;.{}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;additional-notes&#34;&gt;Additional Notes&lt;/h3&gt;
+&lt;p&gt;‐ It is advisable to verify the target tables before executing the deletion. Use the following command to check:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

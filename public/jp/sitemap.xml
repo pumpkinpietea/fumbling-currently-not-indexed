@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.pumpkinpie-tea.com/jp/article/</loc>
-    <lastmod>2024-10-19T22:46:18+07:00</lastmod>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
@@ -15,8 +15,60 @@
                 href="https://blog.pumpkinpie-tea.com/jp/article/"
                 />
   </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/jp/tags/bigquery/</loc>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/bigquery/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/bigquery/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/</loc>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/jp/categories/</loc>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/categories/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/jp/tags/cli/</loc>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/cli/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/cli/"
+                />
+  </url><url>
     <loc>https://blog.pumpkinpie-tea.com/jp/</loc>
-    <lastmod>2024-10-19T22:46:18+07:00</lastmod>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
@@ -26,6 +78,45 @@
                 rel="alternate"
                 hreflang="jp-JP"
                 href="https://blog.pumpkinpie-tea.com/jp/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/jp/tags/gcp/</loc>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/gcp/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/gcp/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/jp/categories/one-liner/</loc>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/categories/one-liner/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/categories/one-liner/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/jp/tags/</loc>
+    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/"
                 />
   </url><url>
     <loc>https://blog.pumpkinpie-tea.com/jp/tags/postgresql/</loc>
@@ -39,19 +130,6 @@
                 rel="alternate"
                 hreflang="jp-JP"
                 href="https://blog.pumpkinpie-tea.com/jp/tags/postgresql/"
-                />
-  </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/</loc>
-    <lastmod>2024-10-19T22:46:18+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/"
                 />
   </url><url>
     <loc>https://blog.pumpkinpie-tea.com/jp/article/object_name_should_be_lowercase/</loc>
@@ -116,18 +194,6 @@
                 rel="alternate"
                 hreflang="jp-JP"
                 href="https://blog.pumpkinpie-tea.com/jp/article/startnewblog/"
-                />
-  </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/categories/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/categories/"
                 />
   </url>
 </urlset>

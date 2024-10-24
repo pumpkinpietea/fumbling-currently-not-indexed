@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>One-Liner on Fumbling - currently not indexed.</title>
+    <link>https://blog.pumpkinpie-tea.com/jp/categories/one-liner/</link>
+    <description>Recent content in One-Liner on Fumbling - currently not indexed.</description>
+    <image>
+      <title>Fumbling - currently not indexed.</title>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.135.0</generator>
+    <language>jp-JP</language>
+    <lastBuildDate>Thu, 24 Oct 2024 23:08:40 +0700</lastBuildDate>
+    <atom:link href="https://blog.pumpkinpie-tea.com/jp/categories/one-liner/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bigquery で、日付別テーブル（_TABLE_SUFFIX付きテーブル）を一括削除する　ワンライナー</title>
+      <link>https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/</link>
+      <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/</guid>
+      <description>&lt;h3 id=&#34;やりたい事背景&#34;&gt;やりたい事・背景&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Bigqueryで、Historicalなデータの保存時に、_YYYYMMDDなどのSuffixを追加して保存していると、気がつくと世代がめちゃくちゃ増えていることがあり、削除をする必要があった。&lt;/li&gt;
+&lt;li&gt;が、GCPのコンソールからは、1テーブルづつしか削除できない。また、bqコマンドではワイルドカードをつかった削除機能はなかったため、このアプローチを取った。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;ワンライナー&#34;&gt;ワンライナー&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;lt;Project_name&amp;gt;, &amp;lt;Dataset_Name&amp;gt;, &amp;lt;削除したいTable名のパターン&amp;gt; を置き換える。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bq query --project_id=&amp;lt;Project_name&amp;gt; --use_legacy_sql=false --format=csv --max_rows=1000 &amp;#34;SELECT table_id FROM \`&amp;lt;Product_Name&amp;gt;.&amp;lt;Dataset_Name&amp;gt;.__TABLES__\` WHERE table_id LIKE &amp;#39;%&amp;lt;削除したいTable名のパターン&amp;gt;%&amp;#39;&amp;#34; | tail -n +2 | xargs -I {} bq rm -f -t &amp;lt;Product_Name&amp;gt;:&amp;lt;Dataset_Name&amp;gt;.{}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;補足&#34;&gt;補足&lt;/h3&gt;
+&lt;p&gt;‐ 実行前に、対象のテーブルを確認した方がよいので、以下を使用。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bq query --project_id=&amp;lt;Project_name&amp;gt;　--use_legacy_sql=false --format=csv --max_rows=1000 &amp;#34;SELECT table_id FROM \`&amp;lt;Product_Name&amp;gt;.&amp;lt;Dataset_Name&amp;gt;.__TABLES__\` WHERE table_id LIKE &amp;#39;%&amp;lt;削除したいTable名のパターン&amp;gt;%&amp;#39;&amp;#34; | tail -n +2 | xargs -I {} echo &amp;#34;Table ID: {}&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;‐ データセット作成時に、デフォルトの有効期限設定をするのがベストプラクティスとの事。ただ、後から設定しても、作成済みのテーブルは削除されない。。。自分で消さないとダメでした。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://cloud.google.com/bigquery/docs/best-practices-storage?hl=ja#use-expiration-settings&#34;&gt;https://cloud.google.com/bigquery/docs/best-practices-storage?hl=ja#use-expiration-settings&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

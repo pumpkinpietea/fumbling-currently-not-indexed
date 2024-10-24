@@ -11,8 +11,29 @@
     </image>
     <generator>Hugo -- 0.135.0</generator>
     <language>jp-JP</language>
-    <lastBuildDate>Sat, 19 Oct 2024 22:46:18 +0700</lastBuildDate>
+    <lastBuildDate>Thu, 24 Oct 2024 23:08:40 +0700</lastBuildDate>
     <atom:link href="https://blog.pumpkinpie-tea.com/jp/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bigquery</title>
+      <link>https://blog.pumpkinpie-tea.com/jp/tags/bigquery/</link>
+      <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/jp/tags/bigquery/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CLI</title>
+      <link>https://blog.pumpkinpie-tea.com/jp/tags/cli/</link>
+      <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/jp/tags/cli/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GCP</title>
+      <link>https://blog.pumpkinpie-tea.com/jp/tags/gcp/</link>
+      <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/jp/tags/gcp/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Postgresql</title>
       <link>https://blog.pumpkinpie-tea.com/jp/tags/postgresql/</link>
