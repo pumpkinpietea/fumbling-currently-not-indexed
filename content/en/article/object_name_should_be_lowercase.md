@@ -3,7 +3,8 @@ title: 'Use lowercase for all object names - PostgreSQL'
 date: 2024-10-19T22:46:18+07:00
 # weight: 1
 # aliases: ["/first"]
-tags: ["postgresql"]
+categories: ["Development"]
+tags: ["PostgreSQL","SQL"]
 # author: "Me"
 # author: ["Me", "You"] # multiple authors
 showToc: false

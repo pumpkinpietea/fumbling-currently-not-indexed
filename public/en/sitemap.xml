@@ -15,6 +15,22 @@
                 href="https://blog.pumpkinpie-tea.com/article/"
                 />
   </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/categories/</loc>
+    <lastmod>2024-10-19T22:46:18+07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/categories/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/categories/development/</loc>
+    <lastmod>2024-10-19T22:46:18+07:00</lastmod>
+  </url><url>
     <loc>https://blog.pumpkinpie-tea.com/</loc>
     <lastmod>2024-10-19T22:46:18+07:00</lastmod>
     <xhtml:link
@@ -40,6 +56,9 @@
                 hreflang="en-US"
                 href="https://blog.pumpkinpie-tea.com/tags/postgresql/"
                 />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/sql/</loc>
+    <lastmod>2024-10-19T22:46:18+07:00</lastmod>
   </url><url>
     <loc>https://blog.pumpkinpie-tea.com/tags/</loc>
     <lastmod>2024-10-19T22:46:18+07:00</lastmod>
@@ -67,6 +86,9 @@
                 href="https://blog.pumpkinpie-tea.com/article/object_name_should_be_lowercase/"
                 />
   </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/bahasa-indonesia/</loc>
+    <lastmod>2024-10-19T15:30:47+07:00</lastmod>
+  </url><url>
     <loc>https://blog.pumpkinpie-tea.com/article/build_up_vocabulary/</loc>
     <lastmod>2024-10-19T15:30:47+07:00</lastmod>
     <xhtml:link
@@ -80,18 +102,11 @@
                 href="https://blog.pumpkinpie-tea.com/article/build_up_vocabulary/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/tags/lauguage/</loc>
+    <loc>https://blog.pumpkinpie-tea.com/tags/language/</loc>
     <lastmod>2024-10-19T15:30:47+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/lauguage/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/lauguage/"
-                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/categories/language/</loc>
+    <lastmod>2024-10-19T15:30:47+07:00</lastmod>
   </url><url>
     <loc>https://blog.pumpkinpie-tea.com/tags/info/</loc>
     <lastmod>2024-10-15T20:59:57+07:00</lastmod>
@@ -117,18 +132,6 @@
                 rel="alternate"
                 hreflang="en-US"
                 href="https://blog.pumpkinpie-tea.com/article/startnewblog/"
-                />
-  </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/categories/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/categories/"
                 />
   </url>
 </urlset>

@@ -3,7 +3,8 @@ title: 'Building up vocabulary of Bahasa Indonesia (verb)'
 date: 2024-10-19T15:30:47+07:00
 # weight: 1
 #aliases: ["/build_up_vocabulary"]
-tags: ["lauguage"]
+categories: ["Language"]
+tags: ["language","Bahasa Indonesia"]
 # author: "Me"
 # author: ["Me", "You"] # multiple authors
 # showToc: true
