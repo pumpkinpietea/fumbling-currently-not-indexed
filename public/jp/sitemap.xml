@@ -2,302 +2,302 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/article/</loc>
+    <loc>http://localhost:1313/jp/article/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/article/"
+                href="http://localhost:1313/article/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/article/"
+                href="http://localhost:1313/jp/article/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/business/</loc>
+    <loc>http://localhost:1313/jp/tags/business/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/business/"
+                href="http://localhost:1313/tags/business/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/business/"
+                href="http://localhost:1313/jp/tags/business/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/categories/</loc>
+    <loc>http://localhost:1313/jp/categories/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/categories/"
+                href="http://localhost:1313/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/categories/"
+                href="http://localhost:1313/jp/categories/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/daily-digest/</loc>
+    <loc>http://localhost:1313/jp/tags/daily-digest/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/daily-digest/"
+                href="http://localhost:1313/tags/daily-digest/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/daily-digest/"
+                href="http://localhost:1313/jp/tags/daily-digest/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/economy/</loc>
+    <loc>http://localhost:1313/jp/tags/economy/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/economy/"
+                href="http://localhost:1313/tags/economy/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/economy/"
+                href="http://localhost:1313/jp/tags/economy/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/</loc>
+    <loc>http://localhost:1313/jp/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/"
+                href="http://localhost:1313/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/"
+                href="http://localhost:1313/jp/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/categories/indonesia/</loc>
+    <loc>http://localhost:1313/jp/categories/indonesia/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/categories/indonesia/"
+                href="http://localhost:1313/categories/indonesia/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/categories/indonesia/"
+                href="http://localhost:1313/jp/categories/indonesia/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/indonesia/</loc>
+    <loc>http://localhost:1313/jp/tags/indonesia/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/indonesia/"
+                href="http://localhost:1313/tags/indonesia/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/indonesia/"
+                href="http://localhost:1313/jp/tags/indonesia/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/article/indonesia-news-2025-12-14/</loc>
+    <loc>http://localhost:1313/jp/article/indonesia-news-2025-12-14/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/article/indonesia-news-2025-12-14/"
+                href="http://localhost:1313/article/indonesia-news-2025-12-14/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/article/indonesia-news-2025-12-14/"
+                href="http://localhost:1313/jp/article/indonesia-news-2025-12-14/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/categories/news/</loc>
+    <loc>http://localhost:1313/jp/categories/news/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/categories/news/"
+                href="http://localhost:1313/categories/news/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/categories/news/"
+                href="http://localhost:1313/jp/categories/news/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/politics/</loc>
+    <loc>http://localhost:1313/jp/tags/politics/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/politics/"
+                href="http://localhost:1313/tags/politics/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/politics/"
+                href="http://localhost:1313/jp/tags/politics/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/</loc>
+    <loc>http://localhost:1313/jp/tags/</loc>
     <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/"
+                href="http://localhost:1313/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/"
+                href="http://localhost:1313/jp/tags/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/bigquery/</loc>
+    <loc>http://localhost:1313/jp/tags/bigquery/</loc>
     <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/bigquery/"
+                href="http://localhost:1313/tags/bigquery/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/bigquery/"
+                href="http://localhost:1313/jp/tags/bigquery/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/</loc>
+    <loc>http://localhost:1313/jp/article/how_to_delete_wildcard_tables_in_bigquery/</loc>
     <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/"
+                href="http://localhost:1313/article/how_to_delete_wildcard_tables_in_bigquery/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/"
+                href="http://localhost:1313/jp/article/how_to_delete_wildcard_tables_in_bigquery/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/cli/</loc>
+    <loc>http://localhost:1313/jp/tags/cli/</loc>
     <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/cli/"
+                href="http://localhost:1313/tags/cli/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/cli/"
+                href="http://localhost:1313/jp/tags/cli/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/gcp/</loc>
+    <loc>http://localhost:1313/jp/tags/gcp/</loc>
     <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/gcp/"
+                href="http://localhost:1313/tags/gcp/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/gcp/"
+                href="http://localhost:1313/jp/tags/gcp/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/categories/one-liner/</loc>
+    <loc>http://localhost:1313/jp/categories/one-liner/</loc>
     <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/categories/one-liner/"
+                href="http://localhost:1313/categories/one-liner/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/categories/one-liner/"
+                href="http://localhost:1313/jp/categories/one-liner/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/postgresql/</loc>
+    <loc>http://localhost:1313/jp/tags/postgresql/</loc>
     <lastmod>2024-10-19T22:46:18+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/postgresql/"
+                href="http://localhost:1313/tags/postgresql/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/postgresql/"
+                href="http://localhost:1313/jp/tags/postgresql/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/article/object_name_should_be_lowercase/</loc>
+    <loc>http://localhost:1313/jp/article/object_name_should_be_lowercase/</loc>
     <lastmod>2024-10-19T22:46:18+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/article/object_name_should_be_lowercase/"
+                href="http://localhost:1313/article/object_name_should_be_lowercase/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/article/object_name_should_be_lowercase/"
+                href="http://localhost:1313/jp/article/object_name_should_be_lowercase/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/article/build_up_vocabulary/</loc>
+    <loc>http://localhost:1313/jp/article/build_up_vocabulary/</loc>
     <lastmod>2024-10-19T15:30:47+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/article/build_up_vocabulary/"
+                href="http://localhost:1313/article/build_up_vocabulary/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/article/build_up_vocabulary/"
+                href="http://localhost:1313/jp/article/build_up_vocabulary/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/lauguage/</loc>
+    <loc>http://localhost:1313/jp/tags/lauguage/</loc>
     <lastmod>2024-10-19T15:30:47+07:00</lastmod>
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/article/web_haisin_no_gijutsu/</loc>
+    <loc>http://localhost:1313/jp/article/web_haisin_no_gijutsu/</loc>
     <lastmod>2024-10-15T22:02:59+07:00</lastmod>
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/book/</loc>
+    <loc>http://localhost:1313/jp/tags/book/</loc>
     <lastmod>2024-10-15T22:02:59+07:00</lastmod>
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/cache/</loc>
+    <loc>http://localhost:1313/jp/tags/cache/</loc>
     <lastmod>2024-10-15T22:02:59+07:00</lastmod>
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/tags/info/</loc>
+    <loc>http://localhost:1313/jp/tags/info/</loc>
     <lastmod>2024-10-15T20:59:57+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/info/"
+                href="http://localhost:1313/tags/info/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/info/"
+                href="http://localhost:1313/jp/tags/info/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/jp/article/startnewblog/</loc>
+    <loc>http://localhost:1313/jp/article/startnewblog/</loc>
     <lastmod>2024-10-15T20:59:57+07:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/article/startnewblog/"
+                href="http://localhost:1313/article/startnewblog/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/article/startnewblog/"
+                href="http://localhost:1313/jp/article/startnewblog/"
                 />
   </url>
 </urlset>

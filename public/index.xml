@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Fumbling - currently not indexed.</title>
-    <link>https://blog.pumpkinpie-tea.com/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on Fumbling - currently not indexed.</description>
     <image>
       <title>Fumbling - currently not indexed.</title>
-      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-US</language>
     <lastBuildDate>Sun, 14 Dec 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.pumpkinpie-tea.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Indonesia News Digest - 2025-12-14</title>
-      <link>https://blog.pumpkinpie-tea.com/article/indonesia-news-2025-12-14/</link>
+      <link>http://localhost:1313/article/indonesia-news-2025-12-14/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>https://blog.pumpkinpie-tea.com/article/indonesia-news-2025-12-14/</guid>
+      <guid>http://localhost:1313/article/indonesia-news-2025-12-14/</guid>
       <description>&lt;h3 id=&#34;about-this-blog&#34;&gt;About This Blog&lt;/h3&gt;
 &lt;p&gt;This blog is a migration from my previous site.
 The previous URL was &lt;a href=&#34;https://pumpkinpie-tea.blogspot.com/&#34;&gt;https://pumpkinpie-tea.blogspot.com/&lt;/a&gt;&lt;/p&gt;
@@ -33,9 +33,9 @@ The previous URL was &lt;a href=&#34;https://pumpkinpie-tea.blogspot.com/&#34;&g
     </item>
     <item>
       <title>One-liner for Bulk Deletion of Date-Suffixed Tables in BigQuery</title>
-      <link>https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/</link>
+      <link>http://localhost:1313/article/how_to_delete_wildcard_tables_in_bigquery/</link>
       <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
-      <guid>https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/</guid>
+      <guid>http://localhost:1313/article/how_to_delete_wildcard_tables_in_bigquery/</guid>
       <description>&lt;h3 id=&#34;objective-and-background&#34;&gt;Objective and Background&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;In BigQuery, we often save historical data by appending suffixes like _YYYYMMDD to table names. Over time, this can lead to an accumulation of many versions of data that need to be deleted.&lt;/li&gt;
@@ -51,9 +51,9 @@ The previous URL was &lt;a href=&#34;https://pumpkinpie-tea.blogspot.com/&#34;&g
     </item>
     <item>
       <title>Use lowercase for all object names - PostgreSQL</title>
-      <link>https://blog.pumpkinpie-tea.com/article/object_name_should_be_lowercase/</link>
+      <link>http://localhost:1313/article/object_name_should_be_lowercase/</link>
       <pubDate>Sat, 19 Oct 2024 22:46:18 +0700</pubDate>
-      <guid>https://blog.pumpkinpie-tea.com/article/object_name_should_be_lowercase/</guid>
+      <guid>http://localhost:1313/article/object_name_should_be_lowercase/</guid>
       <description>&lt;h3 id=&#34;in-postgresql-always-use-lowercase-for-object-names-table-names-column-names&#34;&gt;&lt;strong&gt;In PostgreSQL, always use lowercase for object names (table names, column names)&lt;/strong&gt;&lt;/h3&gt;
 &lt;h3 id=&#34;reason&#34;&gt;Reason&lt;/h3&gt;
 &lt;ul&gt;
@@ -94,16 +94,16 @@ The previous URL was &lt;a href=&#34;https://pumpkinpie-tea.blogspot.com/&#34;&g
     </item>
     <item>
       <title>Building up vocabulary of Bahasa Indonesia (verb)</title>
-      <link>https://blog.pumpkinpie-tea.com/article/build_up_vocabulary/</link>
+      <link>http://localhost:1313/article/build_up_vocabulary/</link>
       <pubDate>Sat, 19 Oct 2024 15:30:47 +0700</pubDate>
-      <guid>https://blog.pumpkinpie-tea.com/article/build_up_vocabulary/</guid>
+      <guid>http://localhost:1313/article/build_up_vocabulary/</guid>
       <description>Building up vocabulary of Bahasa Indonesia (verb)</description>
     </item>
     <item>
       <title>Start new blog</title>
-      <link>https://blog.pumpkinpie-tea.com/article/startnewblog/</link>
+      <link>http://localhost:1313/article/startnewblog/</link>
       <pubDate>Tue, 15 Oct 2024 20:59:57 +0700</pubDate>
-      <guid>https://blog.pumpkinpie-tea.com/article/startnewblog/</guid>
+      <guid>http://localhost:1313/article/startnewblog/</guid>
       <description>&lt;h3 id=&#34;about-this-blog&#34;&gt;About This Blog&lt;/h3&gt;
 &lt;p&gt;This blog is a migration from my previous site.
 The previous URL was &lt;a href=&#34;https://pumpkinpie-tea.blogspot.com/&#34;&gt;https://pumpkinpie-tea.blogspot.com/&lt;/a&gt;&lt;/p&gt;
