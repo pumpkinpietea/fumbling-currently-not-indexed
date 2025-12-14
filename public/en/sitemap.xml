@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.pumpkinpie-tea.com/article/</loc>
-    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="jp-JP"
@@ -13,6 +13,149 @@
                 rel="alternate"
                 hreflang="en-US"
                 href="https://blog.pumpkinpie-tea.com/article/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/business/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/business/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/business/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/categories/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/categories/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/daily-digest/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/daily-digest/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/daily-digest/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/economy/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/economy/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/economy/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/categories/indonesia/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/categories/indonesia/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/categories/indonesia/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/indonesia/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/indonesia/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/indonesia/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/article/indonesia-news-2025-12-14/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/article/indonesia-news-2025-12-14/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/article/indonesia-news-2025-12-14/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/categories/news/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/categories/news/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/categories/news/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/politics/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/politics/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/politics/"
+                />
+  </url><url>
+    <loc>https://blog.pumpkinpie-tea.com/tags/</loc>
+    <lastmod>2025-12-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="jp-JP"
+                href="https://blog.pumpkinpie-tea.com/jp/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://blog.pumpkinpie-tea.com/tags/"
                 />
   </url><url>
     <loc>https://blog.pumpkinpie-tea.com/tags/bigquery/</loc>
@@ -28,19 +171,6 @@
                 href="https://blog.pumpkinpie-tea.com/tags/bigquery/"
                 />
   </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/categories/</loc>
-    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/categories/"
-                />
-  </url><url>
     <loc>https://blog.pumpkinpie-tea.com/tags/cli/</loc>
     <lastmod>2024-10-24T23:08:40+07:00</lastmod>
     <xhtml:link
@@ -52,19 +182,6 @@
                 rel="alternate"
                 hreflang="en-US"
                 href="https://blog.pumpkinpie-tea.com/tags/cli/"
-                />
-  </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/</loc>
-    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/"
                 />
   </url><url>
     <loc>https://blog.pumpkinpie-tea.com/tags/gcp/</loc>
@@ -104,19 +221,6 @@
                 rel="alternate"
                 hreflang="en-US"
                 href="https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/"
-                />
-  </url><url>
-    <loc>https://blog.pumpkinpie-tea.com/tags/</loc>
-    <lastmod>2024-10-24T23:08:40+07:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="jp-JP"
-                href="https://blog.pumpkinpie-tea.com/jp/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://blog.pumpkinpie-tea.com/tags/"
                 />
   </url><url>
     <loc>https://blog.pumpkinpie-tea.com/categories/development/</loc>

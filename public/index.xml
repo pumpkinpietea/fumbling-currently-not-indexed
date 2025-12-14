@@ -11,8 +11,26 @@
     </image>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 24 Oct 2024 23:08:40 +0700</lastBuildDate>
+    <lastBuildDate>Sun, 14 Dec 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.pumpkinpie-tea.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Indonesia News Digest - 2025-12-14</title>
+      <link>https://blog.pumpkinpie-tea.com/article/indonesia-news-2025-12-14/</link>
+      <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/article/indonesia-news-2025-12-14/</guid>
+      <description>&lt;h3 id=&#34;about-this-blog&#34;&gt;About This Blog&lt;/h3&gt;
+&lt;p&gt;This blog is a migration from my previous site.
+The previous URL was &lt;a href=&#34;https://pumpkinpie-tea.blogspot.com/&#34;&gt;https://pumpkinpie-tea.blogspot.com/&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;purpose-of-the-migration&#34;&gt;Purpose of the Migration&lt;/h3&gt;
+&lt;p&gt;There were several reasons for migrating this site, primarily to experiment with the following technical aspects:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Setting up a website with a custom domain&lt;/li&gt;
+&lt;li&gt;Configuring and optimizing Google Analytics (GA) and SEO&lt;/li&gt;
+&lt;li&gt;Building a website using a static site generator (Hugo)&lt;/li&gt;
+&lt;li&gt;Hosting the site using Firebase Hosting&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It serves as a personal notepad, where I document my thoughts, experiments, and learning process. It&amp;rsquo;s a space for me to organize ideas and explore new technologies.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>One-liner for Bulk Deletion of Date-Suffixed Tables in BigQuery</title>
       <link>https://blog.pumpkinpie-tea.com/article/how_to_delete_wildcard_tables_in_bigquery/</link>
