@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Development on Fumbling - currently not indexed.</title>
-    <link>http://localhost:1313/categories/development/</link>
+    <link>https://blog.pumpkinpie-tea.com/categories/development/</link>
     <description>Recent content in Development on Fumbling - currently not indexed.</description>
     <image>
       <title>Fumbling - currently not indexed.</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-US</language>
     <lastBuildDate>Sat, 19 Oct 2024 22:46:18 +0700</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.pumpkinpie-tea.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Use lowercase for all object names - PostgreSQL</title>
-      <link>http://localhost:1313/article/object_name_should_be_lowercase/</link>
+      <link>https://blog.pumpkinpie-tea.com/article/object_name_should_be_lowercase/</link>
       <pubDate>Sat, 19 Oct 2024 22:46:18 +0700</pubDate>
-      <guid>http://localhost:1313/article/object_name_should_be_lowercase/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/article/object_name_should_be_lowercase/</guid>
       <description>&lt;h3 id=&#34;in-postgresql-always-use-lowercase-for-object-names-table-names-column-names&#34;&gt;&lt;strong&gt;In PostgreSQL, always use lowercase for object names (table names, column names)&lt;/strong&gt;&lt;/h3&gt;
 &lt;h3 id=&#34;reason&#34;&gt;Reason&lt;/h3&gt;
 &lt;ul&gt;

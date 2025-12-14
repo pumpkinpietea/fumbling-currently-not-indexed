@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>GCP on Fumbling - currently not indexed.</title>
-    <link>http://localhost:1313/jp/tags/gcp/</link>
+    <link>https://blog.pumpkinpie-tea.com/jp/tags/gcp/</link>
     <description>Recent content in GCP on Fumbling - currently not indexed.</description>
     <image>
       <title>Fumbling - currently not indexed.</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.152.2</generator>
     <language>jp-JP</language>
     <lastBuildDate>Thu, 24 Oct 2024 23:08:40 +0700</lastBuildDate>
-    <atom:link href="http://localhost:1313/jp/tags/gcp/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.pumpkinpie-tea.com/jp/tags/gcp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bigquery で、日付別テーブル（_TABLE_SUFFIX付きテーブル）を一括削除する　ワンライナー</title>
-      <link>http://localhost:1313/jp/article/how_to_delete_wildcard_tables_in_bigquery/</link>
+      <link>https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/</link>
       <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
-      <guid>http://localhost:1313/jp/article/how_to_delete_wildcard_tables_in_bigquery/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/jp/article/how_to_delete_wildcard_tables_in_bigquery/</guid>
       <description>&lt;h3 id=&#34;やりたい事背景&#34;&gt;やりたい事・背景&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Bigqueryで、Historicalなデータの保存時に、_YYYYMMDDなどのSuffixを追加して保存していると、気がつくと世代がめちゃくちゃ増えていることがあり、削除をする必要があった。&lt;/li&gt;

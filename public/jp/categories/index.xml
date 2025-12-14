@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on Fumbling - currently not indexed.</title>
-    <link>http://localhost:1313/jp/categories/</link>
+    <link>https://blog.pumpkinpie-tea.com/jp/categories/</link>
     <description>Recent content in Categories on Fumbling - currently not indexed.</description>
     <image>
       <title>Fumbling - currently not indexed.</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.152.2</generator>
     <language>jp-JP</language>
     <lastBuildDate>Sun, 14 Dec 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/jp/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.pumpkinpie-tea.com/jp/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Indonesia</title>
-      <link>http://localhost:1313/jp/categories/indonesia/</link>
+      <link>https://blog.pumpkinpie-tea.com/jp/categories/indonesia/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/jp/categories/indonesia/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/jp/categories/indonesia/</guid>
       <description></description>
     </item>
     <item>
       <title>News</title>
-      <link>http://localhost:1313/jp/categories/news/</link>
+      <link>https://blog.pumpkinpie-tea.com/jp/categories/news/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/jp/categories/news/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/jp/categories/news/</guid>
       <description></description>
     </item>
     <item>
       <title>One-Liner</title>
-      <link>http://localhost:1313/jp/categories/one-liner/</link>
+      <link>https://blog.pumpkinpie-tea.com/jp/categories/one-liner/</link>
       <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
-      <guid>http://localhost:1313/jp/categories/one-liner/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/jp/categories/one-liner/</guid>
       <description></description>
     </item>
   </channel>

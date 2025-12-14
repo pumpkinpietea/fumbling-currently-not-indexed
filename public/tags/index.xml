@@ -2,106 +2,106 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Fumbling - currently not indexed.</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://blog.pumpkinpie-tea.com/tags/</link>
     <description>Recent content in Tags on Fumbling - currently not indexed.</description>
     <image>
       <title>Fumbling - currently not indexed.</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-US</language>
     <lastBuildDate>Sun, 14 Dec 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.pumpkinpie-tea.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Business</title>
-      <link>http://localhost:1313/tags/business/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/business/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/business/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/business/</guid>
       <description></description>
     </item>
     <item>
       <title>Daily Digest</title>
-      <link>http://localhost:1313/tags/daily-digest/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/daily-digest/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/daily-digest/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/daily-digest/</guid>
       <description></description>
     </item>
     <item>
       <title>Economy</title>
-      <link>http://localhost:1313/tags/economy/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/economy/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/economy/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/economy/</guid>
       <description></description>
     </item>
     <item>
       <title>Indonesia</title>
-      <link>http://localhost:1313/tags/indonesia/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/indonesia/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/indonesia/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/indonesia/</guid>
       <description></description>
     </item>
     <item>
       <title>Politics</title>
-      <link>http://localhost:1313/tags/politics/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/politics/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tags/politics/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/politics/</guid>
       <description></description>
     </item>
     <item>
       <title>Bigquery</title>
-      <link>http://localhost:1313/tags/bigquery/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/bigquery/</link>
       <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
-      <guid>http://localhost:1313/tags/bigquery/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/bigquery/</guid>
       <description></description>
     </item>
     <item>
       <title>CLI</title>
-      <link>http://localhost:1313/tags/cli/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/cli/</link>
       <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
-      <guid>http://localhost:1313/tags/cli/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/cli/</guid>
       <description></description>
     </item>
     <item>
       <title>GCP</title>
-      <link>http://localhost:1313/tags/gcp/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/gcp/</link>
       <pubDate>Thu, 24 Oct 2024 23:08:40 +0700</pubDate>
-      <guid>http://localhost:1313/tags/gcp/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/gcp/</guid>
       <description></description>
     </item>
     <item>
       <title>PostgreSQL</title>
-      <link>http://localhost:1313/tags/postgresql/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/postgresql/</link>
       <pubDate>Sat, 19 Oct 2024 22:46:18 +0700</pubDate>
-      <guid>http://localhost:1313/tags/postgresql/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/postgresql/</guid>
       <description></description>
     </item>
     <item>
       <title>SQL</title>
-      <link>http://localhost:1313/tags/sql/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/sql/</link>
       <pubDate>Sat, 19 Oct 2024 22:46:18 +0700</pubDate>
-      <guid>http://localhost:1313/tags/sql/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/sql/</guid>
       <description></description>
     </item>
     <item>
       <title>Bahasa Indonesia</title>
-      <link>http://localhost:1313/tags/bahasa-indonesia/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/bahasa-indonesia/</link>
       <pubDate>Sat, 19 Oct 2024 15:30:47 +0700</pubDate>
-      <guid>http://localhost:1313/tags/bahasa-indonesia/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/bahasa-indonesia/</guid>
       <description></description>
     </item>
     <item>
       <title>Language</title>
-      <link>http://localhost:1313/tags/language/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/language/</link>
       <pubDate>Sat, 19 Oct 2024 15:30:47 +0700</pubDate>
-      <guid>http://localhost:1313/tags/language/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/language/</guid>
       <description></description>
     </item>
     <item>
       <title>Info</title>
-      <link>http://localhost:1313/tags/info/</link>
+      <link>https://blog.pumpkinpie-tea.com/tags/info/</link>
       <pubDate>Tue, 15 Oct 2024 20:59:57 +0700</pubDate>
-      <guid>http://localhost:1313/tags/info/</guid>
+      <guid>https://blog.pumpkinpie-tea.com/tags/info/</guid>
       <description></description>
     </item>
   </channel>
