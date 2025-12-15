@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Book on Fumbling - currently not indexed.</title>
+    <link>https://blog.pumpkinpie-tea.com/jp/tags/book/</link>
+    <description>Recent content in Book on Fumbling - currently not indexed.</description>
+    <image>
+      <title>Fumbling - currently not indexed.</title>
+      <url>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://blog.pumpkinpie-tea.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>jp-JP</language>
+    <lastBuildDate>Tue, 15 Oct 2024 22:02:59 +0700</lastBuildDate>
+    <atom:link href="https://blog.pumpkinpie-tea.com/jp/tags/book/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[Under editing] Web配信の技術</title>
+      <link>https://blog.pumpkinpie-tea.com/jp/article/web_haisin_no_gijutsu/</link>
+      <pubDate>Tue, 15 Oct 2024 22:02:59 +0700</pubDate>
+      <guid>https://blog.pumpkinpie-tea.com/jp/article/web_haisin_no_gijutsu/</guid>
+      <description>&lt;h4 id=&#34;memo&#34;&gt;Memo&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;CDN&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>
