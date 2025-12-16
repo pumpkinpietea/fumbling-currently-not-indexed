@@ -67,3 +67,22 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Hugo build artifacts
+/public/
+/resources/_gen/
+/.hugo_build.lock
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Node / tooling
+node_modules/
+npm-debug.log*
+yarn-error.log*
