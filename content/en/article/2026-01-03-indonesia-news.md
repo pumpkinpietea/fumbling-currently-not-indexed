@@ -35,116 +35,88 @@ cover:
 ---
 ## Today’s Highlights
 
-- 📰 [Indonesia mobilizes 37,970 soldiers to disaster-hit Sumatra regions - ANTARA News](#indonesia-mobilizes-37970-soldiers-to-disaster-hit-sumatra-r)
-  - The mobilization of troops suggests a significant disaster response effort is underway. The impact on local businesses and infrastructure remains unclear.
-- 📰 [Indonesia Weighs Easing Live Cattle Imports, Tightening Frozen Beef Controls - Jakarta Globe](#indonesia-weighs-easing-live-cattle-imports-tightening-froze)
-  - This policy shift could impact both domestic cattle farmers and consumers. Changes could affect the price and availability of beef products in the Indonesian market.
-- 📰 [Indonesia’s Digital Economy Generates $2.7 Billion in Tax Revenue - Jakarta Globe](#indonesias-digital-economy-generates-27-billion-in-tax-reven)
-  - This revenue indicates the growing significance of the digital economy in Indonesia. It provides the government with additional resources for public spending and economic development.
-- 📰 [Indonesia Urges Peaceful Resolution to Yemen Conflict - RRI.co.id](#indonesia-urges-peaceful-resolution-to-yemen-conflict---rric)
-  - Indonesia's call reflects its diplomatic efforts to promote stability in the region. The impact on Indonesian businesses is likely indirect, through broader regional stability.
-- 📰 [Indonesia to start restricting children’s social media access in 2026 - The Jakarta Post](#indonesia-to-start-restricting-childrens-social-media-access)
-  - This regulation could impact social media companies operating in Indonesia. It may also affect businesses that target children through social media advertising.
-- 📰 [Indonesia Adds 17 Radioactive Scanners to Meet US FDA Export Standards - Tempo.co English](#indonesia-adds-17-radioactive-scanners-to-meet-us-fda-export)
-  - This move aims to ensure Indonesian exports meet international safety requirements. It could facilitate smoother trade relations with the US and potentially increase export volumes.
-- 📰 [10 Most Polluted Regions in Indonesia This Morning (Dec 28) | Pusat Data Ekonomi dan Bisnis Indonesia | Databoks - Databoks](#10-most-polluted-regions-in-indonesia-this-morning-dec-28-pu)
-  - High pollution levels can impact public health and economic productivity. This data could inform policy decisions and business strategies related to environmental sustainability.
+- 📰 [Indonesia plans history book on 1945-1949 independence struggle - ANTARA News](#indonesia-plans-history-book-on-1945-1949-independence-strug)
+  - This initiative could shape national identity and historical understanding.
+- 📰 [Indonesia accelerates irrigation rehabilitation to boost rice output - ANTARA News](#indonesia-accelerates-irrigation-rehabilitation-to-boost-ric)
+  - Increased rice output can improve food security and potentially boost agricultural exports.
+- 📰 [PSSI appoints John Herdman as new Indonesia national team coach - ANTARA News](#pssi-appoints-john-herdman-as-new-indonesia-national-team-co)
+  - This appointment aims to improve the performance and competitiveness of the national team.
+- 📰 [After Palm Oil and Nickel, Indonesia Discovers a New Pillar in Gold - Jakarta Globe](#after-palm-oil-and-nickel-indonesia-discovers-a-new-pillar-i)
+  - This could significantly boost Indonesia's economy and foreign exchange reserves.
+- 📰 [Indonesia-Tunisia Strengthen Relations Through 'Diplomacy Briefing 2026' in Tunis - RRI.co.id](#indonesia-tunisia-strengthen-relations-through-diplomacy-bri)
+  - Stronger diplomatic ties can lead to increased trade and investment opportunities.
+- 📰 [Indonesia's AGO Says It Is Ready to Enforce the New KUHP and KUHAP - Tempo.co English](#indonesias-ago-says-it-is-ready-to-enforce-the-new-kuhp-and-)
+  - The implementation of these new codes will have a significant impact on the legal system and citizens' rights.
+- 📰 [Indonesia’s poor maritime safety in spotlight following Labuan Bajo boat accident - Asia News Network](#indonesias-poor-maritime-safety-in-spotlight-following-labua)
+  - This incident highlights the need for improved safety regulations and enforcement in the maritime sector, potentially impacting tourism and transportation.
 
 ## Economy/Business
 
-### 📰 Indonesia Weighs Easing Live Cattle Imports, Tightening Frozen Beef Controls - Jakarta Globe {#indonesia-weighs-easing-live-cattle-imports-tightening-froze}
+### 📰 Indonesia accelerates irrigation rehabilitation to boost rice output - ANTARA News {#indonesia-accelerates-irrigation-rehabilitation-to-boost-ric}
 
-Source: [news.google.com/…/CBMirAFBVV95cUxOd1ZscDBOVktHa0NIb…](https://news.google.com/rss/articles/CBMirAFBVV95cUxOd1ZscDBOVktHa0NIbDRmZkxUWGNFYXhMTDBwNWZQMlQxd3RUOHh2N2Y5dHVBbHkzSERfeXcxX19OaE1zcnNSLXRyTVMxNmhyR2xMY0VTc0pzODN0OHFMT3NfYld5OWJiNWVxdXdQT3lLZlNYSE1VZ0xNTVdXcVpZeWFQMmNLVWVYU01WNkMxYzNHRlRxd3pmRDZ1RzdaZFlOZW40Z2lVdmJ0SmEw?oc=5)
+Source: [news.google.com/…/CBMiqgFBVV95cUxONmFvR0F3UUdLZWVNV…](https://news.google.com/rss/articles/CBMiqgFBVV95cUxONmFvR0F3UUdLZWVNVlBWcURwbzlrVTRCX1daVUZWYjRQUHZWNGJiaVR5MWVvMW9EeGtuRXM2cFFkOG5mZ3g4MllOcW5RSjBrMm5tTVBKbVQ0dTh0V1Rjc1c1QmhoVDJtSXExSnYzekhtMWI2X3BHME94SGJtLTZ2dlFsanlRZGZYY2hwWlBodHZWeDJTZW5oalAwMjVmQl9VdWl0Z3B0dmNYUdIBrwFBVV95cUxNcGtFVF9LRnF4WkxnMmtYSkdYdWdOcGtQSklkVlVaanF0YnpjVlNOb1FJbEFYR3JXMkpfNXFQbkx4RjFGWGZTVEJBcFVRSEE2SnhaaFhZX3dUS1ptNGMyX3NrS0thaVdzRkVwSlhKeEtUWUxoUVVoM2JkcmMyMUVBUXozTVd1ZUpJTm9kMnFkVFdBVF9OQ3p5cjItM3VSUlVlaGRQUjFtdUFXNm45VzVz?oc=5)
 
 Source Region: Other
 
-Indonesia is considering easing live cattle imports while simultaneously tightening controls on frozen beef. No further details were provided in the snippet.
+Indonesia is accelerating its irrigation rehabilitation efforts to increase rice production. The article does not provide further details about the scope or specific targets of this initiative.
 
-**Why it matters:** This policy shift could impact both domestic cattle farmers and consumers. Changes could affect the price and availability of beef products in the Indonesian market.
+**Why it matters:** Increased rice output can improve food security and potentially boost agricultural exports.
 
 **Confidence:** low
 
 ---
 
-### 📰 Indonesia’s Digital Economy Generates $2.7 Billion in Tax Revenue - Jakarta Globe {#indonesias-digital-economy-generates-27-billion-in-tax-reven}
+### 📰 After Palm Oil and Nickel, Indonesia Discovers a New Pillar in Gold - Jakarta Globe {#after-palm-oil-and-nickel-indonesia-discovers-a-new-pillar-i}
 
-Source: [news.google.com/…/CBMimwFBVV95cUxOX1FSNDdBSEU1VnhWZ…](https://news.google.com/rss/articles/CBMimwFBVV95cUxOX1FSNDdBSEU1VnhWZTdUd3YtT3ByTGFQS240WGJpalZFZnlSNGVKUU10M2FUanRyR2Uzb3ROY2draEtwajEzaWNTcWIzazVMRGNmUUNCUlZDZnpVVk1EWkJqVm1KZVYtaXM5cUd2eEptaEtHeWJyMXlVZ0d1aEM3WEhMYU1CZHVGU0hZQTM2eE1VaXEwVWlrTnhqVQ?oc=5)
+Source: [news.google.com/…/CBMioAFBVV95cUxNelF4U0gzckZEQzJQL…](https://news.google.com/rss/articles/CBMioAFBVV95cUxNelF4U0gzckZEQzJQLTBhLTVtY3d5Q19rYWhlcUhjdXg5WDBtVGRDbnJWV3pBOEx2czllSnc2ZGJDcjkyZDUxMGVZaklrTGctaUpuMWprVDdDeW5hMVhzVURMMGI0UV8xdXNZYkJybXRYdmlmc3V5N2lETmlIQ283bjBQa09SelIyUlZOX2FKTmdDOG55QWdYSFpaLXdJWFZJ?oc=5)
 
 Source Region: Other
 
-Indonesia's digital economy has generated $2.7 billion in tax revenue. No further details were provided in the snippet.
+Indonesia has discovered gold, potentially creating a new major export alongside palm oil and nickel. The article does not provide details on the size or location of the gold discovery.
 
-**Why it matters:** This revenue indicates the growing significance of the digital economy in Indonesia. It provides the government with additional resources for public spending and economic development.
+**Why it matters:** This could significantly boost Indonesia's economy and foreign exchange reserves.
 
 **Confidence:** low
 
 ---
 
-### 📰 Indonesia Adds 17 Radioactive Scanners to Meet US FDA Export Standards - Tempo.co English {#indonesia-adds-17-radioactive-scanners-to-meet-us-fda-export}
+### 📰 Pola Menang Mudah Dorong Transformasi Digital Indonesia Menuju Ekonomi Modern dan Sejahtera di 2026 - ANFASPRESS {#pola-menang-mudah-dorong-transformasi-digital-indonesia-menu}
 
-Source: [news.google.com/…/CBMipgFBVV95cUxQekxwRXdkX2VrNE4zR…](https://news.google.com/rss/articles/CBMipgFBVV95cUxQekxwRXdkX2VrNE4zRlphWEFmQXFqdkVaM2NOWGxRUkExMzhmRGdPbGw4ZmFzckJSVUQ0R250TTZ5S3JrUjFwa0NRQWV5UDIyNGFGX09haFNHbnZmV01OM0tYcmtqZ05lZy1BRktKSjJIVHNsRXkzZzFoZlljc1ZDLXFNLTE0d1R3TUdISVRzUkpKYVRrOU1JSUpGN2RmVzFqbUo4V1Fn?oc=5)
+Source: [news.google.com/…/CBMikwFBVV95cUxNUXlFdTdYdE96NUlBa…](https://news.google.com/rss/articles/CBMikwFBVV95cUxNUXlFdTdYdE96NUlBa2NaZnZPWlNOeTg0MDBtQzB1T1MzWXZ1NEJxUjY2aTRxc1hPNG1kVzJ2UTZFV0xnWXBpaEk2czZFdXM3UzRGSjlxVGFvY0ZHVFNaVnBTeElNNUVjek1lTUllWG5ObmFTenotZmZIT2taMWRDWVhDUk5jTnNLX21NRjMxcFFUQzQ?oc=5)
 
 Source Region: Other
 
-Indonesia is adding 17 radioactive scanners to meet US FDA export standards. No further details were provided in the snippet.
+The article discusses how a 'winning pattern' is driving Indonesia's digital transformation towards a modern and prosperous economy in 2026. No further details are provided.
 
-**Why it matters:** This move aims to ensure Indonesian exports meet international safety requirements. It could facilitate smoother trade relations with the US and potentially increase export volumes.
+**Why it matters:** Digital transformation can lead to new business opportunities and increased efficiency.
 
 **Confidence:** low
 
 ---
 
-### 📰 No Fuel Shortage Fears as Indonesia Secures Energy Stocks for Christmas–New Year - MetroTVNews.com {#no-fuel-shortage-fears-as-indonesia-secures-energy-stocks-fo}
+### 📰 ｢インドネシア国産電車｣安全を支える日本の技術 見えない部分で貢献､中国勢にない｢強み｣は何か - 東洋経済オンライン {#item-3}
 
-Source: [news.google.com/…/CBMivwFBVV95cUxQWGFFRkpwQUM2elFuT…](https://news.google.com/rss/articles/CBMivwFBVV95cUxQWGFFRkpwQUM2elFuTFlWcGhUM0Z3cEpiaFNJZ2xOLVpLVFJRR0dSNEZhNTJQUmJQOTk0Nmk2NDBWaDEtbjJQcHVxMGhTR1pmS3Y5SEROZTZPemRicUlzbFFkbDdwYk9xUGY5eXlhaWVfNlVFazJZbHBsbFUyWjJFNDlYOWFNMFU0RTJCUXRDbi10RElDLTlZUEl3dkJuNFhVOUlHMVFwNjVuaFM4amxwT2FseXdvUDBVUWlySTBiWQ?oc=5)
+Source: [news.google.com/…/CBMiX0FVX3lxTE5uUFBFNmJFbUdrcGVTe…](https://news.google.com/rss/articles/CBMiX0FVX3lxTE5uUFBFNmJFbUdrcGVTeGZ2dy1XMFAzREd6cE5YclJkeE5aZElKb1loRkFoUHBrbnBGTTg5WVl0c2ZCZkpGRDVicnBwYW4xWjJXM3JQbl93Q1EyT2hhbFA0?oc=5)
 
 Source Region: Other
 
-Indonesia has secured sufficient energy stocks for the Christmas and New Year period, alleviating fears of fuel shortages. No further details were provided in the snippet.
+Japanese technology supports the safety of "Indonesian-made trains," contributing in unseen areas. The article explores what Japan's strengths are that Chinese companies do not have. No further details are provided.
 
-**Why it matters:** This assurance of fuel availability is crucial for maintaining economic activity during the holiday season. It prevents potential disruptions to transportation, businesses, and consumer spending.
+**Why it matters:** Highlights the role of Japanese technology in Indonesian infrastructure and the competitive advantages of Japanese companies.
 
 **Confidence:** low
 
 ---
 
-### 📰 Geliat Digital Hashim Mengisi 5 Lapis Industri AI di Indonesia - CNBC Indonesia {#geliat-digital-hashim-mengisi-5-lapis-industri-ai-di-indones}
+### 🇮🇩 Samsung Dikabarkan Uji Baterai 20.000mAh yang Tahan 27 Jam |Republika Online {#samsung-dikabarkan-uji-baterai-20000mah-yang-tahan-27-jam-re}
 
-Source: [news.google.com/…/CBMivwFBVV95cUxQTGJ1TjhsQTJjN2Fla…](https://news.google.com/rss/articles/CBMivwFBVV95cUxQTGJ1TjhsQTJjN2FlaTBPblo1U0xHTGVHZ2Vhdzkzc2pXLS1wTUdrWkFEZ1BCYmdGZFUtUkN0RGVTdVVsd2k4LUNfU2dRQUdGdU5wcXlqc3Y5UW9WZXltMm53VVVOZWRWcGxjS0tKbDk5THpFSk9rOVVHT0FpZlE0bVdoRFBveExWYlNYa01sZE1tbVlVWXg3VHpieWJid1IwWHJ2ZzB5dTcySDJVRUdJeXpxWWR3NV9uYUhZQWItUdIBxAFBVV95cUxPUnBGZkpZdUtrck1ZcFRwZ2dWblNNOTZiTW9feDNsY2g4SFBleUpIZzNUbjYzdTk3eTFTUDAtZmxlcG5lRlo1WmxIZndNMHBPQzFLcjVJODV0TmtqTE5zY1FOeUdJMmlQWmJ6elNRcExXVnIxRGZXLWM3WERXS05FRHhBaGxwN1ZhY0xsdy0xT2FxcnpSU1JNVm1HOHhjQkZOV1MxMWpmMGZqTHFYbEZjZHNNUVdNdzhMWW9TUDhITm5OOVZh?oc=5)
-
-Source Region: Other
-
-The article discusses Hashim's digital activities filling 5 layers of the AI industry in Indonesia. No further details were provided in the snippet.
-
-**Why it matters:** This suggests significant investment and development in Indonesia's AI sector. It could lead to innovation, job creation, and increased competitiveness in the digital economy.
-
-**Confidence:** low
-
----
-
-### 🇮🇩 Pemerintah Tetapkan Anggaran Pupuk Bersubsidi 2026 Rp 46,87 Triliun |Republika Online {#pemerintah-tetapkan-anggaran-pupuk-bersubsidi-2026-rp-4687-t}
-
-Source: [ekonomi.republika.co.id/…/pemerintah-tetapkan-angga…](https://ekonomi.republika.co.id/berita/t817vo370/pemerintah-tetapkan-anggaran-pupuk-bersubsidi-2026-rp-4687-triliun)
+Source: [ameera.republika.co.id/…/samsung-dikabarkan-uji-bat…](https://ameera.republika.co.id/berita/t8ah6j425/samsung-dikabarkan-uji-baterai-20000mah-yang-tahan-27-jam)
 
 Source Region: Indonesia
 
-The Indonesian government has allocated Rp46.87 trillion for subsidized fertilizers in 2026 for agriculture and fisheries. The allocation includes 9.55 million tons of subsidized fertilizer for the agricultural sector and Rp999.07 billion for the fisheries sector. PT Pupuk Indonesia (Persero) is prepared to distribute the subsidized fertilizers starting January 1, 2026, to farmers and cultivators registered in e-RDKK or e-PB at regulated prices. The government has also ensured that the 20 percent discount on subsidized fertilizer prices will continue in 2026.
+Samsung is reportedly testing a high-capacity smartphone battery, a two-cell silicon-carbon based battery with a total capacity of 20,000mAh. The tested battery is said to potentially provide up to 27 hours of screen time and last around 960 charging cycles per year. However, during testing, the battery reportedly experienced swelling, raising concerns about its stability and safety. The 8,000mAh cell reportedly increased in thickness significantly after testing, indicating potential issues for smartphone applications.
 
-**Why it matters:** This budget allocation aims to support national food self-sufficiency by ensuring the timely and targeted distribution of fertilizers, impacting agricultural productivity and the livelihoods of farmers and fish cultivators.
-
-**Confidence:** high
-
----
-
-### 🇮🇩 Resmi, Pupuk Bersubsidi 2026 Bisa Ditebus Mulai 1 Januari Pukul 00.00 |Republika Online {#resmi-pupuk-bersubsidi-2026-bisa-ditebus-mulai-1-januari-puk}
-
-Source: [ekonomi.republika.co.id/…/resmi-pupuk-bersubsidi-20…](https://ekonomi.republika.co.id/berita/t817d0522/resmi-pupuk-bersubsidi-2026-bisa-ditebus-mulai-1-januari-pukul-0000)
-
-Source Region: Indonesia
-
-The government announced that subsidized fertilizers for the 2026 fiscal year can be distributed and redeemed by farmers and cultivators starting January 1, 2026. The subsidized fertilizer allocation is set at Rp46.87 trillion, allocated to meet the needs of the agricultural and fisheries sectors throughout 2026. The allocation for the agricultural sector is 9.55 million tons, while the fisheries sector is allocated 295,676 tons. PT Pupuk Indonesia has confirmed its readiness to execute the distribution of subsidized fertilizers according to applicable regulations.
-
-**Why it matters:** The timely distribution of subsidized fertilizers is crucial for supporting agricultural productivity and maintaining food security, impacting the livelihoods of farmers and the overall economy.
+**Why it matters:** The development of high-capacity batteries could significantly improve the user experience of smartphones, but safety concerns need to be addressed before mass production. This could give Samsung a competitive edge in the smartphone market if the technology is successfully implemented.
 
 **Confidence:** high
 
@@ -156,9 +128,23 @@ Source: [xinhuanet.com/…/c_136263471.htm](http://www.xinhuanet.com/english/201
 
 Source Region: Other
 
-The article discusses how Beijing-based technology companies like Nuctech and OriginWater are expanding into countries along the Belt and Road Initiative. Nuctech, a security inspection equipment producer, exports a significant portion of its products overseas. OriginWater provides safe water solutions and has sold products in countries including Pakistan and Sri Lanka.
+Beijing-based companies like Nuctech and OriginWater are expanding into Belt and Road countries, leveraging the initiative to boost business opportunities. Nuctech, a security inspection equipment producer, exports its products to numerous foreign ports and customs, with exports comprising 60% of its total sales volume in 2016. OriginWater, a water purification company, is selling its nano-membrane filters in countries like Pakistan and Sri Lanka and is working on an agreement in Oman. These companies are localizing operations and production to achieve common development.
 
-**Why it matters:** The Belt and Road Initiative facilitates business opportunities for Chinese companies, enabling them to expand their markets and spread their technology to participating countries.
+**Why it matters:** The expansion of Chinese tech firms into Belt and Road countries facilitates technology transfer and infrastructure development in those regions. This can lead to increased economic growth and improved living standards in participating countries, while also strengthening China's economic influence.
+
+**Confidence:** high
+
+---
+
+### 📰 Feature: A Thai student dreams of selling rice to China {#feature-a-thai-student-dreams-of-selling-rice-to-china}
+
+Source: [xinhuanet.com/…/c_136224369.htm](http://www.xinhuanet.com/english/2017-04/21/c_136224369.htm)
+
+Source Region: Other
+
+Nontipa Kla-ngam, a Thai student in China, aims to leverage the free trade agreement (FTA) between Thailand and China to sell Thai rice in the Chinese market. She believes there is significant market potential due to the price margin between rice imported through regular channels and rice that could be imported under the FTA. Nontipa is studying at Northwest Agriculture and Forestry University and plans to start her business in Yangling, Shaanxi Province, due to her familiarity with the area and its agricultural policies.
+
+**Why it matters:** Nontipa's entrepreneurial ambition highlights the potential for increased trade and economic cooperation between Thailand and China under the FTA. Her success could encourage other students and entrepreneurs to explore similar opportunities, fostering stronger economic ties between the two countries.
 
 **Confidence:** high
 
@@ -166,57 +152,141 @@ The article discusses how Beijing-based technology companies like Nuctech and Or
 
 ## Politics/Society
 
-### 📰 Indonesia mobilizes 37,970 soldiers to disaster-hit Sumatra regions - ANTARA News {#indonesia-mobilizes-37970-soldiers-to-disaster-hit-sumatra-r}
+### 📰 Indonesia plans history book on 1945-1949 independence struggle - ANTARA News {#indonesia-plans-history-book-on-1945-1949-independence-strug}
 
-Source: [news.google.com/…/CBMipwFBVV95cUxQWlZaUk5QSXBmYS0yT…](https://news.google.com/rss/articles/CBMipwFBVV95cUxQWlZaUk5QSXBmYS0yTjdzU0ctSGxyLVB4U1JxT3pfMFpOZ09JRG1LNzhTOTFNS0hhcUpGUVZqNTlRN3loTW1jTllNNzF5WDN4ZEZyZl9rRU9QWDJqRWF1cVlYTC13a2pRNmYxUEZ6bm5EMmlxQVpsdWdQMzlwSDJSUnc3OFRBRDIzZlY4Qm9IMEtMQTFVZGoyZDZZM2tVN1pOTUQtMTlLb9IBrAFBVV95cUxQcVJYTXhlNmtmZ2JUWGxBMFZhQlNmY0R6bnFvYmRSOERZdFZKMU5kdFp2eXFoNEhTSUxGQ2NkNG9abGpmS1V6eklZbEVOeUw1eFRKeGl2enVNUHU5MWFmN2gycDdvR3lCTWdMQVJpNm41aWhNV2MwcmE3LVZJem5DekdzVk9Ba2R6ekZzSVpGSnNESmR5UkJOcnJSbGdyRXpReGd1LVNCc2h2b0xp?oc=5)
+Source: [news.google.com/…/CBMiowFBVV95cUxNMTNvMkV2OVVIQ3ZmY…](https://news.google.com/rss/articles/CBMiowFBVV95cUxNMTNvMkV2OVVIQ3ZmYnJRTEd2dXpoTUduTmFXbVIzcHg0ekVFZUV3c0F2T1JZSUVTMURfUUhtN1Z0MzREOHJoODdBbEZoWm5TV1M5ZGVFSGdjRmkwVkg2Z3RRUVFLYk16NVhfNHhjNFRCbEtzczl5QWJWcGt0dVVyaGJ5UktpY2tMRVp2eWU0dlhPVXUxalF0TlNIbE9seWJsbGpV0gGoAUFVX3lxTE9XMW41YXhKdFFyRjgyOGlOWHB5SlJVZHJsYzUyMDJrZzJQei03TE1RRmlMN0ZMY19CWUpCaXpEVkF6RDBqOTI2cFk1WXotZVY0YWRsN3BFNkVMejlRQVd4aWVib29Sd3E1U0h0WTZ3eE4ybFRXWEFBY3E3cVp2SmUwcVIxcnNscm5mUUdVdlJFcnhnbEkxcUk2S0Q5WVJXbnJsd01FTVhVTw?oc=5)
 
 Source Region: Other
 
-Indonesia has mobilized 37,970 soldiers to regions of Sumatra that have been hit by disasters. No further details were provided in the snippet.
+Indonesia is planning to publish a history book about its independence struggle from 1945 to 1949. The article does not provide further details about the book.
 
-**Why it matters:** The mobilization of troops suggests a significant disaster response effort is underway. The impact on local businesses and infrastructure remains unclear.
+**Why it matters:** This initiative could shape national identity and historical understanding.
 
 **Confidence:** low
 
 ---
 
-### 📰 Indonesia to start restricting children’s social media access in 2026 - The Jakarta Post {#indonesia-to-start-restricting-childrens-social-media-access}
+### 📰 Indonesia's AGO Says It Is Ready to Enforce the New KUHP and KUHAP - Tempo.co English {#indonesias-ago-says-it-is-ready-to-enforce-the-new-kuhp-and-}
 
-Source: [news.google.com/…/CBMiwgFBVV95cUxQcDdaOXVXbDMzOWlaU…](https://news.google.com/rss/articles/CBMiwgFBVV95cUxQcDdaOXVXbDMzOWlaUWVMVVhHT25yTk5QM093TU12Rk92UkxYWXBDdWV3eTFKdmxJY08zOUhaZGFuaFNCMkhScm00Mm16eFdFbDVzNjU2MnAyN1pocWRzTzVaS0xSdVcySDlhbUw0Q1pmWUo4MEhMZ2VVc0ZQb1FGTVlBdFZfWGFkTDM4bjlGLUNPN0FSSkFSYnlXQkRtNmpjdG9BNmppSVFMSUZiVmF3WHA5T3NjcVFIekR0QUdkTDg3QQ?oc=5)
+Source: [news.google.com/…/CBMinwFBVV95cUxNdGphSUh2NnRzWmwwT…](https://news.google.com/rss/articles/CBMinwFBVV95cUxNdGphSUh2NnRzWmwwTGIxWFUyOVdnV2o0Rjd2cWVSTndYYWlWdERGRUF5Y0FVbHFyVHlMa1NPSFgxM1Y0em1oZnV0aW5PbDdWSUtlckVaMDk4LVpfVGJGNlNCcUN4cDViWElfSkJ2VTAxTktZUFdpakhIY3UtV3J0SVdMZUpNbnc0bkVmZWMyM3luMjN4NVVXZHE4dDc4dVk?oc=5)
 
 Source Region: Other
 
-Indonesia plans to start restricting children's access to social media in 2026. No further details were provided in the snippet.
+Indonesia's Attorney General's Office (AGO) has announced its readiness to enforce the new Criminal Code (KUHP) and Criminal Procedure Code (KUHAP). The article provides no further details.
 
-**Why it matters:** This regulation could impact social media companies operating in Indonesia. It may also affect businesses that target children through social media advertising.
+**Why it matters:** The implementation of these new codes will have a significant impact on the legal system and citizens' rights.
 
 **Confidence:** low
 
 ---
 
-### 📰 10 Most Polluted Regions in Indonesia This Morning (Dec 28) | Pusat Data Ekonomi dan Bisnis Indonesia | Databoks - Databoks {#10-most-polluted-regions-in-indonesia-this-morning-dec-28-pu}
+### 📰 Indonesia’s poor maritime safety in spotlight following Labuan Bajo boat accident - Asia News Network {#indonesias-poor-maritime-safety-in-spotlight-following-labua}
 
-Source: [news.google.com/…/CBMi0wFBVV95cUxQdl9oX2lyVlR3cFdTV…](https://news.google.com/rss/articles/CBMi0wFBVV95cUxQdl9oX2lyVlR3cFdTVDk2WnZrN0RBVVRmTVZNdGZkYVpHZVFWMUxkLTR5RkI4Q2diX3hNdEllZUxWbzdMbTdhX2twazJYOE9aX1dfeTdnOWxDWnVqVENZWFFNX3ZKVWpCYTU5cDB5UjI0Qmc0WldDb0l2MFdVeUFIYU9abF9LRTNacngzdFN4WDNDWkdsYUpPY1ctazRmX3hIWFRUM3hHN19qbFZHUm5CandObGhUSXg5WmZwNE1tUDNRV08wV1J0WnFhN2dhRzVaLXBB?oc=5)
+Source: [news.google.com/…/CBMiqgFBVV95cUxPd0dhNEs4Q0FZb29qW…](https://news.google.com/rss/articles/CBMiqgFBVV95cUxPd0dhNEs4Q0FZb29qWGJkY3Z3a0I4bENra3U1cGlGYzhfVWtaM3JIY2tLYTZEd29BVWlnSzI0eEtRQlppcEx0NUlWRUY5MVJSLW9Ld212Zk51aFhocm81a3Q5T1laejBKbjdKQWVaMWg3LVZQQ1Q1OU81RHQtV0Y3MWJaRVM0TnhyUVFMZFdETGNJZ2I1bklwTHJaZENFcFN0dWpJRHBjMkNWZw?oc=5)
 
 Source Region: Other
 
-The article identifies the 10 most polluted regions in Indonesia on the morning of December 28th. No further details were provided in the snippet.
+Indonesia's maritime safety record is under scrutiny after a boat accident in Labuan Bajo. The article does not provide details on the accident itself.
 
-**Why it matters:** High pollution levels can impact public health and economic productivity. This data could inform policy decisions and business strategies related to environmental sustainability.
+**Why it matters:** This incident highlights the need for improved safety regulations and enforcement in the maritime sector, potentially impacting tourism and transportation.
 
 **Confidence:** low
 
 ---
 
-### 📰 BNPB Catat 3.176 Bencana Alam di Indonesia 2025, Banjir dan Longsor Mendominasi - Kompas.com {#bnpb-catat-3176-bencana-alam-di-indonesia-2025-banjir-dan-lo}
+### 📰 10 Most Polluted Regions in Indonesia This Morning (2/1) | Pusat Data Ekonomi dan Bisnis Indonesia | Databoks - Databoks {#10-most-polluted-regions-in-indonesia-this-morning-21-pusat-}
 
-Source: [news.google.com/…/CBMiugFBVV95cUxNRHRrU0ZQcDQ4Q0V1e…](https://news.google.com/rss/articles/CBMiugFBVV95cUxNRHRrU0ZQcDQ4Q0V1eW5LWTFhOFlBQ24zN3BfbXdPREhpVzFzb00zWVVUY2NTMEpRUG50VUI2ZW9aTTFfWlNObVoza0h0QmZWcEJROFNncWlYWXdqOHlJUVNpaXcxbkczWS1DSWxmZlhhbXlORUFlSGVHTmxSTzB2LXI2ZmxlYlJYQm1iYzFNYXNLN2hnQXA2WWt6M3pHaUd5c3ZsZVE0RS1UNnNTM3VLa0xLYWtqczhfNXc?oc=5)
+Source: [news.google.com/…/CBMizgFBVV95cUxQTVA4aXg5Sm85M2VTe…](https://news.google.com/rss/articles/CBMizgFBVV95cUxQTVA4aXg5Sm85M2VTeVZJclo2TU9RdTZYcGdOWUhDSG05OWJhSEV0WkZqaDVwTVY1aXp5a2h2c1V0UkVlWUYtNW9yZTJGSnM3c0N1NXFkTVZHaVAyenoyMTdFVVJHa3ppUjljbHBWTEV0anpxekRBR0ttaHRTTk5hRzY3cDI4aWI5WUdGdjNNZjI1Q1lYa1JvbGJiN19pRmgzWmtwZk80WUw1V3BKREpFRGhiclJvamJKaFlrYVhyS0NacnEzczZoRDlQVC11dw?oc=5)
 
 Source Region: Other
 
-Indonesia's disaster mitigation agency (BNPB) recorded 3,176 natural disasters in Indonesia in 2025. Floods and landslides were the most common.
+The article identifies the 10 most polluted regions in Indonesia on February 1st. The article does not list the regions or provide pollution levels.
 
-**Why it matters:** These events can cause significant economic disruption and displacement of people.
+**Why it matters:** High pollution levels can have significant health and economic consequences.
+
+**Confidence:** low
+
+---
+
+### 📰 2026: Membaca Kembali Sejarah Indonesia - Tempo.co {#2026-membaca-kembali-sejarah-indonesia---tempoco}
+
+Source: [news.google.com/…/CBMigAFBVV95cUxOaDlvZ2k4THFvaHpib…](https://news.google.com/rss/articles/CBMigAFBVV95cUxOaDlvZ2k4THFvaHpibWtsS3FKaDQzV2phejBDMGw1VHJuT09TdFY4WWx3c0lDTVUxb19HNjVuU1h6UWNtS2VWS2pOMFdZVGlKQ0hZUlhnY1FtMWU0SkxrbUJ2SnpBVzR3cWk3aXFVbGNZTkF1NllTZ3lVMi1WbXNvZg?oc=5)
+
+Source Region: Other
+
+The title translates to "2026: Re-reading Indonesian History." The article provides no further details.
+
+**Why it matters:** Without more information, the significance of this re-examination is unclear.
+
+**Confidence:** low
+
+---
+
+### 📰 62 Kasus Superflu Ditemukan di Indonesia, Kemenkes: Kondisi Masih Terkendali - Kompas.id {#62-kasus-superflu-ditemukan-di-indonesia-kemenkes-kondisi-ma}
+
+Source: [news.google.com/…/CBMisAFBVV95cUxNNUkyN0lET0JFdG1wV…](https://news.google.com/rss/articles/CBMisAFBVV95cUxNNUkyN0lET0JFdG1wVFpXNkVLR3owSUY5dTBVRHJoT3YxejNNRjhsdGFTaWliY1ZQUFRqbjVYS1JVOHJqSW9Ranc2UDNmaTRCV0lRLVAyWHFqdW1uUlZLSzMyUHdhRDNKMzlUa3FlM3ZqNmdQQkgxTWNIYXI3dFg1ZEtPSGpGV2J2Z3hEQVVIeWtMMXA1ZVU0UmFyejRJbVBNOEhmc1JUd2NRZ2tzRHczTQ?oc=5)
+
+Source Region: Other
+
+62 cases of "Superflu" have been found in Indonesia, according to the Ministry of Health, which states that the situation is under control. The article provides no further details.
+
+**Why it matters:** The emergence of new diseases or variants can pose risks to public health and the economy.
+
+**Confidence:** low
+
+---
+
+### 📰 'Super Flu' Sudah Masuk di Indonesia, Ini Gejala yang Harus Diperhatikan - Beautynesia {#super-flu-sudah-masuk-di-indonesia-ini-gejala-yang-harus-dip}
+
+Source: [news.google.com/…/CBMitAFBVV95cUxQZW9JdzR3a3NqRUxkV…](https://news.google.com/rss/articles/CBMitAFBVV95cUxQZW9JdzR3a3NqRUxkVXRXTnN5eVRmQXQwN3lLZjljc01pOEM5U3B1UnN5MWQ0Y0NWSWUwNkFaYzE0RXRtdzhhV0t5dlQzb0JBcjVoZDc1S2VuaVVBV1BhOWh5UFZNQnlKYWdiSFkxcW9DYV9YMGRDZ3hvQ2NUOEhOOFNLVnNaRzEtNUsyLXUycU9Kd210VS1QUUpIOXk5OW45M2E2QXdLMFMyWUt0U3MxN3ZQRHPSAboBQVVfeXFMTWJmazVwTWxNNWFLYkVYZ1FzaC1faXdRQ21MLVFNaW83RDhQblQ5MW9oTVNUemR1cDBnWWtwVHFKNjVoUFZvTEQtQjNLaHJwYVJEMldxVS1mR3ppaE9ZOVRSa3NQVF9lcWM5SllZR2FBQy1WUXlqU3NoU2lianZVa3dKRHBnWmo2Zjl5QkV2dnB1RTQxV2E2LUZLTE9LZVhBOU8wZDdzS05MMlBpNHF1cmF3WnlWV0tGckJR?oc=5)
+
+Source Region: Other
+
+The article reports that 'Super Flu' has entered Indonesia and discusses the symptoms to watch out for. No further details are provided.
+
+**Why it matters:** The spread of new diseases can impact public health and potentially disrupt business operations.
+
+**Confidence:** low
+
+---
+
+### 📰 京都府中部の老人ホームで信頼集めるインドネシア人職員 住む町に安らぎ「人が優しくて温かい」 - 京都新聞デジタル {#item}
+
+Source: [news.google.com/…/CBMiWEFVX3lxTFBRYlBFUVBLYWxHVE5qW…](https://news.google.com/rss/articles/CBMiWEFVX3lxTFBRYlBFUVBLYWxHVE5qWEljT29YQTQ3NnRVVDhJMkNtd3JldWxWc1E0Vy1lQXU2UnlaeUZlZktua3RhQWdtRXdTMTZ5NHBNUVhnQmt0SmNiNkE?oc=5)
+
+Source Region: Other
+
+This article discusses an Indonesian employee at a nursing home in central Kyoto Prefecture who has gained trust and finds peace in the town, noting the kindness and warmth of the people.
+
+**Why it matters:** This highlights the importance of foreign workers in supporting essential services in aging societies.
+
+**Confidence:** low
+
+---
+
+### 📰 大阪の40代男性、はしか感染 インドネシアに渡航歴 - 北海道新聞デジタル {#40}
+
+Source: [news.google.com/…/CBMiWkFVX3lxTE5WSUt4bnZ6dl9FajJye…](https://news.google.com/rss/articles/CBMiWkFVX3lxTE5WSUt4bnZ6dl9FajJyenRydXZDQ2ZpMmNvcUdBeVcxeUtjV3UyWEVmT3dRbW9KWnFpWERoS1E4dEoxRXlSclZGRDJ5Q2JpZ1VucHNSald4OWw2Zw?oc=5)
+
+Source Region: Other
+
+A man in his 40s in Osaka has contracted measles after traveling to Indonesia. No further details are provided.
+
+**Why it matters:** This raises concerns about potential disease transmission and the importance of vaccination for international travelers.
+
+**Confidence:** low
+
+---
+
+### 📰 大阪の４０代男性、はしか感染 インドネシアに渡航歴 - 新潟日報 {#item-2}
+
+Source: [news.google.com/…/CBMiXkFVX3lxTE5WcUpSM1pWM1BXLXFVY…](https://news.google.com/rss/articles/CBMiXkFVX3lxTE5WcUpSM1pWM1BXLXFVYmpnVXlOdmNaVkVKSUhUeVZrMXZ1SGdxWUlSRXVORDd6V2VkVUxJVnBRSEF0Q1V6cXQ3OE1PZUhhSTZSdkhyemhZWG1FNllUYnc?oc=5)
+
+Source Region: Other
+
+A man in his 40s in Osaka has contracted measles after traveling to Indonesia. No further details are provided.
+
+**Why it matters:** This raises concerns about potential disease transmission and the importance of vaccination for international travelers.
 
 **Confidence:** low
 
@@ -228,135 +298,107 @@ Source: [news.google.com/…/CBMif0FVX3lxTFBKcHQwbC1TWW1wT2tRY…](https://news.
 
 Source Region: Other
 
-An Indonesian caregiver saved the only special nursing home in town from closing.  The home could not be supported by Japanese staff alone.
+The only special nursing home in town was on the verge of closing, but it was saved by an Indonesian caregiver. The article suggests that "a final home" cannot be supported by Japanese people alone. No further details are provided.
 
-**Why it matters:** Highlights the important role of foreign workers in Japan's aging society.
+**Why it matters:** Highlights the increasing reliance on foreign workers in Japan's care sector due to its aging population.
 
 **Confidence:** low
 
 ---
 
-### 📰 分断の時代に「対話」を取り戻すには――インドネシア国防大学共同創立者 プルノモ・ユスギアントロ氏に聞く - seikyoonline.com {#seikyoonlinecom}
+### 📰 大阪の４０代男性、はしか感染 インドネシアに渡航歴 - nnn.co.jp {#nnncojp}
 
-Source: [news.google.com/…/CBMieEFVX3lxTE9DdEtEV1R1Uzl0QnlvW…](https://news.google.com/rss/articles/CBMieEFVX3lxTE9DdEtEV1R1Uzl0QnlvWGo4ZzRfOFBFUlpITzJxWmJQVFNybW9XdVBwODFVWFVZclVNUHZQTnVvVmxybFgxUDNjTDlXZlBpSDFqR29EZE92QnpuTEVtVnhHZGUteW1SYnI2VVhyOHBWcU1IdFNnMWo2OQ?oc=5)
+Source: [news.google.com/…/CBMiUEFVX3lxTE1OM19UZVFJRXg3djVRN…](https://news.google.com/rss/articles/CBMiUEFVX3lxTE1OM19UZVFJRXg3djVRNlRWNnYzQzAwUlIzbGs0VEhOeERRV1Z6blNNV3JGNmcyM3owLVdIaFdITXhXSXB4WklrNjEwS2xncW03?oc=5)
 
 Source Region: Other
 
-An interview with Purnomo Yusgiantoro, co-founder of the Indonesian Defense University, on how to restore "dialogue" in an age of division.
+A man in his 40s in Osaka has contracted measles after traveling to Indonesia. No further details are provided.
 
-**Why it matters:** His insights may be valuable for promoting peace and understanding in a complex world.
-
-**Confidence:** low
-
----
-
-### 📰 「盗まれた子供」進まぬ救済 東ティモール侵攻から半世紀―インドネシア - 時事ドットコム {#item-2}
-
-Source: [news.google.com/…/CBMiY0FVX3lxTE03cHFoVU5KU2x6QVM0V…](https://news.google.com/rss/articles/CBMiY0FVX3lxTE03cHFoVU5KU2x6QVM0V25zV2RWNnZvRzduTlM4eUxTY2twVVEzNzhTcUhDWExFMUJTVkdIRWtWSFRINTM4VlZXS1dIQVh6ZDBlXzZQN2xjMml5TGpJVXREYlhLQQ?oc=5)
-
-Source Region: Other
-
-Half a century after the invasion of East Timor, the rescue of "stolen children" has not progressed in Indonesia.
-
-**Why it matters:** This is a sensitive issue that could affect Indonesia's relations with East Timor and international perceptions of Indonesia.
+**Why it matters:** This raises concerns about potential disease transmission and the importance of vaccination for international travelers.
 
 **Confidence:** low
 
 ---
 
-### 📰 地域おこし協力隊員にインドネシアの女性 山口県和木町 - 47NEWS {#47news}
+### 🇮🇩 Tahun Ini, Mendikdasmen Targetkan Revitalisasi 71 Ribu Sekolah |Republika Online {#tahun-ini-mendikdasmen-targetkan-revitalisasi-71-ribu-sekola}
 
-Source: [news.google.com/…/CBMiS0FVX3lxTE5fRUdjdGdmVlR0RjZyL…](https://news.google.com/rss/articles/CBMiS0FVX3lxTE5fRUdjdGdmVlR0RjZyLUt2Zk1TNEJMY2dldWJ4M1dmS3h4WFhISHUyNzRUVkNHMGFudnE0UG9xOGlZY1pCLUs5OEdtYw?oc=5)
-
-Source Region: Other
-
-An Indonesian woman has become a member of the Regional Development Cooperation Corps in Waki Town, Yamaguchi Prefecture.
-
-**Why it matters:** This may help promote cultural exchange and understanding between Indonesia and Japan.
-
-**Confidence:** low
-
----
-
-### 🇮🇩 Eks Pimpinan Beberkan Alasan Kenapa Putusan KPK Setop Kasus Korupsi Nikel di Konawe Jadi tak Logis |Republika Online {#eks-pimpinan-beberkan-alasan-kenapa-putusan-kpk-setop-kasus-}
-
-Source: [news.republika.co.id/…/eks-pimpinan-bongkar-tak-mas…](https://news.republika.co.id/berita/t818k8377/eks-pimpinan-bongkar-tak-masuk-akalnya-alasan-kpk-setop-korupsi-tambang-nikel-di-konawe)
+Source: [news.republika.co.id/…/tahun-ini-mendikdasmen-targe…](https://news.republika.co.id/berita/t8ais2458/tahun-ini-mendikdasmen-targetkan-revitalisasi-71-ribu-sekolah)
 
 Source Region: Indonesia
 
-Former KPK leader Saut Situmorang criticized the KPK's decision to halt the investigation into a nickel mining corruption case in Konawe Utara, arguing that sufficient evidence exists to proceed. He suggests the Attorney General's Office taking over the case would expose the KPK's internal issues and questions the motives behind stopping the investigation, which allegedly caused Rp 2.7 trillion in state losses. Saut emphasized that the KPK should continue the case to maintain its credibility and challenge its supervisory board to act. He also mentioned his involvement in announcing Aswad Sulaiman as a suspect in the case back in 2017.
+The Ministry of Education, Culture, Research, and Technology (Mendikdasmen) of Indonesia aims to revitalize 71,000 educational units across Indonesia by 2026. This initiative follows the government's efforts to accelerate the repair of damaged schools and improve the quality of national education. The budget allocated for this program in the State Revenue and Expenditure Budget (APBN) is over IDR 14 trillion, intended for 11,000 educational units, with a promise to add 60,000 more units this year.
 
-**Why it matters:** The halting of the investigation raises concerns about transparency and accountability in the mining sector, potentially impacting investor confidence and governance.
+**Why it matters:** This large-scale revitalization project signifies a substantial investment in Indonesia's education infrastructure, potentially creating opportunities for businesses in construction, educational resources, and technology.
 
 **Confidence:** high
 
 ---
 
-### 🇮🇩 Mengenal Superflu, Varian Influenza H3N2 yang Mudah Menular |Republika Online {#mengenal-superflu-varian-influenza-h3n2-yang-mudah-menular-r}
+### 🇮🇩 Eks Menag Kenang Sosok Almarhum Prof Amal Fathullah |Republika Online {#eks-menag-kenang-sosok-almarhum-prof-amal-fathullah-republik}
 
-Source: [ameera.republika.co.id/…/mengenal-superflu-varian-i…](https://ameera.republika.co.id/berita/t8184h370/mengenal-superflu-varian-influenza-h3n2-yang-mudah-menular)
-
-Source Region: Indonesia
-
-Dr. Nastiti Kaswandani from IDAI warns about the increasing cases of influenza, particularly the H3N2 variant known as "superflu," which spreads rapidly, especially in cold climates. Superflu, a subclade K variant of H3N2, is suspected to be the cause of increased influenza cases during winter, with 200 cases found in America and the northern hemisphere. H3N2 has a high rate of evolution and mutation, potentially causing mass influenza outbreaks. Symptoms are similar to common influenza A, including high fever, chills, headache, and sore throat, but subclade K cannot be detected clinically.
-
-**Why it matters:** The rapid spread and potential for epidemics could strain healthcare systems and impact workforce productivity, especially in regions experiencing cold seasons.
-
-**Confidence:** medium
-
----
-
-### 🇮🇩 Pemerintah Imbau WFA Selama Libur Nataru, Coworking Space di Jakarta Ramai Dikunjungi |Republika Online {#pemerintah-imbau-wfa-selama-libur-nataru-coworking-space-di-}
-
-Source: [visual.republika.co.id/…/pemerintah-imbau-wfa-selam…](https://visual.republika.co.id/berita/t816p7375/pemerintah-imbau-wfa-selama-libur-nataru-coworking-space-di-jakarta-ramai-dikunjungi)
+Source: [khazanah.republika.co.id/…/eks-menag-kenang-sosok-a…](https://khazanah.republika.co.id/berita/t8ai6i458/eks-menag-kenang-sosok-almarhum-prof-amal-fathullah)
 
 Source Region: Indonesia
 
-The Indonesian government is encouraging Work From Anywhere (WFA) arrangements from December 29-31, 2025, to ease traffic during the Christmas and New Year holidays. Coworking spaces, such as the one at LRT Cawang Station in Jakarta, have become popular options for those participating in WFA. The policy excludes sectors related to public services, production, essential services like healthcare, manufacturing, hospitality, shopping centers, and the food and beverage industry. The implementation of WFA is intended to support smooth mobility for the public during the holiday season.
+Former Minister of Religious Affairs, Lukman Hakim Saifuddin, shared his memories of the late Prof Amal Fathullah Zarkasyi, recalling his concern for the diversity of Islamic boarding schools and his active role in criticizing regulations that centralized Islamic education. Prof Amal also contributed to the drafting of Law Number 18 of 2019 concerning Pesantren (Islamic Boarding Schools). Lukman expressed his condolences and acknowledged Prof Amal's contributions to the world of pesantren in Indonesia. He believes that Prof Amal's spirit and struggle will continue to inspire future generations.
 
-**Why it matters:** The WFA implementation impacts the demand for office spaces and coworking facilities, while also influencing consumer behavior during the holiday season.
+**Why it matters:** Prof Amal's contributions have helped shape the landscape of Islamic education in Indonesia, ensuring the preservation of diversity and autonomy within pesantren. His work has long-term implications for the development and direction of Islamic education in the country.
 
-**Confidence:** medium
+**Confidence:** high
 
 ---
 
-### 🇮🇩 Nahas! PMI Asal Bandung Barat Meninggal Usai Lompat dari Lantai 2 di Arab Saudi |Republika Online {#nahas-pmi-asal-bandung-barat-meninggal-usai-lompat-dari-lant}
+### 🇮🇩 Tunjuk John Herdman Jadi Pelatih Timnas Indonesia, Ini Permintaan PSSI kepada Masyarakat |Republika Online {#tunjuk-john-herdman-jadi-pelatih-timnas-indonesia-ini-permin}
 
-Source: [rejabar.republika.co.id/…/nahas-pmi-asal-bandung-ba…](https://rejabar.republika.co.id/berita/t817e7512/nahas-pmi-asal-bandung-barat-meninggal-usai-lompat-dari-lantai-2-di-arab-saudi)
+Source: [news.republika.co.id/…/tunjuk-john-herdman-jadi-pel…](https://news.republika.co.id/berita/t8ai29409/tunjuk-john-herdman-jadi-pelatih-timnas-indonesia-ini-permintaan-pssi-kepada-masyarakat)
 
 Source Region: Indonesia
 
-An Indonesian migrant worker (PMI) from Bandung Barat, West Java, died after reportedly jumping from the second floor of a building in Saudi Arabia. The incident occurred on December 18, 2025, allegedly due to unpaid wages and severe pressure from her employer. She was taken to a hospital but eventually passed away. Local authorities are coordinating with the central government and the Indonesian Embassy in Saudi Arabia to repatriate the body and ensure her rights are fulfilled.
+PSSI (Football Association of Indonesia) has officially appointed John Herdman as the new coach for the Indonesian National Team, including the senior team and the U-23 team. PSSI has requested public trust and support for Herdman, emphasizing that judgment should be reserved until he demonstrates his performance. PSSI is providing full support, including security for Herdman and his family. Herdman's immediate targets include the FIFA Series in March 2026 and the AFF Cup 2026, with the aim of achieving the best possible performance.
 
-**Why it matters:** This case highlights the risks faced by undocumented migrant workers and the need for stronger protections and oversight in overseas employment.
+**Why it matters:** The appointment of a coach with a proven track record like Herdman could significantly impact the performance and future success of the Indonesian national football team. This could lead to increased national pride and potential economic benefits from improved international standing.
 
-**Confidence:** medium
+**Confidence:** high
 
 ---
 
-### 🇮🇩 Realisasi BLT Tembus 90 Persen, Pos Indonesia Salurkan Tambahan 3,2 Juta KPM |Republika Online {#realisasi-blt-tembus-90-persen-pos-indonesia-salurkan-tambah}
+### 🇮🇩 Wakil Ketua Komisi I DPR Heran Pemerintah Terbitkan Visa Calling untuk 51 WN Israel |Republika Online {#wakil-ketua-komisi-i-dpr-heran-pemerintah-terbitkan-visa-cal}
 
-Source: [news.republika.co.id/…/realisasi-blt-tembus-90-pers…](https://news.republika.co.id/berita/t8177x522/realisasi-blt-tembus-90-persen-pos-indonesia-salurkan-tambahan-32-juta-kpm)
+Source: [news.republika.co.id/…/wakil-ketua-komisi-i-dpr-her…](https://news.republika.co.id/berita/t8ah0o409/wakil-ketua-komisi-i-dpr-heran-pemerintah-terbitkan-visa-calling-untuk-51-wn-israel)
 
 Source Region: Indonesia
 
-PT Pos Indonesia has distributed Direct Cash Assistance (BLT) to 90 percent of targeted recipients, reaching 12,589,581 beneficiary families (KPM) across Indonesia as of December 29, 2025. The company is also distributing additional assistance to 3.2 million KPM. Despite challenges in disaster-affected areas, distribution efforts have remained optimal. The success is attributed to the company's extensive network and resources, ensuring timely and accurate delivery of social aid.
+Vice Chairman of Commission I of the Indonesian House of Representatives, Sukamta, has questioned the issuance of calling visas to Israeli citizens, given the absence of diplomatic relations between Indonesia and Israel. Sukamta emphasized Indonesia's consistent support for Palestinian independence and expressed surprise at the visa issuance. He requested clarification from the government regarding the status of the calling visas, stressing that it should not be seen as normalization of relations. Sukamta urged the government to affirm that this policy does not alter Indonesia's support for Palestine.
 
-**Why it matters:** The efficient distribution of BLT is crucial for maintaining the purchasing power of vulnerable populations and supporting economic stability, especially during challenging times.
+**Why it matters:** The issuance of visas to Israeli citizens is a sensitive issue in Indonesia due to the country's strong support for Palestine. This could lead to political debate and scrutiny of government policies regarding relations with Israel.
 
-**Confidence:** medium
+**Confidence:** high
 
 ---
 
-### 📰 Chinese vice premier meets Thai princess {#chinese-vice-premier-meets-thai-princess}
+### 🇮🇩 Tujuh Tanda Serangan Jantung pada Perempuan yang Jarang Disadari |Republika Online {#tujuh-tanda-serangan-jantung-pada-perempuan-yang-jarang-disa}
 
-Source: [xinhuanet.com/…/c_136191136.htm](http://www.xinhuanet.com/english/2017-04/07/c_136191136.htm)
+Source: [ameera.republika.co.id/…/tujuh-tanda-serangan-jantu…](https://ameera.republika.co.id/berita/t8agl7425/tujuh-tanda-serangan-jantung-pada-perempuan-yang-jarang-disadari)
 
-Source Region: Other
+Source Region: Indonesia
 
-Chinese Vice Premier Zhang Gaoli met with Princess Maha Chakri Sirindhorn of Thailand in Beijing. Zhang expressed appreciation for Sirindhorn's work in strengthening China-Thailand friendship. He stated China is ready to deepen cooperation with Thailand for mutual benefit. Sirindhorn thanked China's support and hoped to enhance cooperation in science, education, and agriculture.
+Heart attacks in women often present with subtle symptoms resembling stress, flu, or indigestion, leading to delayed medical attention. Common signs include pain in the jaw, neck, or shoulder, often mistaken for muscle stress. Unusual extreme fatigue, even after rest, can also be an early warning sign, potentially appearing weeks before the attack. These "silent heart attack" symptoms require increased awareness to ensure timely intervention and reduce mortality rates.
 
-**Why it matters:** The meeting highlights the ongoing diplomatic and economic ties between China and Thailand, with a focus on strengthening cooperation in various sectors.
+**Why it matters:** Increased awareness of these subtle symptoms can lead to earlier diagnosis and treatment of heart attacks in women, potentially saving lives. This information can be used to educate the public and healthcare professionals about the unique presentation of heart disease in women.
+
+**Confidence:** high
+
+---
+
+### 🌍 Indonesia appoint Herdman to replace Kluivert as coach {#indonesia-appoint-herdman-to-replace-kluivert-as-coach}
+
+Source: [channelnewsasia.com/…/indonesia-appoint-herdman-rep…](https://www.channelnewsasia.com/sport/indonesia-appoint-herdman-replace-kluivert-coach-5787781)
+
+Source Region: International
+
+John Herdman has been appointed as the new head coach of Indonesia's national football team, replacing Patrick Kluivert. Herdman previously coached New Zealand's women's team and led Canada's women's team to Olympic bronze medals in 2012 and 2016. He also steered Canada's men's team to the 2022 World Cup. His first games in charge will be in March when Indonesia host the FIFA Series in Jakarta.
+
+**Why it matters:** The appointment of Herdman, with his international experience, could significantly impact the performance and development of Indonesian football. His leadership could attract more investment and improve the country's standing in international competitions.
 
 **Confidence:** high
 
@@ -364,99 +406,85 @@ Chinese Vice Premier Zhang Gaoli met with Princess Maha Chakri Sirindhorn of Tha
 
 ## International/Other
 
-### 📰 Indonesia Urges Peaceful Resolution to Yemen Conflict - RRI.co.id {#indonesia-urges-peaceful-resolution-to-yemen-conflict---rric}
+### 📰 PSSI appoints John Herdman as new Indonesia national team coach - ANTARA News {#pssi-appoints-john-herdman-as-new-indonesia-national-team-co}
 
-Source: [news.google.com/…/CBMinAFBVV95cUxQQWFVT0V3b3lZYXJwT…](https://news.google.com/rss/articles/CBMinAFBVV95cUxQQWFVT0V3b3lZYXJwTTFneFIyNk90WTVmVUpSZ3UweUdJcTlTVExXeDlqRVd0XzAtLWRab044QUdQR1VBUFdvN2NmSV92XzJQTTNJXzlTWWE3a0ZVb3JoQXh4MDNVblA0TTRiVDJVTmstRUU2a19mOWZQNW9XajRjeHZXTmthbGRYaVBLUjB1WGxTZ3hJdlBMdVpuWjg?oc=5)
+Source: [news.google.com/…/CBMiowFBVV95cUxQMXNUYV9Kb2J0d1BZZ…](https://news.google.com/rss/articles/CBMiowFBVV95cUxQMXNUYV9Kb2J0d1BZZWJfNGJWS0hUMmdiN29IX1BUZHNXc284ZFRXT0kwaW02a2ZBWUxpYXpJZUV3WHpXRDBHRW04dUowd2NEanNCVE12czlLYWNRZjVsaXllNEpzNEFJdnh3ejdMM2lMS0RlVzdhbUptSkFjd2JEUXpLSnQ2VmtxMExRN1czSjlJY2pzTVFUc2lRNzNRVlhzVHRF0gGoAUFVX3lxTFA4azJLd2piN05nRXRSUmJuM0dxUW11LXZVS21Sb1loVDUyTC1UX0c1YkY2elNZT2Q1bjlsTFM3cWxpaVNxSnA0dEJGZ2c3dlEwTzB4OG91eDdWblVjdFRDXzk1eGhjMWNZSTd2Z1JiX1llbV9yN3hnQndkS2VvU2NRM2I5djUxZW5Ba1VhOWpjYUhkTl9KblJaTWRzQ1pEN09jemdPMkMzSw?oc=5)
 
 Source Region: Other
 
-Indonesia is urging a peaceful resolution to the conflict in Yemen. No further details were provided in the snippet.
+The Football Association of Indonesia (PSSI) has appointed John Herdman as the new coach of the Indonesian national team. The article provides no further details.
 
-**Why it matters:** Indonesia's call reflects its diplomatic efforts to promote stability in the region. The impact on Indonesian businesses is likely indirect, through broader regional stability.
+**Why it matters:** This appointment aims to improve the performance and competitiveness of the national team.
 
 **Confidence:** low
 
 ---
 
-### 📰 ”Redaksi Yth”: SEA Games 2025 dan Awal Baik untuk Indonesia - Kompas.id {#redaksi-yth-sea-games-2025-dan-awal-baik-untuk-indonesia---k}
+### 📰 Indonesia-Tunisia Strengthen Relations Through 'Diplomacy Briefing 2026' in Tunis - RRI.co.id {#indonesia-tunisia-strengthen-relations-through-diplomacy-bri}
 
-Source: [news.google.com/…/CBMijwFBVV95cUxPcmJnVGVSd25TcUQwZ…](https://news.google.com/rss/articles/CBMijwFBVV95cUxPcmJnVGVSd25TcUQwZjluNE0xMDJKYjRzVzBTUW5jdF84a3pMSGd3bFNsTDlaODZ5VVAzb19zaVcyaG92cWZNWXpKRnJHdWJJamdZLUVsTk15MjhCdFlBWlVCTG5KS2tnN2lzOFNUSk5ETWx1NWg0SmptMk56U2FLU1dfck9fNmltMVBINExkRQ?oc=5)
+Source: [news.google.com/…/CBMivwFBVV95cUxOZVk1MkdUNUpUN0JOa…](https://news.google.com/rss/articles/CBMivwFBVV95cUxOZVk1MkdUNUpUN0JOaEU1WC03aDh1ejVma09SVVdlOUZ2c08yZzJpUHRneXVuZ0hwQUpWV3dmVklDQk1NcjBkU2ROMGk3c1NJOVp5Zm1CTXNySll6dVd1bFZHWGFrWW5TZHVrbEtCY0swUVBDekFROXM2bTJjZnJjMGFETDkwMDJqcVNuM0E5SHloa0Q0R3FNNXF2ZFV2OVgwZklRdEhnRzZTem9lZFczem16LVdiT0Q0LWVLSEtFNA?oc=5)
 
 Source Region: Other
 
-The article discusses the 2025 SEA Games and its potential as a positive start for Indonesia. No further details were provided in the snippet.
+Indonesia and Tunisia are strengthening their bilateral relations through a 'Diplomacy Briefing 2026' event in Tunis. The article does not specify the details discussed or the specific areas of cooperation.
 
-**Why it matters:** Hosting the SEA Games could boost tourism and infrastructure development in Indonesia. It also presents an opportunity to enhance the country's international image.
+**Why it matters:** Stronger diplomatic ties can lead to increased trade and investment opportunities.
 
 **Confidence:** low
 
 ---
 
-### 📰 Indonesia Berniat Jadi Tuan Rumah SEA Games, tapi... - detiksport {#indonesia-berniat-jadi-tuan-rumah-sea-games-tapi---detikspor}
+### 📰 Indonesia Negara Nomor Satu, Amerika Kalah - CNBC Indonesia {#indonesia-negara-nomor-satu-amerika-kalah---cnbc-indonesia}
 
-Source: [news.google.com/…/CBMimAFBVV95cUxNLWZRT0JxdVpzdHlRU…](https://news.google.com/rss/articles/CBMimAFBVV95cUxNLWZRT0JxdVpzdHlRUVlBTEpIcDIzYnUtcVdDaGJBZXR3Szk4aFF0N082QlNhLUF3NkVUZ1p4QnhQRHQ5YlJaTHV2NVFpdTlYWjlfMEs4R00tdHp1YWpCZVNqSWlpcGY5NXdCYUJ0NFZzQlFaUV91X1JKbV9SaXJvZUs5TzZIWnVoRExMLVJ0WkhMWGZHend2ddIBngFBVV95cUxNeVdOcFdWb2dJVGF5akJLUXlaS3pOZ1plUjZBWEhVdWEydHMxcEtmSkJOcHE2eldFaHZ3czR4YjJqMTZ4QnBBTkNPSlFOZThLcGFHRzdRck92anNGM2hUUnlKb0l2UnBMOWgzRUhjY2tiTGhVTEFsVl9OQktsd2ZxTjZINlFnY3hTaHdjdjJ6SU1MNFJTSGFfUnRaUWhZQQ?oc=5)
+Source: [news.google.com/…/CBMiowFBVV95cUxORHY5dW1vUS1ZUnJ1b…](https://news.google.com/rss/articles/CBMiowFBVV95cUxORHY5dW1vUS1ZUnJ1b016YlRsNExiOWx0bUh3c3J6UlhkR1o5MFVPUmstTW1HRjlKOTI4cDlZaTlZOGFROXVtMmk4VWhFNUJrUGtiOWhURHRTRU9SR0IzdFBkc3VqbWo4MV9yYy1lTGR4REYyb2p1eEMtNkxOVXdXeUtJcnRRaFdxLWNyb3VRUWNVX0c5S2tNMW9xblNKclJqVW5N0gGoAUFVX3lxTE9WQmxnLWhJeDlTeEV2UXpXNzh4YzYwZ3I2eEhMaERNZi1RMGRRZTlYVW9aUjcxX3NDYWtUa1hpcFlKMDZ5NzlZMUwwMUhUcm43UnhNRmVQR3ZhSGJVcGxDMXZJWkpEVWJaaWlvcUZybkJEQWVNUXR1M0tqRlpIYTFiX0xJdjVUN2Vxemg5OVVkRkNZbkJySjFlZk5yTVl0LWhZYVJSbG1KSQ?oc=5)
 
 Source Region: Other
 
-Indonesia intends to host the SEA Games, but the article suggests there are potential challenges. No further details were provided in the snippet.
+The title translates to "Indonesia Number One, America Loses" but the article provides no context or details about what this refers to.
 
-**Why it matters:** Hosting the SEA Games could stimulate economic activity and infrastructure development. However, challenges need to be addressed to ensure a successful event.
+**Why it matters:** Without context, the significance is unclear.
 
 **Confidence:** low
 
 ---
 
-### 📰 Indonesia Usulkan Australia dan Selandia Baru Jadi Peserta SEA Games - Kompas.com {#indonesia-usulkan-australia-dan-selandia-baru-jadi-peserta-s}
+### 📰 PSSI Resmi Menunjuk John Herdman Sebagai Pelatih Timnas Indonesia - Kompas.com {#pssi-resmi-menunjuk-john-herdman-sebagai-pelatih-timnas-indo}
 
-Source: [news.google.com/…/CBMiwgFBVV95cUxPRE9YQVFNblNaZ3hZN…](https://news.google.com/rss/articles/CBMiwgFBVV95cUxPRE9YQVFNblNaZ3hZNTdyUVgwY3FqQXJEcThkQ3NEOGtMZFBWajUzYlhHM2psSzdIbjVnX3lqQ3g4NjR3U2JzbGdFRXY4YWc5ejhUcjFreVIzQ0RfeVBzYWczTFdFS3NVdXNLUHRQN0U0VTdwODdYcnBWUU1hbGVPNk5yclhIZGNLak1iYXk5VElSV0pIaGcxWU00aFJVZk1ob1FPeXlRaGc0bEsxaWJoU2kwNzhkNVdJYnUzbDFPZThNZw?oc=5)
+Source: [news.google.com/…/CBMitAFBVV95cUxQejZCNVduNlBsMkVyb…](https://news.google.com/rss/articles/CBMitAFBVV95cUxQejZCNVduNlBsMkVybDFwTnR6NFBVVWFQS0JENUE1RTJDLXpfMlQtaUdkMU5YN1dJMmEtalVxVHpzbnRnUWppMExFb255dEVnODR6ZklzUHFuZFp3ZElmYVlPLWgxc0FfS1ZVdlNzdF9TaDNGZUhJV21MU1JrY0lLdkJSellocGRFNzBNaDhjRXJLeks2bXl5WjBZcVRwUlVZdHFuR1pucTItbnhudkY4NzhZVk8?oc=5)
 
 Source Region: Other
 
-Indonesia is proposing that Australia and New Zealand participate in the SEA Games. No further details were provided in the snippet.
+The Football Association of Indonesia (PSSI) has officially appointed John Herdman as the coach of the Indonesian national team. The article provides no further details about the appointment.
 
-**Why it matters:** Including Australia and New Zealand could raise the level of competition and attract more international attention to the SEA Games. This could lead to increased revenue and tourism for the host country.
+**Why it matters:** The appointment of a new coach is a strategic move to improve the national team's performance.
 
 **Confidence:** low
 
 ---
 
-### 📰 Inggris Rilis Daftar Travel Warning 2026, Ada Indonesia - CNN Indonesia {#inggris-rilis-daftar-travel-warning-2026-ada-indonesia---cnn}
+### 📰 AS Serang Venezuela, Indonesia Serukan Deeskalasi - republika.co.id {#as-serang-venezuela-indonesia-serukan-deeskalasi---republika}
 
-Source: [news.google.com/…/CBMiwgFBVV95cUxOcXdtUUp5SXRGd01jX…](https://news.google.com/rss/articles/CBMiwgFBVV95cUxOcXdtUUp5SXRGd01jX0NxMUpwNk9HeUp5VEdJeFI0LUktS1d1c0pCUUxHUWsxRk16ME1iTmhBaTVDa05MT1phVURkbzBZc2pGelpOd2h4NGtHQ0ZFaU1uRXFQaUlFc1l4THk1cDNzS2xGbW9TUTRMT0w3bFVMMlVMVzZKd3lxRmJJQTBmekxRQzFTZlZmc0dTQ0tRdE9IWUJiZF9MMDFLY215NmNLeDRkMm95bTNqZ0NSWkt6VDlWSktfQdIBxwFBVV95cUxNSDZqYXRzdWlPejNKcUw5ZXZqaHVyenBRQlVUdTFVNDV3QUVMbnV6YWJUVlZvUG5rUlZtcTRoZkRHZFp6X3hUYnlkQmQ3RlVsS1ZWbV9jTU1yRHBiSUV0dlM5Vlo2d0dXRlM2c1E4RHlRVnpFbndKRndERE1MMUl6dGMwSWszRFdzYnVlNUVsSlhLOGYxT1hGeXpwMmp0OGxZMmlGWmt1VWljdWNSQ18tMXdHVUJzOEZEQnhac0lvTExxRGpmcjlv?oc=5)
+Source: [news.google.com/…/CBMimgFBVV95cUxOLXVyYjN6OU15R1pSV…](https://news.google.com/rss/articles/CBMimgFBVV95cUxOLXVyYjN6OU15R1pSVVZSM1dIVmVZbURBZU5FcGQ4ZGt0cUt2ZjdUTzFxMEZTV0ZBVU94MTRoTENlell1MlBac21GelpSb3hESnlsM003TkdFdW9FanBhb2tRc1VLQy1Id3lnU2NiY3JWaUtlcEZzdVdQX2hSTGl2d3IzZm91V1ExRzkwZUliRWxzMUFUQjd2ZmZ3?oc=5)
 
 Source Region: Other
 
-The UK has released its 2026 travel warning list, which includes Indonesia.
+The article reports that Indonesia is calling for de-escalation following attacks by the US on Venezuela. No further details are provided.
 
-**Why it matters:** This may affect tourism and business travel to Indonesia.
+**Why it matters:** Escalating international conflicts can create economic instability and impact global trade.
 
 **Confidence:** low
 
 ---
 
-### 📰 Wadubes RI di Beijing dr Irene Tegaskan Komitmen Perkuat Kemitraan Strategis Indonesia dan China - SINDOnews Internasional {#wadubes-ri-di-beijing-dr-irene-tegaskan-komitmen-perkuat-kem}
+### 📰 インドネシアが新監督を発表、英国人戦略家が同意した理由も。 - Vietnam.vn {#vietnamvn}
 
-Source: [news.google.com/…/CBMi8AFBVV95cUxPN29telVHZm53U1dxR…](https://news.google.com/rss/articles/CBMi8AFBVV95cUxPN29telVHZm53U1dxR01IZ0liZmpoYVlxSjZXX0dhSXJVbzBMQ3BDbHZZU1h0YWU2ZkswbG9oQ2hQU3lOc25iTG1RZnhqNksxWkkzbk9iakF6ejhsSXNySWpZOTJERVJwNktteGtjbFVOUUk2X181RDAtczVLUUo1X19WWDBCSllnWkN4bjhWRTl5Q25Ka1A2OF80TFVVZ2JPYUk1R3NJZTFhQl9hc2FGcGx4eVlHeUM0N1JhN2E4elZCRGRuVHJVQ0x4N1c3UGVINExWX2ZLb1NBQ21zYXlkRjVFVVpwTHdDZHBDWjFLeFjSAfYBQVVfeXFMTi1iUmxBczhsRHdwOUZLUmJTa0dkNWJSOHZrYjgxanNIdk9JV2pPLWVMMWpSODl5WXZUTkJVTXJyVFVvakJZeGQ4WXIzMWVxbEdBbTFmRi16bUlCNmJhVnQydVlxekNTWElQQ1FqYUtzRE04UWhZZ18yOER6cmJpTkNIYkRxaXF1YndPYUNRbllFakNadVBROHFMWXkxSnRHQ0Z3aWdoYkgzelNmNWVuNEhrYktDMHFrWl93ZFdocFRtc3RiVm5CMm44UUVCSF9Ydm1oemJyZUJhNDVLOFZkWUpSTm5sTEVQSmV1TE14QlZCY0IzWExR?oc=5)
-
-Source Region: Other
-
-Indonesia's Deputy Ambassador to Beijing, Dr. Irene, has affirmed the commitment to strengthen the strategic partnership between Indonesia and China.
-
-**Why it matters:** This could lead to increased trade and investment between the two countries.
-
-**Confidence:** low
-
----
-
-### 📰 インドネシア人材受け入れへサポートデスク　山口県などがジャカルタに設置 - 中国新聞デジタル {#item}
-
-Source: [news.google.com/…/CBMiWkFVX3lxTFB4TjhURDlsWmRSUWlfV…](https://news.google.com/rss/articles/CBMiWkFVX3lxTFB4TjhURDlsWmRSUWlfVVh6NDc2c0lHUkFJMlZUZ010VmFDdjlHN3AydUJfdGcwMnR4R3J0MnZkd2lvYWNDeklSQlQzWnNzVzh1NVRKNHItM0dZQdIBXEFVX3lxTE9yeS15UlNUakNlcmhOczFQeE9tcWFicmk1WTFjeGk1NzB2dEsxekhYXzdydUoyWkhLOGxxNzYtNUY5bEx5bUNTZHBvZTFlRnFNQkJGclNMQm4wSDE3?oc=5)
+Source: [news.google.com/…/CBMimAFBVV95cUxPQURrVm5WbTJqX0JFc…](https://news.google.com/rss/articles/CBMimAFBVV95cUxPQURrVm5WbTJqX0JFcU9EN2RqUm5fLWZOVWxSQ3piQzB6a3VUWXpDVzBQazZqMlFYNkdsM2RqRk5pUm5YcG9WM2ExdU1hN3RaOF8yX2tsN0pjbWF5cnpBSzlXb1ZpQjhSdjV1VE5HT1EzUGdwbl9JYVZ4Z0ZxV0RjZkY5Z0tCVXFaUV9fWGY3LUJ2N29kOFZEMw?oc=5)
 
 Source Region: Other
 
-Yamaguchi Prefecture and others have established a support desk in Jakarta to accept Indonesian human resources.
+Indonesia has announced a new coach, and the article explores the reasons why the British strategist agreed to take the position. No further details are provided.
 
-**Why it matters:** This may help address labor shortages in Japan and provide opportunities for Indonesian workers.
+**Why it matters:** This is relevant to the sports industry and international collaborations in coaching.
 
 **Confidence:** low
 
@@ -468,177 +496,65 @@ Source: [news.google.com/…/CBMiV0FVX3lxTE9MVkptNkg5YVI3ODU4O…](https://news.
 
 Source Region: Other
 
-A tourist boat sank off the coast of Komodo Island, Indonesia, and a Spanish family of four is missing.
+A tourist boat has sunk near Komodo Island in Indonesia, and a Spanish family of four is missing. No further details are provided.
 
-**Why it matters:** This could negatively impact tourism in the Komodo Island area.
-
-**Confidence:** low
-
----
-
-### 📰 インドネシア・コモド島付近で観光船が沈没 スペイン人家族4人が行方不明（TBS NEWS DIG Powered by JNN） - Yahoo!ニュース {#4tbs-news-dig-powered-by-jnn---yahoo}
-
-Source: [news.google.com/…/CBMif0FVX3lxTE1DQ2NCaXFuNHVQT0ROS…](https://news.google.com/rss/articles/CBMif0FVX3lxTE1DQ2NCaXFuNHVQT0ROSkR2d1Vza3Y3TzBCWGR0TGVmcGNyNWVtYnM0ZFVhRkJuXzZXb0xvd0VMU0F4RDc4dUVvWXIxMGlmMFhJWmJVWTBxUGtBUmNTVnZjMmRuT2J0cU5maVNPOWJjVWxJbmE0dHNNOTMwWnFhVjQ?oc=5)
-
-Source Region: Other
-
-A tourist boat sank off the coast of Komodo Island, Indonesia, and a Spanish family of four is missing.
-
-**Why it matters:** This could negatively impact tourism in the Komodo Island area.
+**Why it matters:** This could impact tourism in the Komodo Island area and raises concerns about safety regulations for tourist boats.
 
 **Confidence:** low
 
 ---
 
-### 📰 観光船沈没 インドネシアの人気観光地コモド島付近 スペイン人4人不明 悪天候で3メートルほどの高波 - ニフティニュース {#4-3}
+### 🇮🇩 Angelina Jolie Kunjungi Perbatasan Rafah, Siapkan Bantuan untuk Anak Yatim di Gaza |Republika Online {#angelina-jolie-kunjungi-perbatasan-rafah-siapkan-bantuan-unt}
 
-Source: [news.google.com/…/CBMibEFVX3lxTE9xUmZFUjVybl8tYW4tR…](https://news.google.com/rss/articles/CBMibEFVX3lxTE9xUmZFUjVybl8tYW4tRTRabGI4dzUyWDBsRXAtNnZCR0pDMnoySktRMmdEcFFwSzBWOXpwa3dRWXNnQlBLTGlyeXdnQlltekw1a3ptNWU4WmZnS1NaMmt1YmhGMEd3a1VQM0hMZA?oc=5)
-
-Source Region: Other
-
-A tourist boat sank off the coast of Komodo Island, a popular tourist destination in Indonesia. Four Spanish people are missing due to bad weather and high waves of about 3 meters.
-
-**Why it matters:** This could negatively impact tourism in the Komodo Island area.
-
-**Confidence:** low
-
----
-
-### 🇮🇩 Infantino Tepis Kritikan Terhadap Harga Mahal Tiket Piala Dunia 2026 |Republika Online {#infantino-tepis-kritikan-terhadap-harga-mahal-tiket-piala-du}
-
-Source: [news.republika.co.id/…/infantino-tepis-kritikan-ter…](https://news.republika.co.id/berita/t818lb348/infantino-tepis-kritikan-terhadap-harga-mahal-tiket-piala-dunia-2026)
+Source: [ameera.republika.co.id/…/angelina-jolie-kunjungi-pe…](https://ameera.republika.co.id/berita/t8ai17425/angelina-jolie-kunjungi-perbatasan-rafah-siapkan-bantuan-untuk-anak-yatim-di-gaza)
 
 Source Region: Indonesia
 
-FIFA President Gianni Infantino defended the ticket prices for the 2026 World Cup in the USA, Canada, and Mexico, citing high global demand and the impact of World Cup revenue on supporting football development worldwide. He noted that FIFA received 150 million ticket requests in just 15 days. Infantino emphasized that the revenue generated is reinvested into global football development, particularly in countries lacking strong funding sources. Dubai will host the next FIFA Best Awards ceremony.
+Angelina Jolie visited Arish and the Rafah border in Egypt to support the Palestinian people and oversee humanitarian aid operations for Gaza. She is planning a project to aid orphans affected by the war. Jolie met with Egyptian Red Crescent volunteers and was informed about the thousands of aid trucks waiting to cross into Gaza to assist approximately 2.2 million civilians. She emphasized the critical role of humanitarian workers in maintaining the flow of aid despite restrictions.
 
-**Why it matters:** The high demand and revenue from the World Cup have a significant impact on global football development and related industries.
-
-**Confidence:** high
-
----
-
-### 🌍 Tents flooded by heavy rains in Gaza amid calls for Israel to let in aid {#tents-flooded-by-heavy-rains-in-gaza-amid-calls-for-israel-t}
-
-Source: [aljazeera.com/…/tents-flooded-by-heavy-rains-in-gaz…](https://www.aljazeera.com/news/2025/12/29/tents-flooded-by-heavy-rains-in-gaza-amid-calls-for-israel-to-let-in-aid?traffic_source=rss)
-
-Source Region: International
-
-Heavy winter rains and strong winds have caused severe flooding in Gaza, worsening the conditions for displaced Palestinians who are already suffering from the effects of the ongoing conflict. Makeshift camps have been engulfed in mud, and officials warn of the increased risk of disease due to contaminated floodwaters. Aid groups are calling for increased aid deliveries to the territory, as many are living in flimsy, waterlogged tents. At least 15 people have died this month from hypothermia.
-
-**Why it matters:** The severe weather conditions exacerbate the humanitarian crisis in Gaza, increasing the urgency for aid and highlighting the vulnerability of displaced populations.
+**Why it matters:** Jolie's visit draws international attention to the humanitarian crisis in Gaza and could mobilize further support and resources for affected civilians. Her involvement can influence public opinion and encourage policy changes related to humanitarian aid and conflict resolution.
 
 **Confidence:** high
 
 ---
 
-### 🌍 India set to lead BRICS amid conflicting interests, global ambitions and US pressure {#india-set-to-lead-brics-amid-conflicting-interests-global-am}
+### 🇮🇩 James Gunn Enggak Ambil Pusing Soal Nominasi Sutradara Terbaik Oscar |Republika Online {#james-gunn-enggak-ambil-pusing-soal-nominasi-sutradara-terba}
 
-Source: [channelnewsasia.com/…/brics-india-presidency-counte…](https://www.channelnewsasia.com/world/brics-india-presidency-counterweight-members-ambitions-interests-united-states-tariffs-5730596)
+Source: [ameera.republika.co.id/…/james-gunn-enggak-ambil-pu…](https://ameera.republika.co.id/berita/t8ahir425/james-gunn-enggak-ambil-pusing-soal-nominasi-sutradara-terbaik-oscar)
 
-Source Region: International
+Source Region: Indonesia
 
-India is set to assume the chair of BRICS, an expanded bloc of nations, amid a complex geopolitical landscape. India aims to prioritize the Global South and demonstrate BRICS' ability to address common challenges despite diverging national interests. The bloc, representing half the world's population and nearly 40% of global economic output, faces the task of balancing internal politics and external pressures, including potential tariffs from the US. A key focus for India will be the development of an investment guarantee mechanism to tackle climate change, poverty, energy transition and infrastructure needs.
+James Gunn, director of the upcoming Superman film and co-head of DC Studios, stated that he is not overly concerned with receiving an Oscar nomination for Best Director. While he acknowledges that it would be a pleasant honor, it is not his primary focus. Gunn values the emotional impact his films have on audiences, citing "Superman" and "Guardians of the Galaxy Vol 3" as examples. His next project, "Man of Tomorrow," is scheduled for release in 2027 and will focus on Clark Kent and Lex Luthor.
 
-**Why it matters:** India's leadership of BRICS could reshape the influence of the Global South in an increasingly divided world, impacting trade relations, investment flows, and geopolitical alliances.
-
-**Confidence:** high
-
----
-
-### 🌍 Thai army accuses Cambodia of violating truce with over 250 drones {#thai-army-accuses-cambodia-of-violating-truce-with-over-250-}
-
-Source: [channelnewsasia.com/…/thailand-cambodia-ceasefire-t…](https://www.channelnewsasia.com/asia/thailand-cambodia-ceasefire-truce-drones-5752841)
-
-Source Region: International
-
-The Thai army accused Cambodia of violating a newly signed ceasefire agreement by flying over 250 drones over Thai territory. This accusation follows a ceasefire agreement aimed at ending deadly border clashes. Cambodia's Foreign Minister said the two sides discussed the incident and agreed to investigate and resolve it immediately. Thailand's army stated that the drone activity reflected Cambodia's continued provocative actions and hostile stance toward Thailand, which could affect the security of military personnel and civilians in border areas.
-
-**Why it matters:** The alleged violation of the ceasefire could undermine efforts to rebuild trust and improve relations between Thailand and Cambodia, potentially impacting regional stability and economic cooperation.
-
-**Confidence:** medium
-
----
-
-### 🌍 Indonesian rescuers find a body while searching for Valencia coach and 3 children {#indonesian-rescuers-find-a-body-while-searching-for-valencia}
-
-Source: [channelnewsasia.com/…/indonesia-boat-rescue-female-…](https://www.channelnewsasia.com/asia/indonesia-boat-rescue-female-body-search-valencia-coach-fernando-martin-children-5747506)
-
-Source Region: International
-
-Indonesian rescuers have found the body of a female victim believed to be part of the family of Valencia CF Women’s B coach Fernando Martín, who went missing with his three children after a tour boat sank. The body was found floating near Serai island, about 1km from the site of the sinking. Martín's wife and another child were rescued, but Martín and his other three children remain missing. The search operation continues for the remaining family members.
-
-**Why it matters:** The tragic accident highlights the safety risks associated with boat transportation in Indonesia, which could impact tourism and the local economy.
-
-**Confidence:** medium
-
----
-
-### 🌍 Thailand and Cambodia agree to 'consolidate ceasefire' in China talks {#thailand-and-cambodia-agree-to-consolidate-ceasefire-in-chin}
-
-Source: [channelnewsasia.com/…/thailand-cambodia-ceasefire-c…](https://www.channelnewsasia.com/asia/thailand-cambodia-ceasefire-china-trilateral-talks-yunnan-5740926)
-
-Source Region: International
-
-Thailand and Cambodia have agreed to rebuild mutual trust and consolidate a ceasefire following weeks of border clashes, according to a communique released by China. The agreement was reached after trilateral talks in China between the foreign ministers of Thailand, Cambodia, and China. China has offered to be a platform to support peace between the two countries. The agreement calls for Thailand to repatriate 18 Cambodian soldiers and for both sides to adhere to international agreements against deploying land mines.
-
-**Why it matters:** The agreement to consolidate the ceasefire could lead to greater stability in the region, potentially boosting cross-border trade and investment.
-
-**Confidence:** medium
-
----
-
-### 🌍 Indonesia fire kills 16 people in nursing home {#indonesia-fire-kills-16-people-in-nursing-home}
-
-Source: [channelnewsasia.com/…/indonesia-fire-nursing-home-m…](https://www.channelnewsasia.com/asia/indonesia-fire-nursing-home-manado-kills-people-5726321)
-
-Source Region: International
-
-A fire at a nursing home in Manado, Indonesia, killed 16 people. The fire broke out on Sunday evening while the residents were asleep. Fifteen victims were burned to death, while one victim’s body remains intact. An initial police report said an electrical fault caused the fire, but officials later said the cause was still under investigation.
-
-**Why it matters:** Deadly fires are not uncommon in Indonesia, and this incident highlights the need for improved safety regulations and enforcement in nursing homes and other residential facilities.
+**Why it matters:** Gunn's perspective reflects a shift in the film industry where commercial success and audience connection are increasingly valued over traditional accolades. His focus on emotional resonance could influence the direction of future superhero films.
 
 **Confidence:** high
 
 ---
 
-### 🌍 Tirunelveli campus connect {#tirunelveli-campus-connect}
+### 🌍 Cremation pyre in Africa thought to be world’s oldest containing adult remains {#cremation-pyre-in-africa-thought-to-be-worlds-oldest-contain}
 
-Source: [thehindu.com/…/article70449451.ece](https://www.thehindu.com/news/cities/Madurai/tirunelveli-campus-connect/article70449451.ece)
+Source: [theguardian.com/…/cremation-pyre-in-africa-thought-…](https://www.theguardian.com/science/2026/jan/01/cremation-pyre-in-africa-thought-to-be-worlds-oldest-containing-adult-remains)
 
 Source Region: International
 
-The article reports on two events: a Christmas program at Delight Public School in Thoothukudi, featuring a drama, musical performances, and dance; and the book release function of "Malarum Mottugal," a collection of 56 poems written by S.H. Hansi, a Class IX student of Rojavanam International School, Nagercoil. Sahitya Akademi award-winner Ponneelan attended the event as chief guest and released the book. Copies of the book were received by other notable figures.
+A 9,500-year-old cremation pyre containing adult remains has been discovered in Malawi, Africa, offering insights into ancient hunter-gatherer communities. The pyre contained 170 bone fragments from a woman, with cut marks suggesting ritualistic removal of body parts before burning. Researchers believe the rock shelter where it was found was used as a natural monument for burials. The discovery suggests complex social roles and belief systems existed among these ancient people.
 
-**Why it matters:** The article highlights local events and achievements in education and the arts.
+**Why it matters:** This discovery challenges previous assumptions about the social complexity of ancient African hunter-gatherer societies. It provides valuable information about early human burial practices and belief systems.
 
-**Confidence:** low
-
----
-
-### 🇯🇵 China and Russia back Myanmar's election despite war and voter apathy {#china-and-russia-back-myanmars-election-despite-war-and-vote}
-
-Source: [asia.nikkei.com/…/china-and-russia-back-myanmar-s-e…](https://asia.nikkei.com/spotlight/myanmar-crisis/china-and-russia-back-myanmar-s-election-despite-war-and-voter-apathy)
-
-Source Region: Japan
-
-China, Russia, Thailand and Indonesia are among states to have lent backing to the multi-phase general election Myanmar's military regime began on Sunday. The election is an effort to add legitimacy to its rule despite the nation being mired in civil war.
-
-**Why it matters:** The backing of countries like China and Russia provides some international legitimacy to the regime, despite internal conflict.
-
-**Confidence:** medium
+**Confidence:** high
 
 ---
 
-### 📰 Feature: A Thai student dreams of selling rice to China {#feature-a-thai-student-dreams-of-selling-rice-to-china}
+### 📰 Chinese vice premier meets Thai princess {#chinese-vice-premier-meets-thai-princess}
 
-Source: [xinhuanet.com/…/c_136224369.htm](http://www.xinhuanet.com/english/2017-04/21/c_136224369.htm)
+Source: [xinhuanet.com/…/c_136191136.htm](http://www.xinhuanet.com/english/2017-04/07/c_136191136.htm)
 
 Source Region: Other
 
-Nontipa Kla-ngam, a Thai student in China, is studying the free trade agreement (FTA) between Thailand and China. She sees an opportunity to export Thai rice to China by taking advantage of the FTA's duty exemptions. She believes that her familiarity with Chinese culture and policies, along with her language skills, will give her an advantage in the market.
+Chinese Vice Premier Zhang Gaoli met with Princess Maha Chakri Sirindhorn of Thailand in Beijing to discuss strengthening China-Thailand friendship. Zhang acknowledged Thailand's leading role in developing ties with China and expressed China's readiness to deepen pragmatic cooperation with Thailand. Sirindhorn thanked China for its support and hoped to enhance cooperation in science, education, and agriculture. Both parties expressed their commitment to boosting mutually beneficial cooperation between the two countries.
 
-**Why it matters:** The article illustrates how trade agreements can create opportunities for individuals and businesses to capitalize on market potential and promote trade between countries.
+**Why it matters:** The meeting signifies the strong diplomatic and economic ties between China and Thailand. Continued cooperation in various sectors can lead to mutual benefits and further strengthen the relationship between the two countries.
 
 **Confidence:** high
 
