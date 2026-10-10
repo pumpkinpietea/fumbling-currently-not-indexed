@@ -22,6 +22,9 @@ See [AGENTS.md](AGENTS.md) for persistent project instructions and handoff notes
 [architecture and decisions](docs/architecture.md) for verified state and open questions,
 and [specification templates](specs/templates/) for feature planning.
 GitHub Issues are the task entry point; detailed specifications live in `specs/`.
+See the [publishing design](specs/20-daily-publishing/spec.md),
+[cost assumptions](specs/20-daily-publishing/costs.md), and
+[product roadmap](docs/roadmap.md) for proposed next steps.
 Codex and Claude Code share the same guide through `AGENTS.md` and `CLAUDE.md`.
 
 ## Branch and release workflow
