@@ -85,7 +85,7 @@
 
 ## Outstanding work
 
-- PR #21 final implementation/documentation CI passed; protection permits merge. Server-side merge is pending confirmation of a privacy-safe GitHub profile name; the account-wide profile has not been changed. Use the reviewed pseudonym and noreply address, then verify the exact head and main CI.
+- PR #21 implementation/documentation CI passed; protection permits merge. The developer authorized changing the GitHub profile name to the reviewed pseudonym, and this was applied on 2026-10-10. Use the reviewed pseudonym and noreply address for server-side merge; verify the exact final head and main CI. Merge evidence is tracked in #22 and PR #21.
 - #16 tracks initial setup. PR #21 delivers #17 (SDD foundation) and #22 (validation); see their specs. CI passed on the implementation head; verify the exact latest head before merge. The developer authorizes merging after required checks pass and approved the solo-development protection policy on 2026-10-10. Do not bypass protections.
 - #18: Specify and implement PR validation, deployment authentication, main-only Firebase Hosting publication, and available repository protections.
 - #19: The developer confirmed the existing collector runs locally. Temporary script inventory and its limitations are summarized in specs/23-news-quality/. No cloud collector migration is assumed.
