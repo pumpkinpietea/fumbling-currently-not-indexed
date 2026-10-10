@@ -22,6 +22,8 @@ GITHUB_TOKEN creates a new two-file content PR and explicitly dispatches branch 
 
 NEWS_PUBLISH_ENABLED and config/news-publishing.json enabled must both be true for live article consumption. Keep the Scheduler paused until source/model private trial, account credit preference, content-only tests and runtime persistence are verified. HOSTING_DEPLOY_ENABLED separately controls delivery. Build News Runtime is manual, main-only, and does not deploy a job. Deploy the recorded immutable image digest after its build succeeds; no image tag is treated as immutable.
 
+The --metadata-trial mode explicitly returns after RSS/evidence preparation, before reading ChatGPT credentials or calling inference, even if relevant records exist. It is safe for connectivity testing before account credit preferences are confirmed.
+
 An operator may run the immutable job with --trial-date YYYY-MM-DD for a nonfuture replay, or --trial-next-day for a private advance-clock rehearsal using currently available feed records. Trials use separate markers and never write publication bundles. The latter simulates the next edition window before its end; it is not evidence of a scheduled run or of complete future coverage.
 
 Stop new daily work by pausing Scheduler and setting NEWS_PUBLISH_ENABLED=false. Also cancel active job/workflow executions separately. Existing releases are not undone. Never re-run a failed date automatically or overwrite an existing bundle/edition; inspect the private run markers and source evidence first. A PR failing CI remains unmerged. A merge followed by failed delivery requires rerunning current main Validate, not repeating article generation.
