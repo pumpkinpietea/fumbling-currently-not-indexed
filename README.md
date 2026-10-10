@@ -71,6 +71,8 @@ The offline [edition contract](specs/28-edition-contract/spec.md) checks news
 identity/provenance references across languages. It does not validate fact text or
 activate publishing. The separate [draft renderer](docs/news-drafts.md) creates
 previewable EN/JP Markdown from validated identities and localized fact text.
+The [offline source selector](docs/source-selection.md) filters supplied publication
+metadata and groups normalized URLs before event and fact preparation.
 
 To update Hugo, change its version in `.devcontainer/devcontainer.json` and rebuild.
 To update Firebase CLI, run `npm install --save-dev --save-exact firebase-tools@<version>`
