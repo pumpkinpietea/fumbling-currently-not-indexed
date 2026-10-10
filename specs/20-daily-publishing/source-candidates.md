@@ -5,13 +5,15 @@ Checked: 2026-10-10. Discovery only; no source has been activated for automated 
 
 ## Confirmed user requests
 
-Cover Southeast Asia IT and e-commerce. Include Chinese and Middle Eastern sources, specifically Al Jazeera, to compare Western and other coverage. Include JICA among low-frequency candidates. Keep the regional industry focus when adding international sources.
+Cover Southeast Asia IT and e-commerce. Include Chinese and Middle Eastern sources, specifically Al Jazeera, to compare Western and other coverage. Include JICA among low-frequency candidates. The developer also proposed Nikkei Asia and NHK WORLD-JAPAN as Japanese media candidates. Keep the regional industry focus when adding international sources.
 
 ## Candidate inventory
 
 | Candidate | Intended role | Verified discovery | Access and adoption status |
 | --- | --- | --- | --- |
 | JICA | Development, digital infrastructure, AI skills, trade/logistics; fresh announcements plus dated background | [Official RSS directory](https://www.jica.go.jp/faq/rss.html), [English RSS](https://www.jica.go.jp/english/rss/index.html), [DX portal](https://www.jica.go.jp/english/about/dx/index.html) | Official RSS supports discovery. [Site policy](https://www.jica.go.jp/english/policy/) reserves reuse/reproduction except personal use and legally recognized quotation. Feed availability does not authorize arbitrary full-body republication or model processing. Assess each material and attribution before adoption. |
+| Nikkei Asia | Japanese media candidate for regional business, technology and e-commerce comparisons | [AI policy](https://asia.nikkei.com/announcements/nikkei-s-view-on-ai-in-journalism) | Official policy rejects unauthorized AI use of copyrighted material. Subscription is not assumed to grant automated ingestion/reuse rights. Current detailed terms and licensed access remain to be verified; no adapter activated. |
+| NHK WORLD-JAPAN | Japanese media candidate for reported events and policy/social context | [Official portal](https://www3.nhk.or.jp/nhkworld/en/) | Official portal/terms retrieval was blocked for the research tool by robots.txt. Actual feed availability, topical coverage and reuse conditions remain unverified. Similarly named third-party domains are not accepted as official NHK policy. |
 | Al Jazeera | Requested Middle Eastern reporting and event-level comparison | [Terms](https://terms.aljazeera.net/index.html) | Published terms restrict unauthorized automated access, copying and analysis. No automated body adapter planned without a permitted access/license path. Requested editorial inclusion remains open. |
 | CGTN | Candidate Chinese reporting | [Official RSS directory](https://www.cgtn.com/subscribe/rss.html), [terms](https://www.cgtn.com/terms-of-use.html) | RSS headlines/links exist; site terms restrict robots, mining and derivative/commercial reuse. Clarify permitted feed use and downstream processing before activation; no body scraping. |
 | Xinhua | Candidate Chinese reporting on regional digital trade | [Asia-Pacific portal](https://english.news.cn/asiapacific/index.htm) | Regional coverage exists; automated access/reuse/license remains unverified. No adapter or adoption. |
