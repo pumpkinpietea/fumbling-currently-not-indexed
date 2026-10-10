@@ -5,7 +5,7 @@ Status: Proposed architecture; product choices and live execution pending
 
 ## Goal and verified context
 
-Generate a concise, source-backed Indonesia news digest every day and publish consistent language editions through validated main-only delivery. The existing collector ran locally; no cloud migration is assumed. PR validation and solo-development protection are implemented by #22. Production delivery, generation, scheduling and Indonesian support are not implemented.
+Generate a concise, source-backed Southeast Asia IT and e-commerce news digest every day and publish consistent language editions through validated main-only delivery. The existing collector ran locally; no cloud migration is assumed. PR validation and solo-development protection are implemented by #22. PR #41 implements disabled-by-default main delivery; live authentication, generation, scheduling and Indonesian support remain pending.
 
 ## Scope
 
@@ -23,6 +23,18 @@ Specify execution, contracts, costs, failure recovery and staged rollout. Reuse 
 - AC-8: Candidate limits, timeouts, concurrency, retry counts, token reservations and retention are finite. A configured budget stops further paid calls; alerts alone are not a hard cap.
 - AC-9: Offline regression scenarios, a bounded manual live evaluation and a draft-only trial precede unattended activation. Factual/source evaluation is distinct from structural CI.
 - AC-10: Operator can disable scheduling/merge/deployment independently, replay an edition without new model calls when validated inputs exist, and trace the deployed Git revision. Failure reporting contains no credentials or personal identifiers.
+
+## Site purpose
+
+The developer describes the site as a personal memo site. It remains publicly accessible at its existing production URL; this is not a request to make it private or to republish source articles. Prefer short original factual notes and attributed comparisons with source links. Personal operation does not by itself establish permission under each publisher's personal-use terms. Assess access, model input and public output separately; do not treat all factual reference as prohibited.
+
+## Confirmed editorial scope
+
+On 2026-10-10 the developer selected Southeast Asia IT and e-commerce news. The earlier Indonesia general-news focus is superseded. Include technology products/infrastructure, regional digital businesses and online commerce when there is a concrete Southeast Asia connection. General politics, unrelated global technology and routine shopping promotions are outside the initial scope. Country quotas and source adoption remain undecided; do not infer regional coverage from the existing two Indonesian trial feeds.
+
+The developer also requested Chinese sources, Middle Eastern sources including Al Jazeera, and comparisons of Western and other coverage of the same event. Nikkei Asia and NHK WORLD-JAPAN are proposed Japanese media candidates. JICA and similar low-frequency institutional sources are candidates for relevant new announcements and dated background context. Source location is metadata, not proof of a uniform viewpoint. Attribute reported claims and framing to specific articles, distinguish corroborated facts from disputed claims, and disclose missing comparison coverage rather than inventing an opposing position. Syndicated copies do not count as independent perspectives.
+
+See [source candidates and access findings](source-candidates.md). Candidate inclusion is not activation or permission to retrieve/reuse publisher content.
 
 ## Proposed defaults, not approved decisions
 
