@@ -36,3 +36,9 @@ Gemini free access has limited quotas and different data-use conditions from pai
 - [Cloud Run pricing](https://cloud.google.com/run/pricing)
 - [Scheduler pricing](https://cloud.google.com/scheduler/pricing)
 - [Firebase pricing](https://firebase.google.com/pricing)
+
+## Confirmed budget update
+
+On 2026-10-10 the developer authorized at most USD 10/month for total GCP costs, including existing Hosting and other GCP usage. This replaces the absence of a GCP budget, not the unapproved illustrative USD 5 incremental proposal. Separate AI/API subscriptions are not covered by this approval. Existing account-wide spend is not yet measured; no remaining allowance or guaranteed hard cap is claimed.
+
+The developer asked to reuse the existing ChatGPT subscription to reduce AI cost. Official [ChatGPT plan usage](https://developers.openai.com/siwc/token-sharing-open-source) supports eligible open-source/local applications through explicit OAuth consent; account eligibility, limits and unattended runtime still require verification. [Codex automation](https://learn.chatgpt.com/docs/non-interactive-mode) warns against copying account auth into public/open-source repository CI. Do not export existing Codex credentials into public Actions. No new API subscription or paid fallback is authorized by this inquiry.

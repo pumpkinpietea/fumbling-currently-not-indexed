@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "antara",
+      "name": "ANTARA",
+      "role": "regional_reporting",
+      "discoveryUrl": "https://www.antaranews.com/rss",
+      "reviewStatus": "private_metadata_trial",
+      "feeds": [
+        {
+          "id": "antara-top-news",
+          "url": "https://www.antaranews.com/rss/top-news.xml",
+          "allowedHosts": [
+            "www.antaranews.com",
+            "antaranews.com"
+          ]
+        },
+        {
+          "id": "antara-economy",
+          "url": "https://www.antaranews.com/rss/ekonomi.xml",
+          "allowedHosts": [
+            "www.antaranews.com",
+            "antaranews.com"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jica",
+      "name": "JICA",
+      "role": "institutional",
+      "discoveryUrl": "https://www.jica.go.jp/faq/rss.html",
+      "reviewStatus": "private_metadata_trial",
+      "feeds": [
+        {
+          "id": "jica-news-ja",
+          "url": "https://www.jica.go.jp/feed/jicanews.xml",
+          "allowedHosts": [
+            "www.jica.go.jp"
+          ],
+          "fullMonthNames": true
+        }
+      ]
+    },
+    {
+      "id": "cna",
+      "name": "CNA",
+      "role": "regional_reporting",
+      "discoveryUrl": "https://www.channelnewsasia.com/rss",
+      "reviewStatus": "private_metadata_trial",
+      "feeds": [
+        {
+          "id": "cna-asia",
+          "url": "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml&category=6511",
+          "allowedHosts": [
+            "www.channelnewsasia.com"
+          ]
+        },
+        {
+          "id": "cna-business",
+          "url": "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml&category=6936",
+          "allowedHosts": [
+            "www.channelnewsasia.com"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nikkei-asia",
+      "name": "Nikkei Asia",
+      "role": "japanese_reporting",
+      "discoveryUrl": "https://asia.nikkei.com/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "nhk-world",
+      "name": "NHK WORLD-JAPAN",
+      "role": "japanese_reporting",
+      "discoveryUrl": "https://www3.nhk.or.jp/nhkworld/en/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "al-jazeera",
+      "name": "Al Jazeera",
+      "role": "middle_eastern_reporting",
+      "discoveryUrl": "https://www.aljazeera.com/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "cgtn",
+      "name": "CGTN",
+      "role": "chinese_reporting",
+      "discoveryUrl": "https://www.cgtn.com/subscribe/rss.html",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "xinhua",
+      "name": "Xinhua",
+      "role": "chinese_reporting",
+      "discoveryUrl": "https://english.news.cn/rss/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "scmp",
+      "name": "South China Morning Post",
+      "role": "hong_kong_reporting",
+      "discoveryUrl": "https://www.scmp.com/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "bbc",
+      "name": "BBC News",
+      "role": "western_reporting",
+      "discoveryUrl": "https://support.bbc.co.uk/platform/feeds/NewsFeeds.htm",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "reuters",
+      "name": "Reuters",
+      "role": "western_reporting",
+      "discoveryUrl": "https://www.reuters.com/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "tech-in-asia",
+      "name": "Tech in Asia",
+      "role": "regional_technology_reporting",
+      "discoveryUrl": "https://www.techinasia.com/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "e27",
+      "name": "e27",
+      "role": "regional_technology_reporting",
+      "discoveryUrl": "https://e27.co/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "sea",
+      "name": "Sea / Shopee",
+      "role": "company",
+      "discoveryUrl": "https://www.sea.com/news/latest",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "grab",
+      "name": "Grab",
+      "role": "company",
+      "discoveryUrl": "https://www.grab.com/sg/press/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "lazada",
+      "name": "Lazada",
+      "role": "company",
+      "discoveryUrl": "https://www.lazada.com/en/press-release/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "asean",
+      "name": "ASEAN",
+      "role": "institutional",
+      "discoveryUrl": "https://asean.org/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    },
+    {
+      "id": "jetro",
+      "name": "JETRO",
+      "role": "institutional",
+      "discoveryUrl": "https://www.jetro.go.jp/biznews/",
+      "reviewStatus": "access_review",
+      "feeds": []
+    }
+  ]
+}

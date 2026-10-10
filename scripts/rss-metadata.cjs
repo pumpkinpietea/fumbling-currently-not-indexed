@@ -3,8 +3,14 @@ const MAX_FEED_BYTES = 1024 * 1024;
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function publicationTime(value) {
+function publicationTime(value, { allowFullMonthNames = false } = {}) {
   if (typeof value !== 'string') return null;
+  if (allowFullMonthNames) {
+    const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'];
+    value = value.replace(/\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\b/,
+      month => MONTHS[fullMonths.indexOf(month)]);
+  }
   const match = /^(?:(Sun|Mon|Tue|Wed|Thu|Fri|Sat), )?(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4}) (\d{2}):(\d{2}):(\d{2}) (GMT|UT|[+-]\d{4})$/.exec(value);
   if (!match) return null;
   const [, weekday, dayText, monthText, yearText, hourText, minuteText, secondText, zone] = match;
@@ -25,7 +31,7 @@ function publicationTime(value) {
   return result.toISOString().replace('.000Z', 'Z');
 }
 
-function parseRss(buffer) {
+function parseRss(buffer, options = {}) {
   try {
     if (!Buffer.isBuffer(buffer) || buffer.length > MAX_FEED_BYTES) throw new Error();
     const text = new TextDecoder('utf-8', { fatal: true }).decode(buffer);
@@ -66,7 +72,7 @@ function parseRss(buffer) {
       if (stack.join('/') === 'rss/channel/item') {
         const one = key => item[key].length === 1 && item[key][0] ? item[key][0] : null;
         records.push({ itemIndex: records.length, title: one('title'), url: one('link'),
-          publicationDatesRaw: [...item.pubDate], publishedAt: publicationTime(one('pubDate')) });
+          publicationDatesRaw: [...item.pubDate], publishedAt: publicationTime(one('pubDate'), options) });
         item = undefined;
       }
       stack.pop();
