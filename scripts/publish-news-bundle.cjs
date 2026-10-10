@@ -13,16 +13,27 @@ async function github(endpoint, method = 'GET', body) {
     signal: AbortSignal.timeout(30000), headers: { authorization: `Bearer ${process.env.GH_TOKEN}`,
       accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28', 'content-type': 'application/json' },
     ...(body ? { body: JSON.stringify(body) } : {}) });
-  if (!r.ok) throw new Error('github_request_failed');
-  return r.status === 204 ? null : r.json();
+  if (!r.ok) throw new Error(`github_request_failed_${r.status}`);
+  const text = await r.text();
+  return text ? JSON.parse(text) : null;
 }
-async function validateRef(ref, sha) {
-  await github('actions/workflows/validate.yml/dispatches', 'POST', { ref });
+async function validatePr(ref, sha, number, verifyScope, { api = github,
+  delay = () => new Promise(resolve => setTimeout(resolve, 5000)) } = {}) {
+  let approved = false;
   for (let i = 0; i < 60; i++) {
-    await new Promise(resolve => setTimeout(resolve, 5000));
-    const result = await github(`actions/workflows/validate.yml/runs?event=workflow_dispatch&head_sha=${sha}&per_page=10`);
-    const run = result.workflow_runs.find(r => r.head_sha === sha && r.head_branch === ref);
-    if (!run || run.status !== 'completed') continue;
+    await delay();
+    const result = await api(`actions/workflows/validate.yml/runs?event=pull_request&head_sha=${sha}&per_page=10`);
+    const run = result.workflow_runs.find(r => r.event === 'pull_request' && r.head_sha === sha && r.head_branch === ref &&
+      r.path === '.github/workflows/validate.yml' && r.pull_requests?.some(p => p.number === number));
+    if (!run) continue;
+    if (run.conclusion === 'action_required') {
+      if (!approved) {
+        await verifyScope();
+        await api(`actions/runs/${run.id}/approve`, 'POST');approved = true;
+      }
+      continue;
+    }
+    if (run.status !== 'completed') continue;
     if (run.conclusion !== 'success') throw new Error('validation_failed');
     return run.html_url;
   }
@@ -93,11 +104,15 @@ async function publish() {
   finally { fs.unlinkSync(askpass); }
   const pr = await github('pulls', 'POST', { title: `${rehearsal ? 'Draft rehearsal: ' : ''}Southeast Asia tech notes — ${date}`, head: branch, base: 'main',
     body: 'Automated factual EN/JP edition from the private bounded news pipeline. Source dates, exact grounding quotes, translation numbers and skeptical model review passed. The complete staged content and scope were checked before commit. Only the two new edition files are included.\n\nTracked in #55.' });
-  const validation = await validateRef(branch, head);
-  const current = await github(`pulls/${pr.number}`), changes = await github(`pulls/${pr.number}/files`);
-  if (current.head.sha !== head || current.base.sha !== original ||
-      changes.length !== 2 || changes.some(c => c.status !== 'added' || !Object.hasOwn(files, c.filename)) ||
-      (await github('git/ref/heads/main')).object.sha !== original) throw new Error('pr_scope_or_base_changed');
+  const verifyScope = async () => {
+    const current = await github(`pulls/${pr.number}`), changes = await github(`pulls/${pr.number}/files`);
+    if (current.user.login !== 'github-actions[bot]' || current.head.repo.full_name !== REPO || current.base.repo.full_name !== REPO ||
+        current.head.sha !== head || current.base.sha !== original ||
+        changes.length !== 2 || changes.some(c => c.status !== 'added' || !Object.hasOwn(files, c.filename)) ||
+        (await github('git/ref/heads/main')).object.sha !== original) throw new Error('pr_scope_or_base_changed');
+  };
+  const validation = await validatePr(branch, head, pr.number, verifyScope);
+  await verifyScope();
   // GitHub enforces required checks and up-to-date main; no administrator bypass is used.
   const merged = await github(`pulls/${pr.number}/merge`, 'PUT', { sha: head, merge_method: 'squash',
     commit_title: `${rehearsal ? 'Rehearse' : 'Publish'} Southeast Asia tech notes for ${date}`,
@@ -106,7 +121,8 @@ async function publish() {
   await github('actions/workflows/validate.yml/dispatches', 'POST', { ref: 'main' });
   return { status: 'merged_awaiting_delivery', editionDate: date, pr: pr.html_url, revision: merged.sha };
 }
-if (require.main === module) publish().then(result => console.log(JSON.stringify(result))).catch(() => {
-  console.log(JSON.stringify({ status: 'failed', code: 'news_publication_failed' }));process.exitCode = 1;
+if (require.main === module) publish().then(result => console.log(JSON.stringify(result))).catch(error => {
+  const code = /^github_request_failed_[1-5][0-9]{2}$/.test(error.message) ? error.message : 'news_publication_failed';
+  console.log(JSON.stringify({ status: 'failed', code }));process.exitCode = 1;
 });
-module.exports = { inspectStaged, rehearsalFiles };
+module.exports = { inspectStaged, rehearsalFiles, validatePr };

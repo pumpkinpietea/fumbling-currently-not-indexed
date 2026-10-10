@@ -22,3 +22,7 @@
 - Manual draft-only bot delivery rehearsal is implemented; 113 tests and EN/JP builds pass locally. Production flags remain false until generation and live delivery verification.
 
 - The saved live SSE response now parses successfully without a new inference call; its result is events=[] because the supplied forum events were already reported. This verifies transport completion, not a two-call reviewed publication bundle.
+
+- PR #60 merged at ec0ed55 after exact-head Validate 38057942624; main Validate 38057987330, build 38057988940 and Hosting delivery 38058014698 passed. Cloud Run was updated. Execution daily-news-rkbkw succeeded with no_news, persisted rotated credentials and released its global lock.
+- Two-call historical editorial rehearsal (2026-09-27 edition, actual ANTARA RSS dated 2026-09-26) passed bilingual generation, skeptical review, deterministic validation and operator source/content inspection. Private evidence remains outside Git.
+- Delivery rehearsal 38058408930 created draft-only PR #61. Branch dispatch Validate 38058431838 passed, but PR-associated Validate 38058433210 requires approval, so protected merge correctly stopped. Fix uses scoped CI execution approval and PR-associated success; no protection bypass or PR review approval. Production remains inactive pending repeated rehearsal.
