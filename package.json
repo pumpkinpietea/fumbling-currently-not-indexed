@@ -16,7 +16,9 @@
     "check:edition": "node scripts/check-edition.cjs",
     "render:edition": "node scripts/render-edition.cjs",
     "select:sources": "node scripts/select-sources.cjs",
-    "collect:feeds": "node scripts/collect-feeds.cjs"
+    "collect:feeds": "node scripts/collect-feeds.cjs",
+    "shortlist:events": "node scripts/event-candidates.cjs shortlist",
+    "evaluate:events": "node scripts/event-candidates.cjs evaluate"
   },
   "devDependencies": {
     "firebase-tools": "15.33.0",
