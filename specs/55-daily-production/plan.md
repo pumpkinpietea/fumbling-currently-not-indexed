@@ -21,3 +21,11 @@ Requirements: a successful private generation trial must leave reviewable eviden
 Acceptance: trial output is stored under the private, 14-day evidence prefix; the bundle reader cannot access it. Tests verify retained trial content and absence of a publication bundle. Providers map a fixed purpose attribute and each service account trusts only that purpose; repository/ref/workflow conditions remain enforced.
 
 Tasks: persist the validated trial bundle in private evidence; extend the runtime test; replace shared repository-only impersonation bindings with provider-purpose bindings; inspect remote mappings and policies and run CI.
+
+## Activation rehearsal
+
+The user confirmed that external apps cannot consume credits after plan limits. Run at most one bounded private next-edition generation trial, inspect its retained source evidence and bilingual text, then verify bot-originated PR creation, exact-head validation, protected merge and main delivery before enabling the schedule.
+
+For live delivery verification, add an explicit manual rehearsal input. It consumes an operator-prepared validated bundle at bundles/rehearsal-DATE.json and deterministically renders two uniquely named draft articles. Scheduled runs cannot select rehearsal mode. Rehearsal requires the production-consumer flag to remain false, accepts no arbitrary paths or text overrides, and follows the same staged review, exact-head CI and protected merge flow. Draft content must be absent from the built site. Remove the two draft files through a normal validated cleanup PR before activation.
+
+Acceptance: a manual workflow using GITHUB_TOKEN creates and merges the constrained draft PR without bypass, main validation/delivery succeeds, draft pages are absent, and no production edition is overwritten. Enable the configured clock and schedule only after this verification. Tasks: implement deterministic rehearsal rendering and CLI/workflow input; test path/frontmatter isolation; run private generation and inspect; run draft delivery and clean up; enable runtime and consumer; verify Scheduler timing and record first-run uncertainty.
