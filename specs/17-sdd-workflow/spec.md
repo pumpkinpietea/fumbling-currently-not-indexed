@@ -2,7 +2,7 @@
 
 Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/17
 Parent: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/16
-Status: Implementation validated; PR preparation
+Status: In review (draft PR #21; CI pending in #18)
 
 ## Goal
 

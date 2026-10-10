@@ -73,7 +73,7 @@
 
 ## Outstanding work
 
-- #16 tracks initial setup. #17 delivers the SDD foundation; see specs/17-sdd-workflow/.
+- #16 tracks initial setup. #17 delivers the SDD foundation in draft PR #21; see specs/17-sdd-workflow/. Local builds, form structure, and documentation links passed. CI is not configured, so the PR remains unmerged.
 - #18: Specify and implement PR validation, deployment authentication, main-only Firebase Hosting publication, and available repository protections.
 - #19: Inventory the existing Google Cloud news collection process before selecting new infrastructure. gcloud authentication is available, but blog-pumpkinpie has Cloud Run and Scheduler APIs disabled; confirm the collection project before inventory.
 - #20: Specify daily multilingual generation and publishing, informed by #19. Sources, scheduling/timezone, editorial policy, failure handling, cost limits, Indonesian rollout, and automatic article merge authority remain open.
