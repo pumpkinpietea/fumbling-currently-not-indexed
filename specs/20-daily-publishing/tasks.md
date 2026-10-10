@@ -6,7 +6,7 @@ Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/20
 - [x] Compare orchestration, verify official cost/event behavior and propose the end-to-end contract.
 - [x] Separate later donation/transparency and social distribution work from daily publishing (#24, #25, #26).
 - [ ] Record developer decisions on schedule, language rollout, budget, sources/topics and snippet policy.
-- [ ] Split deterministic pipeline, offline evaluation, bot integration and staged activation into independently ready implementation issues.
+- [ ] Split remaining pipeline/evaluation/bot/activation work; #28 implements the independently scoped offline identity/provenance contract.
 - [ ] Deliver #18 authentication and main-only publication with explicit deployment authority.
 - [ ] Run authorized bounded model/source evaluation, draft trial and failure/recovery tests.
 - [ ] Obtain explicit content-only auto-merge and scheduling activation authority.

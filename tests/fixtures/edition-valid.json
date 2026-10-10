@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "editionDate": "2026-01-15",
+  "window": {
+    "start": "2026-01-14T00:00:00Z",
+    "end": "2026-01-15T00:00:00Z"
+  },
+  "languages": [
+    "en",
+    "jp"
+  ],
+  "sources": [
+    {
+      "id": "source1",
+      "url": "https://example.com/report",
+      "publishedAt": "2026-01-14T09:00:00Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "event1",
+      "sourceIds": [
+        "source1"
+      ],
+      "facts": [
+        {
+          "id": "fact1",
+          "sourceIds": [
+            "source1"
+          ]
+        }
+      ]
+    }
+  ],
+  "editions": [
+    {
+      "language": "en",
+      "events": [
+        {
+          "id": "event1",
+          "factIds": [
+            "fact1"
+          ],
+          "sourceUrls": [
+            "https://example.com/report"
+          ]
+        }
+      ]
+    },
+    {
+      "language": "jp",
+      "events": [
+        {
+          "id": "event1",
+          "factIds": [
+            "fact1"
+          ],
+          "sourceUrls": [
+            "https://example.com/report"
+          ]
+        }
+      ]
+    }
+  ]
+}

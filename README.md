@@ -64,7 +64,12 @@ npm run dev    # Serve the preview on port 1313
 npm run check  # Verify container CLIs, documentation/forms, and EN/JP builds
 npm run check:ci  # Run portable tests, documentation/forms, and EN/JP builds
 npm run build  # Generate the production site in public/
+npm run check:edition -- tests/fixtures/edition-valid.json  # Offline candidate contract example
 ```
+
+The offline [edition contract](specs/28-edition-contract/spec.md) checks news
+identity/provenance references across languages. It does not validate fact text,
+render Markdown or activate publishing.
 
 To update Hugo, change its version in `.devcontainer/devcontainer.json` and rebuild.
 To update Firebase CLI, run `npm install --save-dev --save-exact firebase-tools@<version>`

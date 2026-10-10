@@ -16,10 +16,13 @@ Recommended sequence: decide policies -> implement offline contracts and quality
 | --- | --- | --- |
 | [#24: Donation entry point](https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/24) | A small multilingual support link/page using a suitable provider | Eligibility, public identity, receiving currency, provider fees, payout/export capability and activation |
 | [#25: Monthly transparency](https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/25) | Display site operating costs and donation amounts for the current month | Public fields, actual vs estimated amounts, attribution, reporting month/currency, corrections and update cadence |
+| [#29: Original articles](https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/29) | Manual and AI-assisted non-news authoring, preview and publication | Article types, language/translation rules, templates/assets, drafts and publication authority |
 | [#26: Social distribution](https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/26) | Post a canonical edition link/summary after successful production deployment | Platforms/accounts, API availability/cost, languages, format, idempotency and activation |
 
 For transparency, the proposed fields are operating expenses, gross receipts, refunds, payment/platform/FX fees, net receipts and balance. Exact public fields await confirmation. Start with manually reviewed aggregate data rendered by the static site; automate private collection later only if worthwhile. Missing data must not look like zero. Never put billing exports, account identifiers, donor details or payment transaction metadata in the public repo.
 
 Donation and social features must not block website publication. Social failures are retried separately using a per-edition/platform/language identity, without regenerating the article or reposting a possibly successful request blindly. No payment provider or social platform is selected and no account, payment or post was created.
+
+The offline news contract in #28 verifies candidate identity/provenance only; it is not a generic article authoring requirement or proof of factual accuracy. Original articles share the site build and deployment, while news collection, event grouping and content-only bot authority remain separate.
 
 All issues are grouped in the cross-repository News Publishing Project. Keep their goal, acceptance criteria and decisions in Issues; add repository specifications when each outcome becomes ready for implementation.
