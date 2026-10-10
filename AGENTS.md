@@ -9,6 +9,15 @@
 - Request confirmation when required by permissions or before destructive actions outside the requested scope.
 - Preserve existing uncommitted changes and avoid unrelated edits.
 
+## Cost constraints
+
+- Minimize ongoing costs and keep the architecture appropriate for solo development.
+- Use GitHub Free as the baseline. Do not require paid GitHub plans or features; verify feature availability and included Actions usage for the actual repository visibility before proposing workflows.
+- Consider Google Cloud costs explicitly before choosing services or provisioning resources. Prefer suitable free allowances, usage-based execution, and reuse of existing resources over always-on infrastructure.
+- Verify current pricing and free-tier conditions rather than assuming a service is free. Estimate monthly costs from expected execution frequency, duration, resources, storage, network transfer, logging, and model/API usage; state assumptions and uncertainties.
+- Bound retries, concurrency, model input/output, and retention to avoid unnecessary spending. Use budget alerts where appropriate, but do not treat alerts as hard spending caps.
+- No fixed monthly budget has been agreed. Present expected costs and obtain authorization before introducing new billable resources, paid subscriptions, or materially increasing ongoing costs. Continue reversible local work and read-only investigation without routine approval requests.
+
 ## Pre-commit privacy gate
 
 - Before every commit, inspect the exact staged changes with `git diff --cached`, including file names and newly added files. Review relevant surrounding content when needed; do not rely on pattern matching alone.
@@ -28,6 +37,8 @@
 - For each feature, document requirements and acceptance criteria, then the design and implementation tasks, before implementing it. Keep these artifacts in English and align implementation and validation with them.
 - Record confirmed decisions and unresolved product questions explicitly. Do not present assumptions or planned capabilities as implemented behavior.
 - Target public content languages: Japanese, English, and Indonesian.
+- Prioritize news accuracy, event-level deduplication, freshness, traceable sources, and consistent facts across languages. Evaluate source selection and quality against saved examples while minimizing model and infrastructure costs.
+- Treat temp-script/ (including TEMP-script/ on case-insensitive hosts) as read-only migration input. Do not stage, commit, push, or execute it without explicit authorization; it contains credential-like values and raw debug/cache data.
 - Current implementation: Hugo / PaperMod static website with English and Japanese configured. Indonesian support and the automated news collection and publishing pipeline remain to be specified and implemented.
 - Production URL: https://blog.pumpkinpie-tea.com/
 - Firebase project: `blog-pumpkinpie`.
@@ -43,14 +54,15 @@
 - The intended release flow is: feature branch -> PR -> passing CI -> merge into `main` -> automatic production publication through CI/CD.
 - Production deployment should run only from `main` after validation succeeds. Pull requests must not deploy to production.
 - Keep deployment credentials out of the repository and restrict CI deployment permissions to what is necessary.
-- Automatic publishing is the intended workflow, but CI/CD is not implemented yet. Authentication, checks, and repository protection settings must be specified during implementation.
+- PR/main validation is defined in .github/workflows/validate.yml. Production delivery is not implemented; authentication and repository protection changes must be specified and authorized separately.
 
 ## Development and validation
 
 - Dev Container: Ubuntu 24.04, Node.js 22, Hugo Extended 0.147.9.
 - Firebase CLI is a pinned project dependency. Use `npm ci` to install dependencies.
 - `npm run dev`: serve the preview on port 1313.
-- `npm run check`: verify CLIs and build the English and Japanese sites in a temporary directory.
+- `npm run check`: verify container CLIs, run documentation/form checker tests, validate guides/forms, and build EN/JP in a temporary directory.
+- `npm run check:ci`: run portable checker tests, documentation/form validation, and EN/JP builds without cloud/developer CLIs or credentials.
 - `npm run build`: generate the production site in `public/`.
 - `npm run deploy`: build and publish to Firebase Hosting. Run when the user requests publication.
 - Do not commit build output, credentials, or secrets.
@@ -73,10 +85,12 @@
 
 ## Outstanding work
 
-- #16 tracks initial setup. #17 delivers the SDD foundation in draft PR #21; see specs/17-sdd-workflow/. Local builds, form structure, and documentation links passed. CI is not configured, so the PR remains unmerged.
+- #16 tracks initial setup. #17 delivers the SDD foundation in draft PR #21; see specs/17-sdd-workflow/. Local builds, form structure, and documentation links passed. #22 adds CI to the same PR; verify the exact head before merge. The developer authorizes PR merging after checks pass; do not bypass existing review requirements.
 - #18: Specify and implement PR validation, deployment authentication, main-only Firebase Hosting publication, and available repository protections.
-- #19: Inventory the existing Google Cloud news collection process before selecting new infrastructure. gcloud authentication is available, but blog-pumpkinpie has Cloud Run and Scheduler APIs disabled; confirm the collection project before inventory.
+- #19: The developer confirmed the existing collector runs locally. Temporary script inventory and its limitations are summarized in specs/23-news-quality/. No cloud collector migration is assumed.
 - #20: Specify daily multilingual generation and publishing, informed by #19. Sources, scheduling/timezone, editorial policy, failure handling, cost limits, Indonesian rollout, and automatic article merge authority remain open.
-- The private GitHub Project News Publishing tracks #16-#20.
+- #22: Free-tier PR validation; #23: Event-level quality design and offline baseline. See their specs for validation and open product decisions.
+- The private GitHub Project News Publishing tracks the setup and publishing issues.
+- GitHub inspection: public repository, Actions enabled, default workflow token read-only; main requires one approving review and code-owner review, has no required status checks, and does not enforce rules for admins. Any solo-compatible protection change requires explicit approval; never use admin bypass to avoid the review requirement.
 - Rebuilt-container validation passed on 2026-10-10: Codex 0.162.1 starts, ChatGPT authentication is retained, and npm run check builds EN/JP. Startup update configuration is present, but the original startup update log has not been verified.
 - Full Access executes commands successfully. workspace-write sandbox execution fails with namespace EPERM under container seccomp restrictions; host inspection confirmed no security options, extra capabilities, or privileged mode.

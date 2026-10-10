@@ -44,17 +44,19 @@ For pipelines, test duplicate/repeated execution, no-news input, partial failure
 
 Done means the contract is satisfied, evidence is recorded, applicable CI passed, the PR merged under the recorded authority, and any required rollout was verified. Before merge, report implementation as ready/in review, not completed delivery. An umbrella issue stays open until its child outcomes are satisfied. No separate human QA role is required. AI review can supplement deterministic checks; it cannot waive failed checks or missing authorization.
 
-CI currently remains a follow-up. Do not describe local checks as CI or merge around that gap. Production delivery must run from main after validation, never from PRs. Automated article PR merging needs explicit, separately specified conditions and must not grant the same authority to arbitrary code changes.
+The Validate workflow runs npm run check:ci for PRs to main and pushes to main. Confirm the exact PR head passed before merging. npm run check additionally verifies local container CLIs. Production delivery must run from main after validation, never from PRs. Automated article PR merging needs explicit, separately specified conditions and must not grant the same authority to arbitrary code changes.
 
 ## Daily publishing roadmap
 
 - #16: Initial setup umbrella; existing development environment and SDD foundation.
 - #17: This workflow and reusable templates.
 - #18: PR validation, deployment authentication, main-only Firebase delivery and protections.
-- #19: Read-only inventory of the existing Google Cloud collection process.
+- #19: Read-only inventory of the existing local collection scripts (the cloud assumption was corrected by the developer).
 - #20: Daily multilingual publishing requirements and architecture, informed by #19.
+- #22: Portable free-tier PR validation.
+- #23: Event-level quality design, sources and offline baseline.
 
-Cloud Run Jobs plus Cloud Scheduler is a candidate, not a confirmed implementation. Reuse the existing collection process where suitable. Confirm source ownership, code location, data contracts, schedules/timezones, languages, quality policy, duplicate handling, failure recovery, cost limits, credentials and publication authority before choosing infrastructure. Do not run or modify production resources during inventory. Keep sanitized architectural facts in docs/architecture.md and link deeper evidence from the inventory issue.
+Cloud Run Jobs plus Cloud Scheduler is a candidate, not a confirmed implementation. The existing collector runs locally; reuse its useful logic without importing credentials or debug/cache data. Confirm source ownership, code location, data contracts, schedules/timezones, languages, quality policy, duplicate handling, failure recovery, cost limits, credentials and publication authority before choosing infrastructure. Do not run or modify production resources during inventory. Keep sanitized architectural facts in docs/architecture.md and link deeper evidence from the inventory issue.
 
 ## References
 

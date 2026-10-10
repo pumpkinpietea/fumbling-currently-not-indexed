@@ -36,8 +36,9 @@ The intended release flow is:
 Feature branch -> Pull request -> Passing CI -> Merge into main -> Automatic publication
 ```
 
-CI/CD is not implemented yet. The planned pipeline will validate pull requests
-and automatically publish to Firebase Hosting from `main` after successful checks.
+The validation workflow checks pull requests targeting `main` and pushes to `main`
+using portable documentation/form checks and EN/JP builds. Automatic Firebase
+publication is not implemented yet and remains a separate follow-up.
 Pull requests will not publish to production. Deployment authentication and
 repository protection settings remain to be specified.
 
@@ -55,7 +56,8 @@ and checks the site build. Initial setup requires network access to distribution
 
 ```bash
 npm run dev    # Serve the preview on port 1313
-npm run check  # Verify CLIs and build the English and Japanese sites
+npm run check  # Verify container CLIs, documentation/forms, and EN/JP builds
+npm run check:ci  # Run portable tests, documentation/forms, and EN/JP builds
 npm run build  # Generate the production site in public/
 ```
 

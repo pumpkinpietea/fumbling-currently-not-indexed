@@ -86,3 +86,6 @@ Thumbs.db
 node_modules/
 npm-debug.log*
 yarn-error.log*
+# Temporary migration inputs may contain credentials and raw debug data
+/temp-script/
+/TEMP-script/

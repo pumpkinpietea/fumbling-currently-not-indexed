@@ -2,7 +2,7 @@
 
 Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/17
 Parent: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/16
-Status: In review (draft PR #21; CI pending in #18)
+Status: In review (PR #21; portable validation supplied by #22)
 
 ## Goal
 
@@ -31,4 +31,4 @@ Deliver documentation, templates, issue relationships and a reviewable PR. Do no
 
 ## Open questions
 
-Project access was granted and News Publishing was created. Cloud authentication was completed; the collection resource project still needs confirmation because Cloud Run and Scheduler APIs are disabled in blog-pumpkinpie. Publishing architecture, editorial criteria, source policy, language rollout and merge authority are not yet decided.
+Project access was granted and News Publishing was created. Cloud authentication was completed. The developer clarified that articles were generated locally; #19 inventories the temporary scripts and #23 specifies quality improvements. Publishing architecture, editorial criteria, source policy, language rollout and merge authority are not yet decided.
