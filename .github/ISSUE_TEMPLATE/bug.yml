@@ -1,0 +1,34 @@
+name: Bug report
+description: Define a reproducible failure and a verifiable correction.
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and context
+      description: Include minimal steps and sanitized evidence. Do not include credentials or identifying local paths.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Actual and expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria and regression check
+      description: Define the observable correction and how it will be verified.
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope, dependencies and execution authority
+      description: Record non-goals, related issues and merge/deployment limits. Confirm remaining assumptions before Ready.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Specification, PR and validation evidence

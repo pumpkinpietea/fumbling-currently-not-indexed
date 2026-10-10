@@ -10,14 +10,19 @@ Indonesian support and automated news collection and publication remain to be im
 
 ## Development approach and language policy
 
-The project is moving toward specification-driven development (SDD): define
+The project uses lightweight specification-driven development (SDD): define
 requirements and acceptance criteria, document the design and implementation tasks,
 then implement and validate against those specifications.
 
 All repository documentation, specifications, developer explanations, and code
 comments must be written in English. Public website content uses its intended
 language. Communication with the user remains in Japanese.
-See [AGENTS.md](AGENTS.md) for persistent project instructions and handoff notes.
+See [AGENTS.md](AGENTS.md) for persistent project instructions and handoff notes,
+[the development guide](docs/development.md) for the issue-to-PR workflow,
+[architecture and decisions](docs/architecture.md) for verified state and open questions,
+and [specification templates](specs/templates/) for feature planning.
+GitHub Issues are the task entry point; detailed specifications live in `specs/`.
+Codex and Claude Code share the same guide through `AGENTS.md` and `CLAUDE.md`.
 
 ## Branch and release workflow
 
@@ -81,6 +86,12 @@ The repository's `.codex/config.toml` specifies workspace-write sandboxing and
 AUTO approval review (`approvals_reviewer = "auto_review"`). Trust the project
 before using its configuration. Managed policies take precedence where applicable.
 `AGENTS.md` also instructs Codex to proceed autonomously by default.
+
+After the current rebuild, nested namespace creation is blocked by container
+security restrictions. The developer uses a session-level Full Access override;
+this does not change the repository configuration or remove Docker isolation.
+Mounted workspace files and persistent credential volumes remain accessible
+inside the container. Full Access does not itself authorize merge or deployment.
 
 ### Handoff across sessions
 

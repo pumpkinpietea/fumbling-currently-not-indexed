@@ -24,7 +24,7 @@
 
 - This application collects news and publishes it as a website.
 - This is a solo development project. Keep specifications and workflows lightweight while using feature branches and pull requests.
-- Evolve the project using specification-driven development (SDD).
+- Evolve the project using specification-driven development (SDD). Follow [docs/development.md](docs/development.md) for issue contracts, specifications, cross-repository tracking, autonomy boundaries, and completion evidence.
 - For each feature, document requirements and acceptance criteria, then the design and implementation tasks, before implementing it. Keep these artifacts in English and align implementation and validation with them.
 - Record confirmed decisions and unresolved product questions explicitly. Do not present assumptions or planned capabilities as implemented behavior.
 - Target public content languages: Japanese, English, and Indonesian.
@@ -59,7 +59,7 @@
 
 - `.devcontainer/post-create.sh` installs Codex CLI; `post-start.sh` updates it at container startup.
 - Retry installation or updating with `bash .devcontainer/update-codex.sh`.
-- `.codex/config.toml` specifies workspace-write sandboxing and automatic approval review.
+- `.codex/config.toml` specifies workspace-write sandboxing and automatic approval review. The developer currently uses a session-level Full Access override because container seccomp restrictions block nested namespace creation; the repository configuration is unchanged.
 - `~/.codex` is persisted in a Docker named volume for authentication, personal configuration, and session history.
 - Keep this `AGENTS.md` in the repository and commit updates so instructions survive rebuilds and are available in other clones.
 - Saved conversation history does not mean a new session automatically loads all previous conversations.
@@ -73,9 +73,10 @@
 
 ## Outstanding work
 
-- Specify and implement PR validation and automatic Firebase Hosting publication after merges into `main`.
-
-- Codex installation/updating and `npm run check` passed on 2026-10-10.
-- Validation after an actual Dev Container rebuild is pending: check Codex startup, retained authentication, and startup updates.
-- Establish the initial SDD requirements, design, and task breakdown for news collection, multilingual content generation, and publication. Sources, scheduling, editorial review, and failure handling still need specification.
-- Specify and implement Indonesian content support; the current site configuration and build checks cover English and Japanese only.
+- #16 tracks initial setup. #17 delivers the SDD foundation; see specs/17-sdd-workflow/.
+- #18: Specify and implement PR validation, deployment authentication, main-only Firebase Hosting publication, and available repository protections.
+- #19: Inventory the existing Google Cloud news collection process before selecting new infrastructure. gcloud authentication is available, but blog-pumpkinpie has Cloud Run and Scheduler APIs disabled; confirm the collection project before inventory.
+- #20: Specify daily multilingual generation and publishing, informed by #19. Sources, scheduling/timezone, editorial policy, failure handling, cost limits, Indonesian rollout, and automatic article merge authority remain open.
+- The private GitHub Project News Publishing tracks #16-#20.
+- Rebuilt-container validation passed on 2026-10-10: Codex 0.162.1 starts, ChatGPT authentication is retained, and npm run check builds EN/JP. Startup update configuration is present, but the original startup update log has not been verified.
+- Full Access executes commands successfully. workspace-write sandbox execution fails with namespace EPERM under container seccomp restrictions; host inspection confirmed no security options, extra capabilities, or privileged mode.
