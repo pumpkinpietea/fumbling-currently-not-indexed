@@ -25,7 +25,7 @@ async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date() }
   const report = { schemaVersion: 1, collectedAt: now().toISOString(), complete: true, feeds: [], records: [] };
   for (const id of input.feeds) {
     let parsed;
-    try { parsed = parseRss(await fetch(FEEDS[id].url), { allowFullMonthNames: FEEDS[id].fullMonthNames === true }); }
+    try { parsed = parseRss(await fetch(FEEDS[id].url), { allowFullMonthNames: FEEDS[id].fullMonthNames === true, includeDescription: FEEDS[id].includeDescription === true }); }
     catch (error) {
       const known = ['feed_timeout', 'feed_dns_rejected', 'feed_network_error',
         'feed_response_rejected', 'feed_size_limit', 'feed_request_rejected'];

@@ -109,3 +109,12 @@ test('a failure after text deltas never writes output', async t => {
   assert.equal(result.valid, false);
   assert.equal(fs.existsSync(f.outputFile), false);
 });
+test('failed remote rotation persistence prevents model discovery and inference', async t => {
+  const f = fixture(t);
+  const result = await f.run({ onCredentialsSaved: async saved => {
+    assert.equal(saved.refresh_token, 'fixture-new-refresh');throw new Error('private-store-unavailable');
+  } });
+  assert.equal(result.valid, false);assert.equal(f.calls.length, 1);
+  assert.equal(fs.existsSync(f.outputFile), false);
+  assert.equal(JSON.parse(fs.readFileSync(f.credentialFile)).refresh_token, 'fixture-new-refresh');
+});

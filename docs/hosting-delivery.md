@@ -1,6 +1,8 @@
 # Main-only Hosting delivery
 
-The Deploy Hosting workflow follows a successful Validate push run on main. It checks out that exact revision, repeats checks, builds and deploys to the existing blog-pumpkinpie Hosting site. PR validation has no production credentials. News scheduling and automated article approval are separate features.
+The Deploy Hosting workflow follows a successful Validate push or explicit workflow_dispatch run on main. It checks out that exact revision, repeats checks, builds and deploys to the existing blog-pumpkinpie Hosting site. PR validation has no production credentials. News scheduling and automated article approval are separate features.
+
+Live WIF delivery succeeded on 2026-10-10 from main d138fc4, run 38053800084. HOSTING_DEPLOY_ENABLED is true. Dedicated account/provider setup follows the constraints below.
 
 ## Configuration and trust
 
@@ -16,7 +18,7 @@ Review the actual provider condition, service account policy, project role bindi
 
 Set HOSTING_DEPLOY_ENABLED=false to stop newly evaluated deployment jobs. Cancel any already queued or running Deploy Hosting runs separately; changing a variable does not revoke their evaluated configuration. Cancellation cannot undo a release already finalizing. Runs are serialized without cancelling in-flight releases. Obsolete validated SHAs are skipped. A narrow race remains if main advances after the final check; the subsequent successful main run converges to the newest validated revision.
 
-For a transient failure, rerun the successful main Validate run; its completed event schedules delivery again. The deploy job still checks current main. Do not replay a PR run or deploy an obsolete revision. There is no automatic deployment retry loop. Use the Firebase console's Hosting release rollback for urgent recovery, then fix/revert through a validated PR. A failed build/authentication never starts a deployment; inspect Hosting release history for ambiguous deploy-command failures before retrying.
+For a transient failure, rerun the successful main Validate run or explicitly dispatch Validate on current main; its completed event schedules delivery again. The deploy job still checks current main. Do not replay a PR run or deploy an obsolete revision. There is no automatic deployment retry loop. Use the Firebase console's Hosting release rollback for urgent recovery, then fix/revert through a validated PR. A failed build/authentication never starts a deployment; inspect Hosting release history for ambiguous deploy-command failures before retrying.
 
 Hugo excludes drafts and future-dated articles. This workflow alone does not publish articles when their dates arrive: that requires scheduled validated builds or generated article PRs, specified under #20.
 

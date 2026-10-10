@@ -6,7 +6,7 @@ A news collection and website publishing application for
 The current implementation generates an English and Japanese static website using
 Hugo / PaperMod and publishes it to Firebase Hosting (`blog-pumpkinpie`).
 The target public content languages are Japanese, English, and Indonesian.
-Indonesian support and automated news collection and publication remain to be implemented.
+Indonesian support remains planned. Bounded automated EN/JP news collection and publication are implemented under #55; runtime activation and live generation verification are pending.
 
 ## Development approach and language policy
 
@@ -41,9 +41,9 @@ Feature branch -> Pull request -> Passing CI -> Merge into main -> Automatic pub
 
 The validation workflow checks pull requests targeting `main` and pushes to `main`
 using portable documentation/form checks and EN/JP builds. Firebase delivery is implemented behind a disabled-by-default activation variable;
-OIDC setup and live verification remain pending. See [Hosting delivery](docs/hosting-delivery.md).
+Dedicated OIDC setup and live main-only Hosting delivery were verified on 2026-10-10. See [Hosting delivery](docs/hosting-delivery.md).
 Pull requests will not publish to production. Deployment authentication and
-delivery details remain to be specified. Main requires a PR, a passing Validate
+delivery details are documented. Main requires a PR, a passing Validate
 check and an up-to-date branch, including for administrators. Separate reviewer
 approval is optional for solo development. Force pushes and deletion are prohibited.
 
@@ -87,11 +87,11 @@ and commit both `package.json` and `package-lock.json`.
 The base image, Features, Node.js patch version, gh, and gcloud may change on rebuild.
 
 The local [ChatGPT plan transport](docs/chatgpt-plan.md) supports bounded private inference
-from separately authorized app OAuth credentials. Browser sign-in is available; live
-consent and scheduled article generation remain pending. Codex credentials are never imported.
+from separately authorized app OAuth credentials. Browser sign-in and live model discovery succeeded; scheduled article generation remains pending. Codex credentials are never imported.
 
 The [daily start guide](docs/daily-start.md) records the confirmed 07:30 Jakarta
-clock, disabled activation, runtime choices and rollout prerequisites.
+clock, activation boundaries, runtime costs and rollout prerequisites. See the
+[automation guide](docs/daily-automation.md) for the implemented runtime and content-only PR flow.
 
 ## Codex
 
@@ -159,5 +159,5 @@ npm run deploy
 ```
 
 After a successful build, this publishes to Hosting in `blog-pumpkinpie`.
-Daily news collection, article generation, and automated publication are planned
-features to develop through SDD.
+Bounded daily RSS collection, article generation and protected publication are
+implemented under #55; runtime activation and live generation verification remain pending.

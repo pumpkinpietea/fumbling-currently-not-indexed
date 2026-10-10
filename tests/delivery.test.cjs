@@ -4,13 +4,13 @@ const fs = require('node:fs');
 const YAML = require('yaml');
 const workflow = YAML.parse(fs.readFileSync('.github/workflows/deploy.yml', 'utf8'));
 
-test('delivery accepts only successful same-repository main push validation', () => {
+test('delivery accepts only successful same-repository main push or explicit validation', () => {
   assert.deepEqual(workflow.on.workflow_run, {
     workflows: ['Validate'], types: ['completed'], branches: ['main'],
   });
   for (const guard of ["vars.HOSTING_DEPLOY_ENABLED == 'true'",
     "github.event.workflow_run.conclusion == 'success'",
-    "github.event.workflow_run.event == 'push'",
+    "(github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch')",
     "github.event.workflow_run.head_branch == 'main'",
     'github.event.workflow_run.head_repository.id == github.event.repository.id']) {
     assert.ok(workflow.jobs.deploy.if.includes(guard));

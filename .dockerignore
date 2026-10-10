@@ -1,0 +1,8 @@
+**
+!Dockerfile.news
+!package.json
+!package-lock.json
+!scripts/
+!scripts/**
+!config/
+!config/**
