@@ -87,8 +87,8 @@ and commit both `package.json` and `package-lock.json`.
 The base image, Features, Node.js patch version, gh, and gcloud may change on rebuild.
 
 The local [ChatGPT plan transport](docs/chatgpt-plan.md) supports bounded private inference
-from separately authorized app OAuth credentials. First-time sign-in and scheduled
-article generation remain pending; Codex credentials are never imported.
+from separately authorized app OAuth credentials. Browser sign-in is available; live
+consent and scheduled article generation remain pending. Codex credentials are never imported.
 
 ## Codex
 

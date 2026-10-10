@@ -15,11 +15,16 @@
   },
   "remoteUser": "vscode",
   "forwardPorts": [
-    1313
+    1313,
+    1456
   ],
   "portsAttributes": {
     "1313": {
       "label": "Hugo preview",
+      "onAutoForward": "notify"
+    },
+    "1456": {
+      "label": "ChatGPT app sign-in (loopback)",
       "onAutoForward": "notify"
     }
   },
