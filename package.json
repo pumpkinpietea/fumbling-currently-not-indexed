@@ -15,10 +15,12 @@
     "check:ci": "npm test && npm run check:docs && npm run check:site",
     "check:edition": "node scripts/check-edition.cjs",
     "render:edition": "node scripts/render-edition.cjs",
-    "select:sources": "node scripts/select-sources.cjs"
+    "select:sources": "node scripts/select-sources.cjs",
+    "collect:feeds": "node scripts/collect-feeds.cjs"
   },
   "devDependencies": {
     "firebase-tools": "15.33.0",
+    "saxes": "6.0.0",
     "yaml": "2.9.1"
   }
 }
