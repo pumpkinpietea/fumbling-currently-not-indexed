@@ -133,7 +133,7 @@ function validateEdition(input) {
   return { valid: errors.length === 0, errors };
 }
 
-function readCandidate(file) {
+function readJsonFile(file) {
   let descriptor;
   try {
     descriptor = fs.openSync(file, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | fs.constants.O_NONBLOCK);
@@ -143,12 +143,17 @@ function readCandidate(file) {
     let size = 0, count;
     while (size < buffer.length && (count = fs.readSync(descriptor, buffer, size, buffer.length - size, null)) > 0) size += count;
     if (size > MAX_BYTES) throw new Error();
-    return validateEdition(JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(buffer.subarray(0, size))));
+    return { value: JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(buffer.subarray(0, size))) };
   } catch {
     return { valid: false, errors: [{ path: '$', code: 'unreadable_or_invalid_json' }] };
   } finally {
     if (descriptor !== undefined) fs.closeSync(descriptor);
   }
+}
+
+function readCandidate(file) {
+  const result = readJsonFile(file);
+  return Object.hasOwn(result, 'value') ? validateEdition(result.value) : result;
 }
 
 if (require.main === module) {
@@ -157,4 +162,4 @@ if (require.main === module) {
   console.log(JSON.stringify(result));
   process.exitCode = process.argv.length !== 3 ? 2 : result.valid ? 0 : 1;
 }
-module.exports = { validateEdition, readCandidate, MAX_BYTES };
+module.exports = { validateEdition, readCandidate, readJsonFile, MAX_BYTES };
