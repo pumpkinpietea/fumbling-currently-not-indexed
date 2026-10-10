@@ -36,7 +36,7 @@
 
 ## Branches, pull requests, and publication
 
-- Create a separate branch for changes; do not commit directly to `main`.
+- Create a separate branch for changes using the issue number, such as `setup/16-initial-setup` or `feat/<issue-number>-<description>`; do not commit directly to `main`.
 - Submit changes through a pull request targeting `main`, even for solo development. Keep PR descriptions and commit messages in English.
 - Apply the pre-commit privacy gate before committing, and review the outgoing diff before pushing or opening a PR.
 - Validate changes in CI before merging. Do not bypass failing required checks.
