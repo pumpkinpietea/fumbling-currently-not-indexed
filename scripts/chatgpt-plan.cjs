@@ -46,20 +46,32 @@ async function boundedText(response, limit) {
   return Buffer.concat(chunks).toString('utf8');
 }
 async function completedText(response) {
-  if (!response.ok || !response.body || !response.headers.get('content-type')?.startsWith('text/event-stream'))
+  const contentType = response.headers.get('content-type');
+  if (!response.ok || !response.body || (contentType !== null && !contentType.toLowerCase().startsWith('text/event-stream')))
     fail('inference_response_rejected');
   const decoder = new TextDecoder('utf-8', { fatal: true });
   let pending = '', size = 0, result = null;
+  const completedItems = new Map();
   function frame(raw) {
     const data = raw.split('\n').filter(line => line.startsWith('data:')).map(line => line.slice(5).trimStart()).join('\n');
     if (!data || data === '[DONE]') return;
     let event;
     try { event = JSON.parse(data); } catch { fail('malformed_stream'); }
     if (['response.failed', 'response.incomplete', 'error'].includes(event.type)) fail('inference_failed');
+    if (event.type === 'response.output_item.done') {
+      if (result !== null || !Number.isInteger(event.output_index) || event.output_index < 0 || event.output_index >= 64 ||
+          completedItems.has(event.output_index) || !event.item) fail('unsupported_model_output');
+      completedItems.set(event.output_index, event.item);return;
+    }
     if (event.type !== 'response.completed') return;
     if (result !== null || event.response?.status !== 'completed' || !Array.isArray(event.response.output))
       fail('incomplete_inference');
-    const output = event.response.output;
+    let output = event.response.output;
+    if (!output.length && completedItems.size) {
+      const indices = [...completedItems.keys()].sort((a, b) => a - b);
+      if (indices.some((value, index) => value !== index)) fail('unsupported_model_output');
+      output = indices.map(index => completedItems.get(index));
+    }
     const messages = output.filter(item => item.type === 'message');
     if (!messages.length || output.some(item => !['message', 'reasoning'].includes(item.type)) ||
         messages.some(item => item.role !== 'assistant' || item.status !== 'completed' || !Array.isArray(item.content) ||
@@ -115,7 +127,7 @@ async function runPlan(request, credentialFile, outputFile, { fetch = global.fet
     privateWrite(credentialFile, saved, true);
     await onCredentialsSaved(saved);
     const headers = { authorization: `Bearer ${saved.access_token}` };
-    const models = JSON.parse(await boundedText(await send(`${API}/models`, { headers }), 262144));
+    const models = JSON.parse(await boundedText(await send(`${API}/models`, { headers }), 1048576));
     if (!Array.isArray(models.models) || !models.models.some(model => model.visibility === 'list' && model.slug === request.model))
       fail('model_unavailable');
     const text = await completedText(await send(`${API}/responses`, { method: 'POST',

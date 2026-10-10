@@ -18,5 +18,7 @@
 - Private rehearsals retain validated generated content under evidence/trial-bundle-DATE.json for operator inspection, outside the publication bundle prefix. Local 109 tests and EN/JP builds pass.
 - Dedicated WIF purpose mappings replace the shared repository-only impersonation grants; provider repository/ref/workflow conditions remain enforced.
 
-- PR #59 main 9cf3793 passed Validate 38056669529, build 38056672408 and Hosting delivery 38056691945. Cloud Run and NEWS_RUNTIME_REVISION were updated to that revision. Private generation execution daily-news-gjbj6 is in progress; inspect retained output before activation.
-- Manual draft-only bot delivery rehearsal is implemented; 110 tests and EN/JP builds pass locally. Production flags remain false until generation and live delivery verification.
+- PR #59 main 9cf3793 passed Validate 38056669529, build 38056672408 and Hosting delivery 38056691945. Cloud Run and NEWS_RUNTIME_REVISION were updated to that revision. Private generation execution daily-news-gjbj6 failed before inference because the model catalog exceeded the original 256 KiB cap. Its global lock was released. Operator diagnosis verified refresh/model access, successful inference and persisted token rotation; strict stream parsing needed compatibility fixes for absent Content-Type and empty terminal output bodies.
+- Manual draft-only bot delivery rehearsal is implemented; 113 tests and EN/JP builds pass locally. Production flags remain false until generation and live delivery verification.
+
+- The saved live SSE response now parses successfully without a new inference call; its result is events=[] because the supplied forum events were already reported. This verifies transport completion, not a two-call reviewed publication bundle.

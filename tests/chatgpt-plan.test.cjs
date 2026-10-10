@@ -118,3 +118,37 @@ test('failed remote rotation persistence prevents model discovery and inference'
   assert.equal(fs.existsSync(f.outputFile), false);
   assert.equal(JSON.parse(fs.readFileSync(f.credentialFile)).refresh_token, 'fixture-new-refresh');
 });
+
+test('large live catalogs are accepted within one MiB and oversized catalogs fail before inference', async t => {
+  for (const size of [300000, 1048577]) {
+    const f = fixture(t);let inference = 0;
+    const result = await f.run({ fetch: async (url, options) => {
+      if (url.endsWith('/models')) return Response.json({ models: [{ slug: request.model, visibility: 'list' }], metadata: 'x'.repeat(size) });
+      if (url.endsWith('/responses')) inference++;
+      return f.fetch(url, options);
+    } });
+    assert.equal(result.valid, size === 300000);
+    assert.equal(inference, size === 300000 ? 1 : 0);
+    if (!result.valid) assert.equal(result.errors[0].code, 'response_size_limit');
+  }
+});
+
+test('missing stream header still requires strict completed SSE; explicit non-SSE types are rejected', async () => {
+  const bytes = new TextEncoder().encode(`data: ${JSON.stringify(terminal)}\n\n`);
+  const body = () => new ReadableStream({ start(controller) { controller.enqueue(bytes);controller.close(); } });
+  assert.equal(await completedText(new Response(body())), 'Fixture result.');
+  await assert.rejects(completedText(new Response(body(), { headers: { 'content-type': 'application/json' } })), /inference_response_rejected/);
+  const invalid = new ReadableStream({ start(controller) { controller.enqueue(new TextEncoder().encode('{"status":"completed"}'));controller.close(); } });
+  await assert.rejects(completedText(new Response(invalid)), /incomplete_inference/);
+});
+
+test('completed item streams require terminal completion and reject gaps, duplicates and unfinished messages', async () => {
+  const done = { type: 'response.output_item.done', output_index: 0, item: terminal.response.output[0] };
+  const end = { type: 'response.completed', response: { status: 'completed', output: [] } };
+  const response = events => new Response(events.map(e => `data: ${JSON.stringify(e)}\n\n`).join(''),
+    { headers: { 'content-type': 'text/event-stream' } });
+  assert.equal(await completedText(response([done, end])), 'Fixture result.');
+  for (const events of [[done], [end], [done, done, end], [{ ...done, output_index: 1 }, end],
+    [{ ...done, item: { ...done.item, status: 'in_progress' } }, end],
+    [done, { type: 'response.failed' }]]) await assert.rejects(completedText(response(events)));
+});
