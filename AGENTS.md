@@ -37,6 +37,7 @@
 - For each feature, document requirements and acceptance criteria, then the design and implementation tasks, before implementing it. Keep these artifacts in English and align implementation and validation with them.
 - Record confirmed decisions and unresolved product questions explicitly. Do not present assumptions or planned capabilities as implemented behavior.
 - Target public content languages: Japanese, English, and Indonesian.
+- The developer prefers concise factual news summaries without routine per-item interpretive disclaimers or closing source-coverage commentary. Preserve attribution and dates; do not invent cross-source comparisons. Article source links should open in a new tab.
 - Prioritize news accuracy, event-level deduplication, freshness, traceable sources, and consistent facts across languages. Evaluate source selection and quality against saved examples while minimizing model and infrastructure costs.
 - Treat temp-script/ (including TEMP-script/ on case-insensitive hosts) as read-only migration input. Do not stage, commit, push, or execute it without explicit authorization; it contains credential-like values and raw debug/cache data.
 - Current implementation: Hugo / PaperMod static website with English and Japanese configured. Indonesian support and the automated news collection and publishing pipeline remain to be specified and implemented.
