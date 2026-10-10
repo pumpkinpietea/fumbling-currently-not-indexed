@@ -36,8 +36,12 @@ The developer also requested Chinese sources, Middle Eastern sources including A
 
 See [source candidates and access findings](source-candidates.md). Candidate inclusion is not activation or permission to retrieve/reuse publisher content.
 
-## Proposed defaults, not approved decisions
+## Confirmed production timing
 
-Use Actions initially if approximate daily timing is acceptable. Proposed schedule: 07:15 Asia/Jakarta, covering the previous local calendar day. Proposed limit: at most 10 accepted events, fewer when evidence is insufficient. Start with EN/JP, then add Indonesian after coverage tests. Prefer supported low-cost text models selected through offline/live evaluation rather than reusing the retired historical model.
+On 2026-10-10 the developer requested today's article publication and daily production starting 2026-10-11 at 07:30 Asia/Jakarta (00:30 UTC, 09:30 Asia/Tokyo). Use the previous Jakarta calendar day as the proposed collection window; initial publication is a separately reviewed bootstrap edition. Deployment authentication and unattended generation must be verified before claiming the schedule is active. See [production start](../47-production-start/spec.md).
 
-Topic priorities, schedule/window, enabled languages, model/free-tier data handling, budget ceiling and automated article merge authority require a developer decision. Questions were sent; absent answers remain proposals. No billable resource, live model call, production deployment, donation account or social posting is authorized by this document.
+## Remaining proposed defaults
+
+Use Actions initially if approximate daily timing is acceptable. Proposed limit: at most 10 accepted events, fewer when evidence is insufficient. Start with EN/JP, then add Indonesian after coverage tests. Prefer supported low-cost text models selected through offline/live evaluation rather than reusing the retired historical model.
+
+Collection window, enabled languages, model/free-tier data handling and automated article merge conditions require decisions. Total GCP costs are authorized up to USD 10/month including existing resources; separate AI/API spending is not authorized. Questions were sent; absent answers remain proposals. No billable resource, live model call, production deployment, donation account or social posting is authorized by this document.
