@@ -88,3 +88,13 @@ test('inactive scheduled execution fails before any collection or state mutation
   const h = harness();try { await assert.rejects(produce({ ...h.options, replayDate: undefined, trial: false, config: { ...settings, enabled: false } }), /publication_not_active/);assert.equal(h.calls(), 0); }
   finally { h.cleanup(); }
 });
+test('metadata-only trial cannot read app credentials or invoke AI even with eligible evidence', async () => {
+  const h = harness();const read = h.options.state.read;
+  h.options.state.read = async name => { assert.notEqual(name, 'auth/session.json');return read(name); };
+  h.options.infer = async () => assert.fail('metadata trial must never invoke AI');
+  try {
+    const result = await produce({ ...h.options, metadataOnly: true });
+    assert.equal(result.status, 'metadata_trial_passed');assert.equal(result.sources, 1);assert.equal(result.modelCalls, 0);
+    assert.ok(!h.objects.has('bundles/2026-10-11.json'));
+  } finally { h.cleanup(); }
+});

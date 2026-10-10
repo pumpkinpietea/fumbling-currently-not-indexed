@@ -68,7 +68,7 @@ function validateBundle(bundle, date) {
   const clock = editionClock(new Date(`${date}T00:30:00Z`), { replayDate: date });
   for (const source of bundle.sources) {
     const u = new URL(source.url);
-    if (source.publisher !== 'ANTARA' || source.evidenceType !== 'official_rss_excerpt' || u.protocol !== 'https:' || u.hostname !== 'www.antaranews.com' ||
+    if (source.publisher !== 'ANTARA' || source.evidenceType !== 'official_rss_excerpt' || u.protocol !== 'https:' || u.hostname !== 'www.antaranews.com' || u.username || u.password || u.port ||
         !/^\/berita\/\d+\/[a-z0-9-]+$/.test(u.pathname) || u.search || u.hash ||
         source.id !== hash(source.url).slice(0, 16) || typeof source.excerpt !== 'string' || source.excerpt.length > 2200 ||
         source.excerptHash !== hash(source.excerpt) || !Number.isFinite(Date.parse(source.publishedAt)) ||
@@ -91,9 +91,9 @@ function shortlist(records, accepted, priorUrls) {
   return result;
 }
 async function produce({ instant = new Date(), replayDate, trial = false, state, credentialFile,
-  workDirectory, model, revision, config = settings, collect = collectFeeds, body = extractRssEvidence, infer = runPlan } = {}) {
+  workDirectory, model, revision, metadataOnly = false, config = settings, collect = collectFeeds, body = extractRssEvidence, infer = runPlan } = {}) {
   const clock = editionClock(instant, { replayDate, config });
-  if (!clock.valid || (!trial && (!clock.enabled || clock.replay))) throw new Error('publication_not_active');
+  if ((metadataOnly && !trial) || !clock.valid || (!trial && (!clock.enabled || clock.replay))) throw new Error('publication_not_active');
   if (!/^[a-f0-9]{40}$/.test(revision) || !model) throw new Error('runtime_configuration_required');
   const date = clock.editionDate;
   await state.write(`locks/${trial ? 'trial-' : ''}${date}.json`, { revision, startedAt: instant.toISOString() });
@@ -109,6 +109,10 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   const selected = shortlist(collected.report.records, collected.report.selection.accepted, priorUrls);
   const sources = [];
   for (const record of selected) sources.push(await body(record));
+  if (metadataOnly) {
+    await state.write(`runs/trial-${date}.json`, { status: 'metadata_verified', sourceUrls: [], feedHealth: collected.report.feeds });
+    return { status: 'metadata_trial_passed', editionDate: date, sources: sources.length, modelCalls: 0 };
+  }
   if (!sources.length) {
     await state.write(`runs/${trial ? 'trial-' : ''}${date}.json`, { status: 'no_news', sourceUrls: [] });
     return { status: 'no_news', editionDate: date };
@@ -159,13 +163,16 @@ if (require.main === module) {
   const args = process.argv.slice(2);
   (async () => {
     const nextDayTrial = args.length === 1 && args[0] === '--trial-next-day';
-    if (args.length && !nextDayTrial && (args.length !== 2 || args[0] !== '--trial-date')) throw new Error('invalid_runtime_arguments');
+    const metadataOnly = args.length === 1 && args[0] === '--metadata-trial';
+    if (args.length && !nextDayTrial && !metadataOnly && (args.length !== 2 || args[0] !== '--trial-date')) throw new Error('invalid_runtime_arguments');
     const state = cloudState(await cloudToken());
     const lease = await state.write('locks/runtime.json', { owner: crypto.randomUUID(), startedAt: new Date().toISOString() });
     try { return await produce({ state, credentialFile: path.join(work, 'session.json'), workDirectory: work,
       model: process.env.NEWS_MODEL, revision: process.env.NEWS_REVISION,
       instant: nextDayTrial ? new Date(Date.now() + 86400000) : new Date(),
-      trial: args.length > 0, replayDate: args.length === 2 ? args[1] : undefined });
+      trial: args.length > 0, metadataOnly,
+      replayDate: metadataOnly ? new Date(Date.now() + 7 * 3600000).toISOString().slice(0, 10) :
+        args.length === 2 ? args[1] : undefined });
     } finally { await state.remove('locks/runtime.json', lease); }
   })().then(result => console.log(JSON.stringify(result))).catch(() => {
     console.log(JSON.stringify({ status: 'failed', code: 'daily_run_failed' }));process.exitCode = 1;
