@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "enabled": false,
+  "timezone": "Asia/Jakarta",
+  "publishTime": "07:30",
+  "firstEditionDate": "2026-10-11",
+  "languages": ["en", "jp"],
+  "limits": {
+    "maxEvents": 5,
+    "maxModelCalls": 2,
+    "maxRunSeconds": 600,
+    "maxRetries": 0,
+    "maxConcurrentRuns": 1
+  }
+}

@@ -90,6 +90,9 @@ The local [ChatGPT plan transport](docs/chatgpt-plan.md) supports bounded privat
 from separately authorized app OAuth credentials. Browser sign-in is available; live
 consent and scheduled article generation remain pending. Codex credentials are never imported.
 
+The [daily start guide](docs/daily-start.md) records the confirmed 07:30 Jakarta
+clock, disabled activation, runtime choices and rollout prerequisites.
+
 ## Codex
 
 Container creation installs `@openai/codex@latest`. The startup
