@@ -31,7 +31,7 @@
 
 ## Product and development direction
 
-- This application collects news and publishes it as a website.
+- This application collects news and publishes it as a website. The developer describes it as a personal memo site; the existing production site is public. Prefer short original factual notes and source-linked comparisons. Personal operation does not automatically establish publisher permission for automated access, model input or republication.
 - This is a solo development project. Keep specifications and workflows lightweight while using feature branches and pull requests.
 - Evolve the project using specification-driven development (SDD). Follow [docs/development.md](docs/development.md) for issue contracts, specifications, cross-repository tracking, autonomy boundaries, and completion evidence.
 - For each feature, document requirements and acceptance criteria, then the design and implementation tasks, before implementing it. Keep these artifacts in English and align implementation and validation with them.

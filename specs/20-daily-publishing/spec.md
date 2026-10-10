@@ -24,6 +24,10 @@ Specify execution, contracts, costs, failure recovery and staged rollout. Reuse 
 - AC-9: Offline regression scenarios, a bounded manual live evaluation and a draft-only trial precede unattended activation. Factual/source evaluation is distinct from structural CI.
 - AC-10: Operator can disable scheduling/merge/deployment independently, replay an edition without new model calls when validated inputs exist, and trace the deployed Git revision. Failure reporting contains no credentials or personal identifiers.
 
+## Site purpose
+
+The developer describes the site as a personal memo site. It remains publicly accessible at its existing production URL; this is not a request to make it private or to republish source articles. Prefer short original factual notes and attributed comparisons with source links. Personal operation does not by itself establish permission under each publisher's personal-use terms. Assess access, model input and public output separately; do not treat all factual reference as prohibited.
+
 ## Confirmed editorial scope
 
 On 2026-10-10 the developer selected Southeast Asia IT and e-commerce news. The earlier Indonesia general-news focus is superseded. Include technology products/infrastructure, regional digital businesses and online commerce when there is a concrete Southeast Asia connection. General politics, unrelated global technology and routine shopping promotions are outside the initial scope. Country quotas and source adoption remain undecided; do not infer regional coverage from the existing two Indonesian trial feeds.
