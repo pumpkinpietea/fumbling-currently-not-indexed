@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
-const { inspectStaged } = require('../scripts/publish-news-bundle.cjs');
+const { inspectStaged, rehearsalFiles } = require('../scripts/publish-news-bundle.cjs');
 const YAML = require('yaml');
 test('publication privacy gate inspects only two new staged articles with pseudonymous identities', () => {
   const cwd = process.cwd(), directory = fs.mkdtempSync(path.join(os.tmpdir(), 'publication-gate-'));
@@ -38,4 +38,30 @@ test('consumer is main-only, serialized, explicitly validates and keeps private 
   assert.equal(YAML.parse(fs.readFileSync('.github/workflows/validate.yml', 'utf8')).on.workflow_dispatch, null);
   const ignore = fs.readFileSync('.dockerignore', 'utf8');assert.ok(ignore.startsWith('**\n'));
   assert.ok(!ignore.includes('!.git') && !ignore.includes('!content') && !ignore.includes('!temp-script'));
+});
+
+test('manual rehearsal reconstructs two isolated drafts from reviewed evidence and rejects tampering', () => {
+  const { extractRssEvidence } = require('../scripts/news-evidence.cjs');
+  const { renderEdition } = require('../scripts/daily-news.cjs');
+  const date = '2026-10-11';
+  const source = extractRssEvidence({ url: 'https://www.antaranews.com/berita/1234567/digital-services',
+    title: 'Indonesia announces digital services plans', publishedAt: '2026-10-10T04:00:00Z',
+    description: 'The ministry announced plans for digital services in Indonesia.' });
+  const event = { sourceIds: [source.id], quotes: [{ sourceId: source.id, text: source.excerpt.slice(-62) }],
+    en: { title: 'Indonesia digital services plans', summary: 'The ministry announced digital services plans in Indonesia.' },
+    jp: { title: 'インドネシアのデジタルサービス計画', summary: '同省はインドネシアのデジタルサービス計画を発表しました。' } };
+  const bundle = { schemaVersion: 1, editionDate: date, revision: 'a'.repeat(40), sources: [source],
+    events: [event], review: { approved: true, checkedIds: [source.id] }, files: renderEdition(date, [event], [source]) };
+  const files = rehearsalFiles(bundle, date);
+  assert.deepEqual(Object.keys(files), ['content/en/article/2026-10-11-southeast-asia-tech-rehearsal.md',
+    'content/jp/article/2026-10-11-southeast-asia-tech-rehearsal.md']);
+  for (const content of Object.values(files)) {
+    const frontmatter = YAML.parse(content.split('---')[1]);
+    assert.equal(frontmatter.draft, true);
+    assert.equal(frontmatter.slug, 'southeast-asia-tech-2026-10-11-rehearsal');
+    assert.equal(frontmatter.translationKey, frontmatter.slug);
+  }
+  assert.ok(Object.values(bundle.files).every(content => content.includes('draft: false')));
+  bundle.review.approved = false;
+  assert.throws(() => rehearsalFiles(bundle, date));
 });

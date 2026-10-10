@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '45 0 * * *'
   workflow_dispatch:
+    inputs:
+      rehearsal_date:
+        description: 'Operator-prepared private rehearsal date; creates draft-only articles'
+        type: string
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -14,7 +20,7 @@ concurrency:
 
 jobs:
   publish:
-    if: vars.NEWS_PUBLISH_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && (vars.NEWS_PUBLISH_ENABLED == 'true' || (github.event_name == 'workflow_dispatch' && inputs.rehearsal_date != ''))
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
@@ -43,5 +49,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GOOGLE_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
           NEWS_PUBLISH_ENABLED: ${{ vars.NEWS_PUBLISH_ENABLED }}
+          NEWS_REHEARSAL_DATE: ${{ inputs.rehearsal_date }}
           NEWS_RUNTIME_REVISION: ${{ vars.NEWS_RUNTIME_REVISION }}
         run: node scripts/publish-news-bundle.cjs

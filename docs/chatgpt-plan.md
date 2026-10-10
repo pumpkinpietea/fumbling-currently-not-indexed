@@ -24,7 +24,7 @@ These are illustrative paths; provision actual protected directories outside Git
 }
 ```
 
-The model must be visible in the current account's live model catalog. Instructions and input together are limited to 16 KiB. One invocation performs one token refresh, one model-list request and at most one Responses request, with a 120-second network deadline, 1 MiB stream cap and 256 KiB output cap. The preview does not support max_output_tokens; time/stream bounds limit local consumption but cannot guarantee a provider-side token cap after cancellation.
+The model must be visible in the current account's live model catalog. Instructions and input together are limited to 16 KiB. One invocation performs one token refresh, one model-list request (1 MiB cap) and at most one Responses request, with a 120-second network deadline, 1 MiB stream cap and 256 KiB output cap. The preview does not support max_output_tokens; time/stream bounds limit local consumption but cannot guarantee a provider-side token cap after cancellation.
 
 Successful output contains schemaVersion, model and text, created privately without overwriting. Text remains untrusted preparation data: no factual validation, evidence rendering or publication gate is applied by this command. Failed, incomplete and interrupted streams leave no output. CLI diagnostics contain local codes only.
 
@@ -53,3 +53,7 @@ Official references:
 - [Models and inference](https://developers.openai.com/siwc/token-sharing-open-source/models-and-inference)
 - [Preview limitations](https://developers.openai.com/siwc/token-sharing-open-source/preview-limitations)
 - [Self-hosted VMs](https://developers.openai.com/siwc/token-sharing-open-source/self-hosted-vms)
+
+A missing Content-Type header is accepted only if the bounded body parses as SSE and contains a valid completed terminal event. Explicit non-SSE media types, plain JSON, incomplete streams and failed events remain rejected.
+
+When the completed terminal event omits output bodies, the parser uses unique indexed response.output_item.done messages only after terminal completion. Text deltas alone can never produce an output file.

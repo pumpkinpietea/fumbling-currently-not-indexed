@@ -41,4 +41,4 @@ if (require.main === module) {
       { valid: false, errors: [{ code: 'usage_optional_date_required' }] };
   console.log(JSON.stringify(result)); process.exitCode = result.valid ? 0 : 1;
 }
-module.exports = { editionClock };
+module.exports = { editionClock, calendarDate };
