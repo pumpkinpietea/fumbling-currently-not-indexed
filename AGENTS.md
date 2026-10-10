@@ -85,12 +85,12 @@
 
 ## Outstanding work
 
-- #16 tracks initial setup. #17 delivers the SDD foundation in draft PR #21; see specs/17-sdd-workflow/. Local builds, form structure, and documentation links passed. #22 adds CI to the same PR; verify the exact head before merge. The developer authorizes PR merging after checks pass; do not bypass existing review requirements.
+- #16 tracks initial setup. PR #21 delivers #17 (SDD foundation) and #22 (validation); see their specs. CI passed on the implementation head; verify the exact latest head before merge. The developer authorizes merging after required checks pass and approved the solo-development protection policy on 2026-10-10. Do not bypass protections.
 - #18: Specify and implement PR validation, deployment authentication, main-only Firebase Hosting publication, and available repository protections.
 - #19: The developer confirmed the existing collector runs locally. Temporary script inventory and its limitations are summarized in specs/23-news-quality/. No cloud collector migration is assumed.
 - #20: Specify daily multilingual generation and publishing, informed by #19. Sources, scheduling/timezone, editorial policy, failure handling, cost limits, Indonesian rollout, and automatic article merge authority remain open.
 - #22: Free-tier PR validation; #23: Event-level quality design and offline baseline. See their specs for validation and open product decisions.
 - The private GitHub Project News Publishing tracks the setup and publishing issues.
-- GitHub inspection: public repository, Actions enabled, default workflow token read-only; main requires one approving review and code-owner review, has no required status checks, and does not enforce rules for admins. Any solo-compatible protection change requires explicit approval; never use admin bypass to avoid the review requirement.
+- GitHub protection verified on 2026-10-10: main requires a PR, an up-to-date branch and the successful GitHub Actions Validate check. Required approving reviews are zero and code-owner review is disabled for solo development. Rules apply to administrators; force pushes and branch deletion remain prohibited. Repository is public, Actions enabled, and default workflow token permissions are read-only.
 - Rebuilt-container validation passed on 2026-10-10: Codex 0.162.1 starts, ChatGPT authentication is retained, and npm run check builds EN/JP. Startup update configuration is present, but the original startup update log has not been verified.
 - Full Access executes commands successfully. workspace-write sandbox execution fails with namespace EPERM under container seccomp restrictions; host inspection confirmed no security options, extra capabilities, or privileged mode.

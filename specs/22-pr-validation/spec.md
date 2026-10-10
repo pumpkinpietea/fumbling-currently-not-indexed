@@ -18,8 +18,8 @@ Make the SDD foundation verifiable in CI before merging PR #21. Use GitHub Free 
 
 ## Decisions and authority
 
-Separate portable site/document checks from local CLI smoke checks. Keep npm run check as the container smoke entry point. The developer authorizes PR merging after validation. GitHub settings inspection is authorized; changing protection rules requires a concrete proposal and approval.
+Separate portable site/document checks from local CLI smoke checks. Keep npm run check as the container smoke entry point. The developer authorizes PR merging after validation. The developer approved the concrete protection proposal on 2026-10-10. Main now requires PRs, the successful GitHub Actions Validate check and an up-to-date branch. Required approvals are zero; code-owner review is disabled. Rules apply to administrators, and force pushes/deletion are prohibited.
 
 ## Open questions
 
-Main currently requires one approving review and code-owner review, has no required CI check, and does not enforce rules for admins. A solo-compatible protection proposal must be resolved before a compliant merge. Firebase delivery remains #18.
+Firebase delivery remains #18. Verify required checks on the exact latest head before merging.

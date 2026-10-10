@@ -40,7 +40,9 @@ The validation workflow checks pull requests targeting `main` and pushes to `mai
 using portable documentation/form checks and EN/JP builds. Automatic Firebase
 publication is not implemented yet and remains a separate follow-up.
 Pull requests will not publish to production. Deployment authentication and
-repository protection settings remain to be specified.
+delivery details remain to be specified. Main requires a PR, a passing Validate
+check and an up-to-date branch, including for administrators. Separate reviewer
+approval is optional for solo development. Force pushes and deletion are prohibited.
 
 ## Dev Container
 
