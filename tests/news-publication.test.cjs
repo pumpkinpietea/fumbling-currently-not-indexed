@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
-const { inspectStaged, rehearsalFiles } = require('../scripts/publish-news-bundle.cjs');
+const { inspectStaged, rehearsalFiles, validatePr } = require('../scripts/publish-news-bundle.cjs');
 const YAML = require('yaml');
 test('publication privacy gate inspects only two new staged articles with pseudonymous identities', () => {
   const cwd = process.cwd(), directory = fs.mkdtempSync(path.join(os.tmpdir(), 'publication-gate-'));
@@ -64,4 +64,26 @@ test('manual rehearsal reconstructs two isolated drafts from reviewed evidence a
   assert.ok(Object.values(bundle.files).every(content => content.includes('draft: false')));
   bundle.review.approved = false;
   assert.throws(() => rehearsalFiles(bundle, date));
+});
+
+test('PR validation approves only associated exact-head CI after scope verification and requires success', async () => {
+  const sha = 'a'.repeat(40), ref = 'news/2026-10-11';
+  const run = { id: 101, event: 'pull_request', head_sha: sha, head_branch: ref,
+    path: '.github/workflows/validate.yml', pull_requests: [{ number: 7 }], status: 'completed',
+    conclusion: 'action_required', html_url: 'https://github.com/synthetic/validation' };
+  let polls = 0, scope = 0;const approvals = [];
+  const result = await validatePr(ref, sha, 7, async () => { scope++; }, { delay: async () => {},
+    api: async (endpoint, method) => {
+      if (method === 'POST') { assert.equal(scope, 1);approvals.push(endpoint);return null; }
+      polls++;
+      const unrelated = [{ ...run, id: 201, head_sha: 'b'.repeat(40) },
+        { ...run, id: 202, pull_requests: [{ number: 8 }] }, { ...run, id: 203, event: 'workflow_dispatch' }];
+      return { workflow_runs: polls === 1 ? unrelated : [...unrelated, { ...run, conclusion: polls >= 4 ? 'success' : 'action_required' }] };
+    } });
+  assert.equal(result, run.html_url);assert.deepEqual(approvals, ['actions/runs/101/approve']);assert.equal(scope, 1);
+  await assert.rejects(validatePr(ref, sha, 7, async () => { throw new Error('scope_changed'); }, {
+    delay: async () => {}, api: async (_endpoint, method) => { assert.notEqual(method, 'POST');return { workflow_runs: [run] }; }
+  }), /scope_changed/);
+  await assert.rejects(validatePr(ref, sha, 7, async () => {}, { delay: async () => {},
+    api: async () => ({ workflow_runs: [{ ...run, conclusion: 'failure' }] }) }), /validation_failed/);
 });
