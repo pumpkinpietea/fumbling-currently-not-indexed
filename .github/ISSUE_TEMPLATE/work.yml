@@ -1,0 +1,54 @@
+name: Work item
+description: Define a scoped feature, design, infrastructure or documentation outcome.
+title: ""
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal and context
+      description: Describe the problem, desired outcome and relevant existing behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and non-goals
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Use numbered observable conditions, including relevant failure behavior.
+      placeholder: "AC-1: ..."
+    validations:
+      required: true
+  - type: textarea
+    id: decisions
+    attributes:
+      label: Constraints, decisions and open questions
+      description: Separate confirmed decisions, assumptions and blocking questions.
+  - type: textarea
+    id: design
+    attributes:
+      label: Design and specification links
+      description: Link the authoritative specification or outline the design for a small change.
+  - type: textarea
+    id: tests
+    attributes:
+      label: Test approach
+      description: Map acceptance criteria to checks, commands and expected results.
+    validations:
+      required: true
+  - type: textarea
+    id: authority
+    attributes:
+      label: Dependencies and execution authority
+      description: Use full issue URLs across repositories. Specify merge, deployment, resource and cost boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Completion evidence
+      description: Add PR, CI and rollout links as work progresses. Pending evidence is allowed at creation.

@@ -1,0 +1,21 @@
+{
+  "name": "fumbling-currently-not-indexed",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "hugo server --bind 0.0.0.0 --port 1313 --baseURL http://localhost:1313/ --appendPort=false",
+    "build": "hugo --minify",
+    "check": "bash .devcontainer/check.sh",
+    "deploy": "npm run build && firebase deploy --only hosting --project blog-pumpkinpie",
+    "check:docs": "node scripts/check-docs.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "check:site": "bash scripts/check-site.sh",
+    "check:ci": "npm test && npm run check:docs && npm run check:site"
+  },
+  "devDependencies": {
+    "firebase-tools": "15.33.0",
+    "yaml": "2.9.1"
+  }
+}

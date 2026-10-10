@@ -1,0 +1,41 @@
+{
+  "name": "News blog (Hugo / Firebase)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/hugo:1": {
+      "version": "0.147.9",
+      "extended": true
+    }
+  },
+  "remoteUser": "vscode",
+  "forwardPorts": [
+    1313
+  ],
+  "portsAttributes": {
+    "1313": {
+      "label": "Hugo preview",
+      "onAutoForward": "notify"
+    }
+  },
+  "mounts": [
+    "source=${devcontainerId}-gh-config,target=/home/vscode/.config/gh,type=volume",
+    "source=${devcontainerId}-gcloud-config,target=/home/vscode/.config/gcloud,type=volume",
+    "source=${devcontainerId}-firebase-config,target=/home/vscode/.config/configstore,type=volume",
+    "source=${devcontainerId}-codex-config,target=/home/vscode/.codex,type=volume"
+  ],
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "openai.chatgpt"
+      ]
+    }
+  },
+  "postStartCommand": "bash .devcontainer/post-start.sh"
+}

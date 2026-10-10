@@ -1,0 +1,46 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out the recorded theme revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Install Hugo Extended 0.147.9
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="${RUNNER_TEMP}/hugo_extended_0.147.9_linux-amd64.tar.gz"
+          curl --fail --silent --show-error --location --retry 2 --max-time 120 \
+            https://github.com/gohugoio/hugo/releases/download/v0.147.9/hugo_extended_0.147.9_linux-amd64.tar.gz \
+            --output "$archive"
+          echo "cb077c25518c9263cd506baa2cec7016c41100b1ab4df1c93c110ff1718c98fc  $archive" | sha256sum --check
+          mkdir -p "${RUNNER_TEMP}/hugo-bin"
+          tar -xzf "$archive" -C "${RUNNER_TEMP}/hugo-bin" hugo
+          echo "${RUNNER_TEMP}/hugo-bin" >> "$GITHUB_PATH"
+      - name: Install pinned dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Validate documentation, forms and both sites
+        run: npm run check:ci
