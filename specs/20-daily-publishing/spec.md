@@ -26,7 +26,7 @@ Specify execution, contracts, costs, failure recovery and staged rollout. Reuse 
 
 ## Site purpose
 
-The developer describes the site as a personal memo site. It remains publicly accessible at its existing production URL; this is not a request to make it private or to republish source articles. Prefer short original factual notes and attributed comparisons with source links. Personal operation does not by itself establish permission under each publisher's personal-use terms. Assess access, model input and public output separately; do not treat all factual reference as prohibited.
+The developer currently describes the site as a personal memo site, but explicitly wants positioning to remain flexible and source discovery to be broad. It remains publicly accessible at its existing production URL; this is not a request to make it private or to republish source articles. Prefer short original factual notes and attributed comparisons with source links. Personal operation does not by itself establish permission under each publisher's personal-use terms. Assess access, model input and public output separately; do not treat all factual reference as prohibited.
 
 ## Confirmed editorial scope
 

@@ -22,8 +22,10 @@ node scripts/collect-feeds.cjs /tmp/feed-request.json /tmp/feed-report.json
 file must not exist. The Node CLI prints counts/codes; npm also echoes arguments.
 The report is created with owner-only permissions. Keep real reports outside Git.
 It contains untrusted metadata, not generated articles, verified facts or approved
-public content. No article links are fetched. Two feed requests take at most
-30 seconds total network deadline, without retries or cloud/model calls.
+public content. No article links are fetched. The example makes two requests with at most
+30 seconds total network deadline, without retries or cloud/model calls. The
+[source registry](source-registry.md) now provides five explicitly selectable feeds
+and permits at most eight sequential requests per run.
 
 Report fields: `collectedAt`, `complete`, per-feed `feeds` health records,
 `records` metadata and `selection` from the [offline selector](source-selection.md).

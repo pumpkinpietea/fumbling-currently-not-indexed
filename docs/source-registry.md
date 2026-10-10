@@ -1,0 +1,13 @@
+# Source discovery registry
+
+The repository-owned [registry](../config/news-sources.json) preserves a broad candidate inventory. The developer wants flexible site positioning and as many relevant sources as practical. Registry inclusion is separate from access, model-input and public-output approval. See the [candidate findings](../specs/20-daily-publishing/source-candidates.md) and [requirements](../specs/43-source-registry/spec.md).
+
+Five feeds currently support explicit private metadata trials: antara-top-news, antara-economy, jica-news-ja, cna-asia and cna-business. Sources marked access_review remain visible but cannot be fetched by the collector. Feed IDs and URLs are reviewed repository configuration; input cannot supply arbitrary network addresses. Adding a source requires a PR and its own host/access review.
+
+Use the existing npm run collect:feeds command with schemaVersion 1, an explicit UTC window and a feeds array of enabled IDs. See the [RSS trial guide](rss-trial.md) for input/output handling. Each request selects at most eight distinct feeds; execution is sequential, with no redirects/retries, a 15-second per-feed timeout, a 1 MiB/200-item per-feed cap and a 500-record total cap. A feed exceeding the remaining total cap is failed without keeping its records; the report remains incomplete.
+
+Every link is checked against its originating feed's host list before combined URL deduplication. Private reports preserve original URLs, original dates, record indices and feed IDs. JICA's older entries remain dated background candidates; retrieving them today does not make them fresh. Selection only establishes URL/date eligibility, not Southeast Asia relevance, IT/e-commerce classification, independent perspectives or article quality.
+
+CNA's [official RSS page](https://www.channelnewsasia.com/rss) specifies personal non-commercial use; the trial is private metadata discovery. JICA's [official RSS directory](https://www.jica.go.jp/english/rss/index.html) supports feed discovery, with reuse subject to its site policy. Neither feed support nor successful retrieval approves body acquisition, model processing or public reproduction. No body, image, model call or publication is performed by this command. Real reports stay outside Git, and printed CLI results contain aggregate counts only.
+
+JICA's current Japanese news feed uses full English month names. A registry-selected adapter normalizes only those exact names before the existing strict calendar/timezone checks; raw pubDate values remain in the report. Default feed parsing remains strict. The old English feed directory currently redirects to archived 2023 material, so those routes are not enabled.
