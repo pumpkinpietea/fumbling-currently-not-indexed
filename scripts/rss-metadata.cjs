@@ -51,16 +51,16 @@ function parseRss(buffer, options = {}) {
       }
       if (stack.join('/') === 'rss/channel/item') {
         if (records.length >= 200) fail();
-        item = { title: [], link: [], pubDate: [] };
+        item = { title: [], link: [], pubDate: [], description: [] };
       }
-      if (item && stack.length === 4 && ['title', 'link', 'pubDate'].includes(name)) {
+      if (item && stack.length === 4 && ['title', 'link', 'pubDate', ...(options.includeDescription ? ['description'] : [])].includes(name)) {
         field = { name, text: '' };
       }
     });
     const append = value => {
       if (!field) return;
       field.text += value;
-      if (field.text.length > ({ title: 500, link: 4096, pubDate: 100 })[field.name]) fail();
+      if (field.text.length > ({ title: 500, link: 4096, pubDate: 100, description: 10000 })[field.name]) fail();
     };
     parser.on('text', append);
     parser.on('cdata', append);
@@ -72,7 +72,8 @@ function parseRss(buffer, options = {}) {
       if (stack.join('/') === 'rss/channel/item') {
         const one = key => item[key].length === 1 && item[key][0] ? item[key][0] : null;
         records.push({ itemIndex: records.length, title: one('title'), url: one('link'),
-          publicationDatesRaw: [...item.pubDate], publishedAt: publicationTime(one('pubDate'), options) });
+          publicationDatesRaw: [...item.pubDate], publishedAt: publicationTime(one('pubDate'), options),
+          ...(options.includeDescription ? { description: one('description') } : {}) });
         item = undefined;
       }
       stack.pop();

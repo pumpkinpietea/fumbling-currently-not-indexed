@@ -1,0 +1,47 @@
+name: Publish Daily News
+
+on:
+  schedule:
+    - cron: '45 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-news-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: vars.NEWS_PUBLISH_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --no-audit --no-fund
+      - name: Authenticate to read only private publication bundles
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.NEWS_READER_WIF_PROVIDER }}
+          service_account: news-bundle-reader@blog-pumpkinpie.iam.gserviceaccount.com
+          token_format: access_token
+          create_credentials_file: false
+      - name: Validate content-only PR and publish through protected main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GOOGLE_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+          NEWS_PUBLISH_ENABLED: ${{ vars.NEWS_PUBLISH_ENABLED }}
+          NEWS_RUNTIME_REVISION: ${{ vars.NEWS_RUNTIME_REVISION }}
+        run: node scripts/publish-news-bundle.cjs

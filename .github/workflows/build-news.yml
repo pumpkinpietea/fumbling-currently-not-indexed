@@ -1,0 +1,43 @@
+name: Build News Runtime
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: news-runtime-image
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Authenticate image publisher
+        id: auth
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.NEWS_BUILDER_WIF_PROVIDER }}
+          service_account: news-image-builder@blog-pumpkinpie.iam.gserviceaccount.com
+          token_format: access_token
+          create_credentials_file: false
+      - name: Build and push the main revision without credentials in context
+        env:
+          REGISTRY_TOKEN: ${{ steps.auth.outputs.access_token }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$REGISTRY_TOKEN" | docker login -u oauth2accesstoken --password-stdin https://us-central1-docker.pkg.dev
+          image="us-central1-docker.pkg.dev/blog-pumpkinpie/news-runtime/daily:${GITHUB_SHA}"
+          docker build --file Dockerfile.news --tag "$image" .
+          docker push "$image"
+          docker logout https://us-central1-docker.pkg.dev
+          echo "Image revision: ${GITHUB_SHA}" >> "$GITHUB_STEP_SUMMARY"

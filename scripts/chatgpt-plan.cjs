@@ -88,7 +88,7 @@ function requestValid(value) {
     ['model', 'instructions', 'input'].every(key => typeof value[key] === 'string' && value[key].trim()) &&
     value.model.length <= 128 && Buffer.byteLength(value.instructions) + Buffer.byteLength(value.input) <= 16384;
 }
-async function runPlan(request, credentialFile, outputFile, { fetch = global.fetch } = {}) {
+async function runPlan(request, credentialFile, outputFile, { fetch = global.fetch, onCredentialsSaved = async () => {} } = {}) {
   let lock, lockFile;
   try {
     if (!requestValid(request)) fail('invalid_plan_request');
@@ -113,6 +113,7 @@ async function runPlan(request, credentialFile, outputFile, { fetch = global.fet
         !['resource.invoke', 'chatgpt.tokens.use.direct'].every(s => scopes.includes(s))) fail('refresh_rejected');
     saved = { ...saved, ...refreshed, scopes, saved_at: new Date().toISOString() };
     privateWrite(credentialFile, saved, true);
+    await onCredentialsSaved(saved);
     const headers = { authorization: `Bearer ${saved.access_token}` };
     const models = JSON.parse(await boundedText(await send(`${API}/models`, { headers }), 262144));
     if (!Array.isArray(models.models) || !models.models.some(model => model.visibility === 'list' && model.slug === request.model))

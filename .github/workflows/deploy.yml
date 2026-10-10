@@ -18,7 +18,7 @@ jobs:
     if: >-
       vars.HOSTING_DEPLOY_ENABLED == 'true' &&
       github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.event == 'push' &&
+      (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch') &&
       github.event.workflow_run.head_branch == 'main' &&
       github.event.workflow_run.head_repository.id == github.event.repository.id
     runs-on: ubuntu-24.04

@@ -14,7 +14,8 @@
           "allowedHosts": [
             "www.antaranews.com",
             "antaranews.com"
-          ]
+          ],
+          "includeDescription": true
         },
         {
           "id": "antara-economy",
@@ -22,9 +23,35 @@
           "allowedHosts": [
             "www.antaranews.com",
             "antaranews.com"
-          ]
+          ],
+          "includeDescription": true
+        },
+        {
+          "id": "antara-tech",
+          "url": "https://www.antaranews.com/rss/tekno.xml",
+          "allowedHosts": [
+            "www.antaranews.com",
+            "antaranews.com"
+          ],
+          "includeDescription": true
+        },
+        {
+          "id": "antara-asean",
+          "url": "https://www.antaranews.com/rss/dunia-asean.xml",
+          "allowedHosts": [
+            "www.antaranews.com",
+            "antaranews.com"
+          ],
+          "includeDescription": true
         }
-      ]
+      ],
+      "automatedUse": "rss_excerpt_notes",
+      "accessReview": {
+        "checkedOn": "2026-10-10",
+        "rssPolicy": "https://www.antaranews.com/rss",
+        "terms": "https://www.antaranews.com/ketentuan-penggunaan",
+        "scope": "Official RSS title and excerpt for personal noncommercial original factual notes; no article body or images."
+      }
     },
     {
       "id": "jica",
