@@ -12,7 +12,8 @@
     "check:docs": "node scripts/check-docs.cjs",
     "test": "node --test tests/*.test.cjs",
     "check:site": "bash scripts/check-site.sh",
-    "check:ci": "npm test && npm run check:docs && npm run check:site"
+    "check:ci": "npm test && npm run check:docs && npm run check:site",
+    "check:edition": "node scripts/check-edition.cjs"
   },
   "devDependencies": {
     "firebase-tools": "15.33.0",
