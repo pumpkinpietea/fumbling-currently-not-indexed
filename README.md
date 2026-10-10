@@ -77,6 +77,8 @@ The [manual RSS trial](docs/rss-trial.md) connects two fixed official feeds to
 that selector, preserving collection health and date evidence without model calls.
 The [event-pair evaluator](docs/event-pairs.md) measures a bounded lexical
 shortlist against explicit labels; it does not automatically group or publish news.
+The [evidence-linked draft command](docs/evidence-drafts.md) connects prepared body
+quotes and canonical claims to bilingual drafts and a private integrity audit.
 
 To update Hugo, change its version in `.devcontainer/devcontainer.json` and rebuild.
 To update Firebase CLI, run `npm install --save-dev --save-exact firebase-tools@<version>`

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "editionDate": "2026-01-15",
+  "window": {
+    "start": "2026-01-14T00:00:00Z",
+    "end": "2026-01-15T00:00:00Z"
+  },
+  "languages": [
+    "en",
+    "jp"
+  ],
+  "sources": [
+    {
+      "id": "source1",
+      "url": "https://example.com/report",
+      "publishedAt": "2026-01-14T09:00:00Z",
+      "retrievedAt": "2026-01-14T10:00:00Z",
+      "method": "primary_release",
+      "body": "Original synthetic fixture, not a real news report. Aruna opened 3 public reading rooms on 14 January 2026. The source text is authored only for offline tests.",
+      "sha256": "894e8b97fb78a9846efd83c573747aba78a011903fa4952167996cb5756d47d5"
+    }
+  ],
+  "events": [
+    {
+      "id": "event1",
+      "facts": [
+        {
+          "id": "fact1",
+          "claim": "Aruna opened 3 public reading rooms.",
+          "evidence": [
+            {
+              "sourceId": "source1",
+              "start": 52,
+              "end": 107,
+              "quote": "Aruna opened 3 public reading rooms on 14 January 2026."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "editions": [
+    {
+      "language": "en",
+      "title": "Example Indonesia digest",
+      "events": [
+        {
+          "id": "event1",
+          "title": "Synthetic reading room opening",
+          "facts": [
+            {
+              "id": "fact1",
+              "text": "Aruna opened 3 public reading rooms."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "language": "jp",
+      "title": "インドネシアニュースのサンプル",
+      "events": [
+        {
+          "id": "event1",
+          "title": "架空の読書室開設",
+          "facts": [
+            {
+              "id": "fact1",
+              "text": "アルナ市に公共の読書室が3か所開設されました。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

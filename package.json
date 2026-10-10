@@ -18,7 +18,8 @@
     "select:sources": "node scripts/select-sources.cjs",
     "collect:feeds": "node scripts/collect-feeds.cjs",
     "shortlist:events": "node scripts/event-candidates.cjs shortlist",
-    "evaluate:events": "node scripts/event-candidates.cjs evaluate"
+    "evaluate:events": "node scripts/event-candidates.cjs evaluate",
+    "render:evidence": "node scripts/render-evidence.cjs"
   },
   "devDependencies": {
     "firebase-tools": "15.33.0",
