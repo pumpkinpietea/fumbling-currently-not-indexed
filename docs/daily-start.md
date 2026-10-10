@@ -1,6 +1,6 @@
 # Daily production start
 
-The confirmed target is 2026-10-11 at 07:30 Asia/Jakarta, corresponding to 00:30 UTC and 09:30 Asia/Tokyo. The 2026-10-10 EN/JP article is a separately source-reviewed manual bootstrap, merged in PR #48; it does not establish unattended operation.
+The confirmed target is 2026-10-11 at 07:30 Asia/Jakarta, corresponding to 00:30 UTC and 09:30 Asia/Tokyo. The 2026-10-10 EN/JP article is a separately source-reviewed manual bootstrap, merged in PR #48 and published from validated main 9fd6df5 at 2026-10-10T12:29:50.387Z. Both live article HTML responses matched the built hashes. This manual release used existing Google authentication through the official Hosting REST API with an explicit quota project; no IAM change was needed. It does not establish unattended operation.
 
 ## Clock and activation
 
