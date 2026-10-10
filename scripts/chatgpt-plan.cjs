@@ -144,4 +144,4 @@ if (require.main === module) {
     console.log(JSON.stringify(result)); process.exitCode = result.valid ? 0 : 1;
   });
 }
-module.exports = { runPlan, completedText };
+module.exports = { runPlan, completedText, privateDirectory, privateWrite, boundedText, credentials };
