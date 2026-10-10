@@ -1,0 +1,281 @@
+{
+  "schemaVersion": 1,
+  "policy": {
+    "minimumSimilarity": 0.55,
+    "maxGapHours": 36,
+    "maxPairs": 100
+  },
+  "provenance": "synthetic_original",
+  "cases": [
+    {
+      "id": "chair",
+      "category": "same_event",
+      "rationale": "Both original fixture headlines refer to one invented appointment.",
+      "left": {
+        "id": "chair-a",
+        "title": "Indonesia council appoints new chair for 2026",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "chair-b",
+        "title": "New chair appointed to Indonesia council for 2026",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "same_event"
+    },
+    {
+      "id": "bridge-id",
+      "category": "same_event",
+      "rationale": "Both original fixture headlines describe the same invented opening.",
+      "left": {
+        "id": "bridge-id-a",
+        "title": "Pemerintah meresmikan jembatan baru di Kota Aruna",
+        "language": "id",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "bridge-id-b",
+        "title": "Jembatan baru Kota Aruna diresmikan pemerintah",
+        "language": "id",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "same_event"
+    },
+    {
+      "id": "wire",
+      "category": "same_wire",
+      "rationale": "Two synthetic copies of one report; not independent corroboration.",
+      "left": {
+        "id": "wire-a",
+        "title": "Agency reports new Aruna bridge opens Monday",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "wire-b",
+        "title": "Agency reports new Aruna bridge opens Monday",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "same_event"
+    },
+    {
+      "id": "revision",
+      "category": "numeric_revision",
+      "rationale": "The fixture defines a magnitude revision for the same occurrence, requiring evidence review.",
+      "left": {
+        "id": "revision-a",
+        "title": "Magnitude 6.2 earthquake strikes Aruna at 08:10",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "revision-b",
+        "title": "Magnitude 6.4 earthquake strikes Aruna at 08:10",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "same_event"
+    },
+    {
+      "id": "quakes",
+      "category": "distinct_occurrence",
+      "rationale": "The fixture defines distinct locations and occurrence times, despite similar wording.",
+      "left": {
+        "id": "quakes-a",
+        "title": "Magnitude 6.2 earthquake strikes Aruna at 08:10",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "quakes-b",
+        "title": "Magnitude 6.2 earthquake strikes Beluna at 11:40",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "different_event"
+    },
+    {
+      "id": "floods",
+      "category": "distinct_occurrence",
+      "rationale": "Two invented floods in different districts must remain distinct.",
+      "left": {
+        "id": "floods-a",
+        "title": "Flood closes schools in North Aruna",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "floods-b",
+        "title": "Flood closes schools in South Aruna",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "different_event"
+    },
+    {
+      "id": "bridge-update",
+      "category": "substantive_update",
+      "rationale": "Approval and later opening are separate milestones; a substantial update must not be collapsed.",
+      "left": {
+        "id": "bridge-update-a",
+        "title": "Aruna bridge project approved by council",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "bridge-update-b",
+        "title": "Aruna bridge project opens after construction",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "different_event"
+    },
+    {
+      "id": "negation-en",
+      "category": "negation",
+      "rationale": "Opposite invented decisions cannot be merged based on shared words.",
+      "left": {
+        "id": "negation-en-a",
+        "title": "Council approves Aruna tax increase",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "negation-en-b",
+        "title": "Council does not approve Aruna tax increase",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "different_event"
+    },
+    {
+      "id": "cross-id",
+      "category": "cross_language",
+      "rationale": "Translations describe the same invented report; lexical matching may miss the pair.",
+      "left": {
+        "id": "cross-id-a",
+        "title": "Indonesia releases new inflation report",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "cross-id-b",
+        "title": "Indonesia menerbitkan laporan inflasi terbaru",
+        "language": "id",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "same_event"
+    },
+    {
+      "id": "cross-jp",
+      "category": "cross_language",
+      "rationale": "Translations describe the same invented opening and require semantic matching.",
+      "left": {
+        "id": "cross-jp-a",
+        "title": "Aruna council opens a new public library",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "cross-jp-b",
+        "title": "架空市の議会が新しい公共図書館を開館",
+        "language": "jp",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "same_event"
+    },
+    {
+      "id": "negation-jp",
+      "category": "negation",
+      "rationale": "The original Japanese fixture contrasts approval and rejection.",
+      "left": {
+        "id": "negation-jp-a",
+        "title": "架空市の議会が増税案を可決",
+        "language": "jp",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "negation-jp-b",
+        "title": "架空市の議会が増税案を否決",
+        "language": "jp",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "different_event"
+    },
+    {
+      "id": "unrelated",
+      "category": "unrelated",
+      "rationale": "Unrelated invented cultural and sports events.",
+      "left": {
+        "id": "unrelated-a",
+        "title": "Aruna museum opens new exhibition",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "unrelated-b",
+        "title": "Beluna team wins regional football final",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "different_event"
+    },
+    {
+      "id": "ambiguous",
+      "category": "uncertain",
+      "rationale": "Without evidence it is unknown whether these describe one meeting or two.",
+      "left": {
+        "id": "ambiguous-a",
+        "title": "Aruna council discusses bridge safety",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "ambiguous-b",
+        "title": "Aruna council discusses bridge budget",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "uncertain"
+    },
+    {
+      "id": "paraphrase",
+      "category": "paraphrase",
+      "rationale": "The fixture defines one appointment expressed with little shared wording.",
+      "left": {
+        "id": "paraphrase-a",
+        "title": "Council appoints chair",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "paraphrase-b",
+        "title": "New leader chosen for municipal assembly",
+        "language": "en",
+        "publishedAt": "2026-01-14T10:00:00Z"
+      },
+      "label": "same_event"
+    },
+    {
+      "id": "repeated-title",
+      "category": "distinct_occurrence",
+      "rationale": "Identical wording describes separate invented daily alerts; title identity is insufficient.",
+      "left": {
+        "id": "repeated-title-a",
+        "title": "Aruna issues weather alert",
+        "language": "en",
+        "publishedAt": "2026-01-14T09:00:00Z"
+      },
+      "right": {
+        "id": "repeated-title-b",
+        "title": "Aruna issues weather alert",
+        "language": "en",
+        "publishedAt": "2026-01-15T09:00:00Z"
+      },
+      "label": "different_event"
+    }
+  ]
+}

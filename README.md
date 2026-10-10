@@ -75,6 +75,8 @@ The [offline source selector](docs/source-selection.md) filters supplied publica
 metadata and groups normalized URLs before event and fact preparation.
 The [manual RSS trial](docs/rss-trial.md) connects two fixed official feeds to
 that selector, preserving collection health and date evidence without model calls.
+The [event-pair evaluator](docs/event-pairs.md) measures a bounded lexical
+shortlist against explicit labels; it does not automatically group or publish news.
 
 To update Hugo, change its version in `.devcontainer/devcontainer.json` and rebuild.
 To update Firebase CLI, run `npm install --save-dev --save-exact firebase-tools@<version>`

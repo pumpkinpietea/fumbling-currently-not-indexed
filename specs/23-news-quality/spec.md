@@ -2,7 +2,7 @@
 
 Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/23
 Parent: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/20
-Status: Proposed design; runtime implementation not started
+Status: Quality design with offline contract (#28), metadata (#33/#35) and lexical pair evaluation (#37) tools implemented. Real-news semantic validation and publication integration remain pending.
 
 ## Goal
 
