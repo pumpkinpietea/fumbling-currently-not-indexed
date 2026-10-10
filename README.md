@@ -40,8 +40,8 @@ Feature branch -> Pull request -> Passing CI -> Merge into main -> Automatic pub
 ```
 
 The validation workflow checks pull requests targeting `main` and pushes to `main`
-using portable documentation/form checks and EN/JP builds. Automatic Firebase
-publication is not implemented yet and remains a separate follow-up.
+using portable documentation/form checks and EN/JP builds. Firebase delivery is implemented behind a disabled-by-default activation variable;
+OIDC setup and live verification remain pending. See [Hosting delivery](docs/hosting-delivery.md).
 Pull requests will not publish to production. Deployment authentication and
 delivery details remain to be specified. Main requires a PR, a passing Validate
 check and an up-to-date branch, including for administrators. Separate reviewer

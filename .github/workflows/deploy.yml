@@ -1,0 +1,99 @@
+name: Deploy Hosting
+
+on:
+  workflow_run:
+    workflows: [Validate]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-hosting
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: >-
+      vars.HOSTING_DEPLOY_ENABLED == 'true' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.id == github.event.repository.id
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Check out validated main revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          submodules: recursive
+          persist-credentials: false
+      - name: Check activation configuration
+        env:
+          PROVIDER: ${{ vars.HOSTING_WIF_PROVIDER }}
+          ACCOUNT: ${{ vars.HOSTING_SERVICE_ACCOUNT }}
+        run: test -n "$PROVIDER" && test -n "$ACCOUNT"
+      - name: Check revision is still current main
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          current_sha="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+          if [ "$current_sha" = "$VALIDATED_SHA" ]; then
+            echo 'deploy=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'Skipping obsolete validated revision.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Set up Node.js
+        if: steps.current.outputs.deploy == 'true'
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Install Hugo Extended 0.147.9
+        if: steps.current.outputs.deploy == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="${RUNNER_TEMP}/hugo_extended_0.147.9_linux-amd64.tar.gz"
+          curl --fail --silent --show-error --location --retry 2 --max-time 120 \
+            https://github.com/gohugoio/hugo/releases/download/v0.147.9/hugo_extended_0.147.9_linux-amd64.tar.gz \
+            --output "$archive"
+          echo "cb077c25518c9263cd506baa2cec7016c41100b1ab4df1c93c110ff1718c98fc  $archive" | sha256sum --check
+          mkdir -p "${RUNNER_TEMP}/hugo-bin"
+          tar -xzf "$archive" -C "${RUNNER_TEMP}/hugo-bin" hugo
+          echo "${RUNNER_TEMP}/hugo-bin" >> "$GITHUB_PATH"
+      - name: Install dependencies, validate and build
+        if: steps.current.outputs.deploy == 'true'
+        run: |
+          npm ci --no-audit --no-fund
+          npm run check:ci
+          npm run build
+      - name: Authenticate with short-lived Google credentials
+        if: steps.current.outputs.deploy == 'true'
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3
+        with:
+          workload_identity_provider: ${{ vars.HOSTING_WIF_PROVIDER }}
+          service_account: ${{ vars.HOSTING_SERVICE_ACCOUNT }}
+      - name: Publish current validated revision
+        if: steps.current.outputs.deploy == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATED_SHA: ${{ github.event.workflow_run.head_sha }}
+          FIREBASE_CLI_DISABLE_UPDATE_CHECK: 'true'
+        run: |
+          set -euo pipefail
+          current_sha="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
+          if [ "$current_sha" != "$VALIDATED_SHA" ]; then
+            echo 'Publication skipped: main changed.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          npx --no-install firebase deploy --only hosting --project blog-pumpkinpie \
+            --non-interactive --message "Git revision ${VALIDATED_SHA}"
+          echo "Published Git revision: ${VALIDATED_SHA}" >> "$GITHUB_STEP_SUMMARY"
