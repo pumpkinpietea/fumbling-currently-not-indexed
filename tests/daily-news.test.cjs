@@ -70,6 +70,8 @@ test('trial persists rotation before inference, requires review and never emits 
     assert.equal((await produce(h.options)).status, 'trial_passed');assert.equal(h.calls(), 2);
     assert.equal(h.objects.get('auth/session.json').value.rotated, 2);
     assert.ok(!h.objects.has('bundles/2026-10-11.json'));
+    const retained = h.objects.get('evidence/trial-bundle-2026-10-11.json').value;
+    assert.deepEqual(validateBundle(retained, '2026-10-11'), renderEdition('2026-10-11', [event], [source]));
     await assert.rejects(produce(h.options), /state_already_exists/);
   } finally { h.cleanup(); }
 });
