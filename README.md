@@ -19,6 +19,23 @@ comments must be written in English. Public website content uses its intended
 language. Communication with the user remains in Japanese.
 See [AGENTS.md](AGENTS.md) for persistent project instructions and handoff notes.
 
+## Branch and release workflow
+
+Use a separate branch for every change and open a pull request targeting `main`,
+even for solo development. Review staged changes for personal information and
+secrets before committing, and validate changes in CI before merging.
+
+The intended release flow is:
+
+```text
+Feature branch -> Pull request -> Passing CI -> Merge into main -> Automatic publication
+```
+
+CI/CD is not implemented yet. The planned pipeline will validate pull requests
+and automatically publish to Firebase Hosting from `main` after successful checks.
+Pull requests will not publish to production. Deployment authentication and
+repository protection settings remain to be specified.
+
 ## Dev Container
 
 Install Docker and the VS Code Dev Containers extension on the host, open this

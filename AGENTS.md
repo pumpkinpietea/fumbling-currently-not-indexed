@@ -9,9 +9,21 @@
 - Request confirmation when required by permissions or before destructive actions outside the requested scope.
 - Preserve existing uncommitted changes and avoid unrelated edits.
 
+## Pre-commit privacy gate
+
+- Before every commit, inspect the exact staged changes with `git diff --cached`, including file names and newly added files. Review relevant surrounding content when needed; do not rely on pattern matching alone.
+- Check for information that identifies or locates the developer: real names, personal email addresses, phone numbers, home addresses, birth dates, employer details, personal account identifiers, private URLs, and identifying local paths. Check public content, documentation, comments, configuration, fixtures, logs, and media metadata when included.
+- Also check for passwords, API keys, access tokens, private keys, authentication files, and other secrets. Do not copy detected values into reports or commit messages.
+- Review the proposed commit message and effective author and committer identities. Use a pseudonym and a GitHub noreply address; stop if a real name or personal email would be recorded. A noreply address still links to a GitHub account and is not anonymous.
+- Existing public identifiers are not blanket permission to disclose additional personal information. If staged changes introduce or expose identifying information, remove or replace it with a neutral placeholder when possible and review the staged changes again.
+- If a finding cannot be resolved confidently, stop the commit and ask the user in Japanese, describing the category and location without repeating the sensitive value. Do not bypass this gate under AUTO mode.
+- Commit only after completing the review and briefly report its scope and any unresolved limitations. Never claim that this review guarantees anonymity or audits all existing Git history.
+- This is an agent instruction, not an enforced Git hook; it applies to commits made by the agent.
+
 ## Product and development direction
 
 - This application collects news and publishes it as a website.
+- This is a solo development project. Keep specifications and workflows lightweight while using feature branches and pull requests.
 - Evolve the project using specification-driven development (SDD).
 - For each feature, document requirements and acceptance criteria, then the design and implementation tasks, before implementing it. Keep these artifacts in English and align implementation and validation with them.
 - Record confirmed decisions and unresolved product questions explicitly. Do not present assumptions or planned capabilities as implemented behavior.
@@ -21,6 +33,17 @@
 - Firebase project: `blog-pumpkinpie`.
 - Articles: `content/`; site configuration: `hugo.yaml`; template overrides: `layouts/`.
 - PaperMod is a Git submodule under `themes/`. Use the recorded commit unless an update is requested.
+
+## Branches, pull requests, and publication
+
+- Create a separate branch for changes; do not commit directly to `main`.
+- Submit changes through a pull request targeting `main`, even for solo development. Keep PR descriptions and commit messages in English.
+- Apply the pre-commit privacy gate before committing, and review the outgoing diff before pushing or opening a PR.
+- Validate changes in CI before merging. Do not bypass failing required checks.
+- The intended release flow is: feature branch -> PR -> passing CI -> merge into `main` -> automatic production publication through CI/CD.
+- Production deployment should run only from `main` after validation succeeds. Pull requests must not deploy to production.
+- Keep deployment credentials out of the repository and restrict CI deployment permissions to what is necessary.
+- Automatic publishing is the intended workflow, but CI/CD is not implemented yet. Authentication, checks, and repository protection settings must be specified during implementation.
 
 ## Development and validation
 
@@ -49,6 +72,8 @@
 - At the start of a new session, read this file and `README.md`, then inspect `git status` and relevant files before continuing.
 
 ## Outstanding work
+
+- Specify and implement PR validation and automatic Firebase Hosting publication after merges into `main`.
 
 - Codex installation/updating and `npm run check` passed on 2026-10-10.
 - Validation after an actual Dev Container rebuild is pending: check Codex startup, retained authentication, and startup updates.
