@@ -68,8 +68,9 @@ npm run check:edition -- tests/fixtures/edition-valid.json  # Offline candidate 
 ```
 
 The offline [edition contract](specs/28-edition-contract/spec.md) checks news
-identity/provenance references across languages. It does not validate fact text,
-render Markdown or activate publishing.
+identity/provenance references across languages. It does not validate fact text or
+activate publishing. The separate [draft renderer](docs/news-drafts.md) creates
+previewable EN/JP Markdown from validated identities and localized fact text.
 
 To update Hugo, change its version in `.devcontainer/devcontainer.json` and rebuild.
 To update Firebase CLI, run `npm install --save-dev --save-exact firebase-tools@<version>`
