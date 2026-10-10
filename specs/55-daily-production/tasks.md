@@ -9,8 +9,11 @@
 - Hosting WIF live delivery succeeded from main d138fc4 in run 38053800084.
 - Private storage, scoped reader/builder/runtime/scheduler identities and two-image registry cleanup are provisioned. No broad personal GitHub token is transferred.
 - Local checks: 109 tests, documentation validation and EN/JP builds pass. Initial generation uses official RSS excerpts, not article bodies.
-- GitHub combined Actions create/approve-PR setting was rejected by automatic approval review; specific user permission is pending. Do not enable it or infer consent.
+- User explicitly authorized the combined Actions create/approve-PR setting after its scope was explained. It is enabled; default workflow permissions remain read-only. The consumer never submits approving reviews.
 - PR #57 merged. Main 827c472 passed Validate; build 38055314635 and Hosting delivery 38055339410 succeeded. The immutable job image is us-central1-docker.pkg.dev/blog-pumpkinpie/news-runtime/daily@sha256:38e5822e98cec0775604e4908fbb2e71fddd73971a987d2509c322bd3166b499.
 - Metadata-only cloud execution daily-news-4b66w succeeded: three feeds/70 records, zero model calls, private run status saved and global lock released. This verifies cloud connectivity/state, not AI generation or automatic article merging.
-- Remaining: receive specific GitHub setting permission and account credit confirmation; run and inspect private generation, verify content-only PR/CI/merge, merge activation config/clock-test changes, rebuild/deploy immutable image and update runtime revision, then enable consumer/resume Scheduler. First scheduled live publication is still unverified.
+- Remaining: receive account credit confirmation; run and inspect private generation, verify content-only PR/CI/merge, merge activation config/clock-test changes, rebuild/deploy immutable image and update runtime revision, then enable consumer/resume Scheduler. First scheduled live publication is still unverified.
 - Historical-date trial was rejected by automatic approval review because old matching records could still invoke AI; explicit metadata-only mode safely stops before app credential access/inference.
+
+- Private rehearsals retain validated generated content under evidence/trial-bundle-DATE.json for operator inspection, outside the publication bundle prefix. Local 109 tests and EN/JP builds pass.
+- Dedicated WIF purpose mappings replace the shared repository-only impersonation grants; provider repository/ref/workflow conditions remain enforced.

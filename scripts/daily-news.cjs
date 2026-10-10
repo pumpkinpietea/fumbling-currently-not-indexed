@@ -155,7 +155,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     sourceUrls: events.flatMap(e => e.sourceIds.map(id => sources.find(s => s.id === id).url)),
     eventHints: events.map(e => e.en.title) });
   if (!trial) await state.write(`bundles/${date}.json`, bundle);
-  else privateWrite(path.join(workDirectory, 'trial-bundle.json'), bundle);
+  else await state.write(`evidence/trial-bundle-${date}.json`, bundle);
   return { status: trial ? 'trial_passed' : 'prepared', editionDate: date, events: events.length };
 }
 if (require.main === module) {

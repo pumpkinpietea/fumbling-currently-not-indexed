@@ -13,3 +13,11 @@ Source adapters initially use reviewed ANTARA feeds and official RSS excerpt evi
 3. Add content-only consumer, explicit validation dispatch and validated-main delivery support; enforce staged privacy review and pseudonymous automated identities.
 4. Pass local and PR CI; merge, build image in free standard GitHub Actions, deploy bounded Cloud Run Job, trial without publication, then install Scheduler and activate after verification.
 5. Verify live Hosting WIF release and first scheduled configuration. Record unresolved limitations honestly.
+
+## Private rehearsal and identity isolation
+
+Requirements: a successful private generation trial must leave reviewable evidence after container cleanup, without creating a publication bundle. Each GitHub WIF provider must impersonate only its intended service account, including when providers share a pool.
+
+Acceptance: trial output is stored under the private, 14-day evidence prefix; the bundle reader cannot access it. Tests verify retained trial content and absence of a publication bundle. Providers map a fixed purpose attribute and each service account trusts only that purpose; repository/ref/workflow conditions remain enforced.
+
+Tasks: persist the validated trial bundle in private evidence; extend the runtime test; replace shared repository-only impersonation bindings with provider-purpose bindings; inspect remote mappings and policies and run CI.
