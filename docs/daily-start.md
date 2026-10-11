@@ -4,7 +4,7 @@ The confirmed target is 2026-10-11 at 07:30 Asia/Jakarta, corresponding to 00:30
 
 ## Clock and activation
 
-config/news-publishing.json records the first edition, timezone, publication time, languages and finite run limits. enabled is true following verified authentication, private generation/review, source/evidence inspection and protected bot merge/delivery. Cloud scheduling still requires the matching immutable runtime rollout and explicit Scheduler activation. The clock command computes metadata only; it installs no scheduler.
+config/news-publishing.json records the first edition, timezone, publication time, languages and finite run limits. enabled is true following verified authentication, private generation/review, source/evidence inspection and protected bot merge/delivery. The matching immutable runtime is deployed and Scheduler is enabled for 07:30 Asia/Jakarta; the first unattended scheduled execution remains unverified. The clock command computes metadata only; it installs no scheduler.
 
 ```bash
 node scripts/edition-clock.cjs
@@ -17,7 +17,7 @@ For the first daily edition on October 11, the previous Jakarta day maps to [202
 
 ## Runtime decision and expected costs
 
-The developer approved a bounded GCP job with protected persistent credential storage on 2026-10-10. The developer's USD 10 ceiling covers all GCP usage, including existing resources. Separate AI subscriptions are not authorized. Dedicated OIDC identities, a private GCS bucket and a bounded image registry are provisioned under #55. The immutable Cloud Run Job and 07:30 Jakarta Scheduler are provisioned; Private generation/review and protected bot delivery succeeded. The activation PR enables configuration; the matching immutable runtime rollout and Scheduler state must be recorded in #55 before claiming unattended operation. See [daily automation](daily-automation.md) for the implemented design and limits.
+The developer approved a bounded GCP job with protected persistent credential storage on 2026-10-10. The developer's USD 10 ceiling covers all GCP usage, including existing resources. Separate AI subscriptions are not authorized. Dedicated OIDC identities, a private GCS bucket and a bounded image registry are provisioned under #55. The immutable Cloud Run Job and 07:30 Jakarta Scheduler are provisioned and active. Private generation/review and protected bot delivery succeeded. Activation evidence and the next scheduled start are recorded under #55. See [daily automation](daily-automation.md) for the implemented design and limits.
 
 A candidate GCP configuration uses one Cloud Run Job in us-central1, one task, 1 vCPU/512 MiB, no retries, at most 600 seconds/day; one Scheduler job; a single rotating protected GCS credential object; one small retained container image; and small private run manifests. For 30 runs, worst configured compute is 18,000 vCPU-seconds and 9,000 GiB-seconds/month. At published default rates before free allowances, this is approximately USD 0.324 CPU plus USD 0.018 RAM. A Scheduler job is USD 0.10/month after its shared free allowance. The selected implementation uses GCS rather than Secret Manager; no secret versions are created. Budget for image storage, private manifests, network and logs conservatively within an additional USD 1/month for this small workload. Expected incremental operation is approximately USD 0–2/month under these assumptions; build frequency, regional prices, traffic and shared free-tier usage can change it.
 
