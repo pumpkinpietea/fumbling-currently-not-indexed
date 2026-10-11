@@ -8,7 +8,7 @@ test('normal publication begins exactly 07:30 Jakarta on the confirmed first day
   assert.equal(at('2026-10-10T12:00:00Z').valid, false);
   const result = at('2026-10-11T00:30:00Z');
   assert.equal(result.valid, true);
-  assert.equal(result.enabled, false);
+  assert.equal(result.enabled, true);
   assert.equal(result.editionDate, '2026-10-11');
   assert.equal(result.scheduledAt, '2026-10-11T00:30:00Z');
   assert.deepEqual(result.window, { start: '2026-10-09T17:00:00Z', end: '2026-10-10T17:00:00Z' });

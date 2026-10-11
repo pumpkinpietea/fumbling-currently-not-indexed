@@ -29,3 +29,9 @@
 
 - PR #62 merged after exact-head Validate 38058800082. Draft rehearsal 38058848072 succeeded: PR #63 exact-head PR Validate 38058871611 passed after scoped CI execution approval, protected merge 951af4b used GitHub bot/noreply identity, and explicit main Validate 38058912420 passed. Hugo omits both draft pages and listing/feed references.
 - Hosting workflow_run did not start after the bot-dispatched main Validate; production activation remains paused while explicit validated delivery is implemented and rehearsed.
+
+## Production activation rollout (2026-10-11)
+
+- PR #64 merged at a02c7e1 after exact-head Validate 38102369200. Bot rehearsal 38102417409 succeeded: PR #65, exact-head required PR Validate 38102432887, protected bot/noreply merge d72ea46, main Validate 38102468302 and explicit Hosting delivery 38102488313 all passed. Both rehearsal live URLs return 404. No operator-token deployment dispatch was used to prove the bot chain.
+- Activation PR removes both rehearsal drafts and enables the edition configuration. Local validation: 116 tests, documentation checks and EN/JP builds pass.
+- Remaining external activation: build/deploy the merged immutable runtime, update approved runtime revision, enable consumer and resume Scheduler; record the actual state. The October 11 07:30 target was missed during delivery repair. Execute that day once after rollout; first unattended scheduled execution is expected October 12 at 07:30 Jakarta and remains unverified.
