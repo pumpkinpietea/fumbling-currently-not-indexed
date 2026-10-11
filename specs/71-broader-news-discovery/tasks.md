@@ -2,11 +2,17 @@
 
 - [x] Requirements/design recorded before implementation.
 - [x] Implement and validate ECNS/Mehr adapters and discovery guidance.
-- [ ] Publish October 11 source-reviewed EN/JP note through protected delivery.
-- [ ] Deploy immutable runtime and verify expanded cloud metadata and next schedule.
+- [x] Publish October 11 source-reviewed EN/JP note through protected delivery.
+- [x] Deploy immutable runtime and verify expanded cloud metadata and next schedule.
 
 Research on 2026-10-11: ECNS official RSS /rss/rss.xml contains 100 current records with China-local timestamps and legacy HTTP URLs; /rss.xml is stale (2018) and excluded. Mehr official /rss contains 30 current records and valid explicit GMT dates. Sixth Tone permits attributed citations but its RSS has date-only values; it remains discovery-only until original timestamp verification is designed. People's Daily Business RSS contains 2011 records, and China.org.cn has a TLS hostname mismatch; neither is activated. SCMP explicitly restricts AI/metadata processing including through third parties. Middle East Eye restricts republication and is not activated.
 
 Primary references: https://www.ecns.cn/contactus.shtml ; https://www.ecns.cn/rss/rss.xml ; https://en.mehrnews.com/ ; https://en.mehrnews.com/rss ; https://www.sixthtone.com/terms-use ; https://www.scmp.com/terms-conditions ; https://www.middleeasteye.net/terms-and-conditions . Official RSS use is limited to attributed original factual notes, with no claim of permission to reproduce articles or images.
 
 Local validation: all ten daily feeds retrieved 281 records (92 date/URL eligible) without error. ECNS/Mehr had no new qualifying SEA IT/e-commerce evidence in this window; they are active candidates, not forced edition items. 125 tests, documentation checks and EN/JP site builds passed. The October 11 note cites one Viet Nam News data-centre story; its latest official-feed excerpt hash still matches the previously operator-inspected bilingual private trial. Publication is an ordinary operator action and leaves private production markers unchanged. Metadata-only checks use revision-qualified markers to preserve earlier rollout evidence.
+
+Additional research: the live Google News RSS copyright statement limits use to rendering results in a personal noncommercial feed reader. It remains personal-reading discovery only and is not wired to publication input. Feedly Free has no supported self-service API entitlement in the current official documentation. GDELT is a free/open potential discovery API, but one bounded live request failed with an HTTP error; automatic discovery remains unverified and inactive. The user does not need to upgrade Feedly.
+
+PR #72 passed exact-head Validate 38111116214 and merged at 662d0acc2d1f2c50b28216b216536b29128230f8 with reviewed pseudonym/noreply author and GitHub committer. Main Validate 38111163054, runtime build 38111169772 and Hosting delivery 38111182070 succeeded. The October 11 EN/JP article URLs both returned HTTP200 with the expected Viet Nam News source links using target=_blank and rel=noopener noreferrer. Cloud Run and NEWS_RUNTIME_REVISION use that exact revision and immutable image sha256:81e88a03454ea05ca55fffb4dc9c370b68061d69d506c687bca56a2d04a568ae. Scheduler remains ENABLED, next 2026-10-12T00:30:00Z (07:30 Jakarta); consumer starts at 07:45 and publication follows checks. First unattended scheduled execution remains unverified under #55.
+
+Cloud metadata-only execution daily-news-r89xh succeeded on the deployed revision. All ten feeds returned 281 records with zero model calls. Revision-qualified metadata evidence was retained, the global lease was released, and existing October 11 production no_news markers and absence of a production bundle were preserved. The separately operator-published October 11 article is live. This documentation-only follow-up does not require a runtime rebuild.
