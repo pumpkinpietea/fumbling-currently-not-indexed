@@ -25,7 +25,7 @@
     "type": "research"
   },
   "www.ide.go.jp": {
-    "name": "JETRO",
+    "name": "IDE-JETRO",
     "country": "JP",
     "type": "research"
   },
@@ -148,5 +148,15 @@
     "name": "Bank Indonesia",
     "country": "ID",
     "type": "institution"
+  },
+  "fpt.com": {
+    "name": "FPT",
+    "country": "VN",
+    "type": "company"
+  },
+  "www.fpt.com": {
+    "name": "FPT",
+    "country": "VN",
+    "type": "company"
   }
 }

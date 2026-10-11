@@ -10,7 +10,7 @@
     const topic = form.elements.topic.value;
     let count = 0;
     for (const card of cards) {
-      const visible = (!text || card.textContent.toLocaleLowerCase().includes(text)) &&
+      const visible = (!text || (card.dataset.search || card.textContent).toLocaleLowerCase().includes(text)) &&
         (!country || card.dataset.countries.split(' ').includes(country)) &&
         (!topic || card.dataset.topics.split(' ').includes(topic));
       card.hidden = !visible;

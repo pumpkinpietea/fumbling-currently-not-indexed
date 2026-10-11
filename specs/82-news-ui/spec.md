@@ -1,7 +1,7 @@
 # Bilingual news UI
 
 Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/82
-Status: Implementing
+Status: Delivered; evidence in tasks.md
 
 ## Goal
 Make news sources, dates and archived notes easy to scan and find.

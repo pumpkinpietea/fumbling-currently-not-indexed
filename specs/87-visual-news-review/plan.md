@@ -1,0 +1,3 @@
+# Design
+
+The current session exposes no dedicated View/Browser or Playwright interactive skill. Official OpenAI documentation recommends Playwright for actual UI review. Provide a pinned development-only Playwright harness that builds Hugo into a temporary directory, serves only loopback, blocks unrelated external requests, drives public UI and captures temporary screenshots plus browser/layout evidence. Keep CLI checks portable and browser setup explicit. AGENTS.md requires actual image inspection before declaring UI complete and honest disclosure when unavailable. Browser render assertions complement the screenshot review; pixel baselines are not silently generated as approval.
