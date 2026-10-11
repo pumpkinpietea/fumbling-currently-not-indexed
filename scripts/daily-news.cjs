@@ -1,3 +1,4 @@
+const { relevantNews } = require('./news-relevance.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
@@ -92,15 +93,12 @@ function validateBundle(bundle, date) {
 }
 function shortlist(records, accepted, priorUrls) {
   const acceptedUrls = new Set(accepted.map(s => s.normalizedUrl));
-  const topic = /\b(?:AI|digital|technology|tech|cyber|teknologi|siber|internet|startup|e-commerce|ecommerce|fintech|data|shopee|tokopedia|lazada|grab|gojek|semiconductor|semikonduktor|komdigi|software|cloud|payments)\b|デジタル|電子商取引|人工知能|サイバー|スタートアップ|半導体|データ|決済|通信|DX/i;
-  const region = /\b(?:ASEAN|Southeast Asia|South-East Asia|Indonesia|Indonesian|Vietnam|Viet Nam|Vietnamese|Singapore|Singaporean|Malaysia|Malaysian|Thailand|Thai|Philippines|Filipino|Cambodia|Cambodian|Laos|Lao|Myanmar|Burmese|Brunei|Timor|Jakarta|Hanoi|Manila|Bangkok)\b|東南アジア|インドネシア|ベトナム|シンガポール|マレーシア|タイ|フィリピン|カンボジア|ラオス|ミャンマー|ブルネイ|東ティモール/i;
   const seen = new Set(priorUrls), candidates = [];
   for (const record of [...records].sort((a, b) => String(b.publishedAt).localeCompare(String(a.publishedAt)))) {
     const policy = sourcePolicy(record);
     if (!policy || !acceptedUrls.has(record.url) || seen.has(record.url)) continue;
-    const evidence = `${record.title || ''} ${policy.source.automatedUse === 'rss_title_notes' ? '' : record.description || ''}`
-      .normalize('NFKD').replace(/(\p{Script=Latin})\p{M}+/gu, '$1').normalize('NFC');
-    if (!topic.test(evidence) || !region.test(evidence)) continue;
+    const evidence = `${record.title || ''} ${policy.source.automatedUse === 'rss_title_notes' ? '' : record.description || ''}`;
+    if (!relevantNews(evidence)) continue;
     seen.add(record.url);candidates.push({ record, publisher: policy.source.id });
   }
   const result = [], publishers = new Set();
@@ -116,7 +114,7 @@ function shortlist(records, accepted, priorUrls) {
   return result;
 }
 async function produce({ instant = new Date(), replayDate, trial = false, state, credentialFile,
-  workDirectory, model, revision, metadataOnly = false, config = settings, collect = collectFeeds, body = extractRssEvidence, infer = runPlan } = {}) {
+  workDirectory, model, revision, metadataOnly = false, config = settings, collect = collectFeeds, body = extractRssEvidence, infer = runPlan, discover } = {}) {
   const clock = editionClock(instant, { replayDate, config });
   if ((metadataOnly && !trial) || !clock.valid || (!trial && (!clock.enabled || clock.replay))) throw new Error('publication_not_active');
   if (!/^[a-f0-9]{40}$/.test(revision) || !model) throw new Error('runtime_configuration_required');
@@ -128,6 +126,12 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     const prior = await state.read(`runs/${previous}.json`);
     priorUrls.push(...(prior?.value.sourceUrls || []));
     previousEvents.push(...(prior?.value.eventHints || []));
+  }
+  if (discover) {
+    const reader = await discover();
+    // Personal reader output never enters model evidence or publication bundles.
+    await state.write(`evidence/google-reader-${marker}${date}.json`, reader.report);
+    await state.write(`evidence/google-reader-html-${marker}${date}.json`, { html: reader.html });
   }
   const collected = await collect({ schemaVersion: 1, window: clock.window, feeds: dailyFeeds });
   if (!collected.valid || !collected.report.complete) throw new Error('incomplete_collection');
@@ -195,7 +199,7 @@ if (require.main === module) {
     try { return await produce({ state, credentialFile: path.join(work, 'session.json'), workDirectory: work,
       model: process.env.NEWS_MODEL, revision: process.env.NEWS_REVISION,
       instant: nextDayTrial ? new Date(Date.now() + 86400000) : new Date(),
-      trial: args.length > 0, metadataOnly,
+      trial: args.length > 0, metadataOnly, discover: require('./google-news-reader.cjs').readGoogleNews,
       replayDate: metadataOnly ? new Date(Date.now() + 7 * 3600000).toISOString().slice(0, 10) :
         args.length === 2 ? args[1] : undefined });
     } finally { await state.remove('locks/runtime.json', lease); }
