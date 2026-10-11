@@ -5,7 +5,9 @@ const region = '(Indonesia OR ASEAN OR "Southeast Asia" OR Vietnam OR Singapore 
 const topic = '(technology OR digital OR AI OR ecommerce OR "e-commerce" OR fintech OR "data centre")';
 const queries = Object.freeze([
   { id: 'sea-tech', query: `${region} ${topic} when:2d` },
-  { id: 'china-middle-east-sea-tech', query: `${region} ${topic} (site:ecns.cn OR site:chinadaily.com.cn OR site:cgtn.com OR site:aljazeera.com OR site:en.mehrnews.com OR site:arabnews.com) when:2d` },
+  { id: 'china-middle-east-sea-tech', query: `(Indonesia OR (${region} ${topic})) (site:ecns.cn OR site:chinadaily.com.cn OR site:cgtn.com OR site:aljazeera.com OR site:en.mehrnews.com OR site:arabnews.com) when:2d` },
+  { id: 'indonesia-general', query: '(Indonesia OR Indonesian OR Jakarta) when:2d' },
+  { id: 'yahoo-indonesia-ja', hl: 'ja', gl: 'JP', ceid: 'JP:ja', query: '(インドネシア OR ジャカルタ) site:news.yahoo.co.jp when:2d' },
 ]);
 const locales = Object.freeze([
   { id: 'id', hl: 'id', gl: 'ID', ceid: 'ID:id', query: '(Indonesia OR ASEAN OR Asia Tenggara) (teknologi OR digital OR AI OR e-commerce) when:2d' },
@@ -39,15 +41,16 @@ async function readGoogleNews({ fetch = fetchFeed, now = () => new Date() } = {}
       const parsed = parseRss(await fetch(url.href));
       if (!parsed.valid) throw new Error('invalid_feed');
       report.feeds.push({ id: query.id, status: 'ok', itemCount: parsed.records.length });
+      let queryCandidates = 0;
       for (const record of parsed.records) {
-        if (!candidate(record) || seen.has(record.url) || report.candidates.length >= 150 || record.url.length > 2048 || record.title.length > 500) continue;
-        seen.add(record.url);report.candidates.push({ queryId: query.id, title: record.title,
+        if (!candidate(record) || seen.has(record.url) || report.candidates.length >= 150 || queryCandidates >= 30 || record.url.length > 2048 || record.title.length > 500) continue;
+        seen.add(record.url);queryCandidates++;report.candidates.push({ queryId: query.id, title: record.title,
           googleUrl: record.url, googleFeedTimestamp: record.publishedAt, originalVerified: false });
       }
     } catch { report.feeds.push({ id: query.id, status: 'failed', itemCount: 0 }); }
   }
   const html = '<!doctype html><html lang="ja"><meta charset="utf-8"><title>個人用ニュース候補</title>' +
-    '<h1>東南アジアIT・Eコマース：個人用候補リーダー</h1><p>Google News RSS。非公開・非商用の個人閲覧用。日時はGoogle配信日時です。原典未確認・公開記事の根拠には未採用。</p><ul>' +
+    '<h1>インドネシア全般・東南アジアIT：個人用候補リーダー</h1><p>Google News RSS。非公開・非商用の個人閲覧用。日時はGoogle配信日時です。原典未確認・公開記事の根拠には未採用。</p><ul>' +
     report.candidates.map(c => `<li><a href="${escape(c.googleUrl)}" target="_blank" rel="noopener noreferrer">${escape(c.title)}</a> <time>${escape(c.googleFeedTimestamp)}</time></li>`).join('') + '</ul></html>';
   return { report, html };
 }

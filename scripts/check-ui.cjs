@@ -3,7 +3,9 @@ const assert=require('node:assert/strict');
 const {execFileSync}=require('node:child_process');
 const {chromium}=require('@playwright/test');
 async function review(){
-  if(process.argv.length>3 || (process.argv[2] && process.argv[2]!=='--live'))throw new Error('usage_optional_live_only');
+  const args=process.argv.slice(2);
+  const preview=args.length===2 && args[0]==='--preview-bundle';
+  if(args.length && !(args.length===1 && args[0]==='--live') && !preview)throw new Error('usage_live_or_preview_bundle');
   const output=fs.mkdtempSync(path.join(os.tmpdir(),'news-ui-review-'));fs.chmodSync(output,0o700);
   const site=path.join(output,'site');fs.mkdirSync(site);const screenshots=path.join(output,'screenshots');fs.mkdirSync(screenshots);
   const mime={'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.png':'image/png','.xml':'application/xml'};
@@ -14,24 +16,33 @@ async function review(){
       response.writeHead(200,{'content-type':mime[path.extname(file)]||'application/octet-stream'});response.end(fs.readFileSync(file));
     }catch{response.writeHead(404);response.end('Not found');}
   });
+  const live=args[0]==='--live';
+  let previewDate;
+  if(preview){
+    const bundle=JSON.parse(fs.readFileSync(args[1],'utf8'));
+    const files=require('./daily-news.cjs').validateBundle(bundle,bundle.editionDate);previewDate=bundle.editionDate;
+    fs.cpSync('content',path.join(output,'content'),{recursive:true});
+    fs.writeFileSync(path.join(output,'preview.json'),JSON.stringify({languages:{en:{contentDir:path.join(output,'content/en')},jp:{contentDir:path.join(output,'content/jp')}}}));
+    for(const [name,content] of Object.entries(files)){const file=path.join(output,name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,content);}
+  }
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-  const live=process.argv[2]==='--live';
   const base=live?'https://blog.pumpkinpie-tea.com':`http://127.0.0.1:${server.address().port}`;
   let browser;
   const report={revision:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),workingTreeModified:!!execFileSync('git',['status','--porcelain'],{encoding:'utf8'}).trim(),browser:null,scope:live?'production':'local-working-tree',output,checks:[],screenshots:[],visualInspection:'pending: open screenshots; automated assertions are not visual approval'};
   try{
-    if(!live)execFileSync('hugo',['--minify','--baseURL',base+'/','--destination',site,'--cacheDir',path.join(output,'cache')],{stdio:'pipe'});
+    if(!live)execFileSync('hugo',[...(preview?['--config',`hugo.yaml,${path.join(output,'preview.json')}`,'--buildFuture']:[]),'--minify','--baseURL',base+'/','--destination',site,'--cacheDir',path.join(output,'cache')],{stdio:'pipe'});
     browser=await chromium.launch();report.browser=browser.version();
     const sizes=[['desktop',1280,900],['tablet',768,1024],['mobile',375,812]];
     for(const language of ['en','jp'])for(const theme of ['light','dark'])for(const [size,width,height] of sizes){
       const context=await browser.newContext({viewport:{width,height},colorScheme:theme,locale:language==='jp'?'ja-JP':'en-US'});
+      context.setDefaultTimeout(30000);
       await context.addInitScript(value=>localStorage.setItem('pref-theme',value),theme);
       await context.route('**/*',route=>route.request().url().startsWith(base+'/')?route.continue():route.abort());
       const page=await context.newPage(),errors=[],broken=[];
       page.on('pageerror',error=>errors.push(error.message));
       page.on('response',response=>{if(response.url().startsWith(base+'/')&&response.status()>=400)broken.push({status:response.status(),pathname:new URL(response.url()).pathname});});
       const prefix=language==='jp'?'/jp':'';
-      const routes=[['home',prefix+'/'],['news',prefix+'/news/'],['article',prefix+'/article/southeast-asia-tech-2026-10-11/'],['search',prefix+'/search/']];
+      const routes=[['home',prefix+'/'],['news',prefix+'/news/'],['article',prefix+`/article/southeast-asia-tech-${previewDate || '2026-10-11'}/`],...(preview?[['indonesia',prefix+`/article/indonesia-news-${previewDate}/`]]:[]),['search',prefix+'/search/']];
       for(const [name,route] of routes){
         const response=await page.goto(base+route,{waitUntil:'networkidle'});assert.equal(response.status(),200);
         await page.evaluate(()=>document.fonts.ready);
@@ -59,13 +70,19 @@ async function review(){
           assert.match(await page.locator('[data-news-status]').textContent(),/^0/);
           if(size==='mobile')await page.screenshot({path:path.join(screenshots,`${language}-${theme}-empty.png`),animations:'disabled'});
           await page.locator('[name=query]').fill('');await page.locator('[name=country]').selectOption('');await page.locator('[name=topic]').selectOption('');assert.ok(await page.locator('[data-news-card]:visible').count()>=7);
-          const heading=page.locator('.news-card h2 a').first();await heading.click();await page.waitForURL(/#./);
+          const heading=page.locator('.news-card h2 a[href*="#"]').first();await heading.click();await page.waitForURL(/#./);
           const anchor=decodeURIComponent(new URL(page.url()).hash.slice(1));assert.equal(await page.locator(`[id="${anchor}"]`).count(),1);
         }
-        if(name==='article'){
-          const sources=page.locator('a.source-link');assert.equal(await sources.count(),5);
+        if(name==='article'||name==='indonesia'){
+          if(preview){
+            const highlights=page.locator('.post-content a[href^="#news-"]');
+            if(await highlights.count()){await highlights.first().click();await page.waitForURL(/#news-/);const id=new URL(page.url()).hash.slice(1);assert.equal(await page.locator(`h2[id="${id}"]`).count(),1);}
+            else assert.match(await page.locator('.post-content').textContent(),/No new eligible|本日の収集範囲/);
+          }
+          const sources=page.locator('a.source-link');if(!preview)assert.equal(await sources.count(),5);
+          if(!await sources.count()){assert.ok(preview);continue;}
           for(const link of await sources.all()){assert.equal(await link.getAttribute('target'),'_blank');assert.match(await link.getAttribute('rel'),/noopener.*noreferrer/);}
-          if(size==='mobile'){await sources.first().scrollIntoViewIfNeeded();await page.screenshot({path:path.join(screenshots,`${language}-${theme}-article-source.png`),animations:'disabled'});}
+          if(size==='mobile'){await sources.first().scrollIntoViewIfNeeded();await page.screenshot({path:path.join(screenshots,`${language}-${theme}-${name}-source.png`),animations:'disabled'});}
           const source=await sources.first().getAttribute('href');const [popup,request]=await Promise.all([context.waitForEvent('page'),context.waitForEvent('request',{predicate:request=>request.url()===source && request.isNavigationRequest()}),sources.first().click()]);
           assert.equal(request.url(),source);await popup.close();
         }

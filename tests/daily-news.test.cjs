@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { extractRssEvidence } = require('../scripts/news-evidence.cjs');
-const { validateEvents, validateBundle, renderEdition, shortlist, produce } = require('../scripts/daily-news.cjs');
+const { validateEvents, validateBundle, renderEdition, renderDailyEditions, shortlist, produce } = require('../scripts/daily-news.cjs');
 const settings = require('../config/news-publishing.json');
 const record = { url: 'https://www.antaranews.com/berita/1234567/indonesia-digital-services',
   title: 'Indonesia expands digital services', publishedAt: '2026-10-10T04:00:00Z',
@@ -42,7 +42,7 @@ test('shortlist uses normalized accepted URLs, topic filtering and previous publ
   const accepted = [{ normalizedUrl: record.url }];
   assert.equal(shortlist([record], accepted, []).length, 1);
   assert.equal(shortlist([record], accepted, [record.url]).length, 0);
-  assert.equal(shortlist([{ ...record, title: 'Football match results', description: 'Football match results in Indonesia.' }], accepted, []).length, 0);
+  assert.equal(shortlist([{ ...record, title: 'Football match results', description: 'Football match results in Indonesia.' }], accepted, []).length, 1);
 });
 function harness({ records = [record], complete = true, rejectReview = false, failure } = {}) {
   const objects = new Map([['auth/session.json', { value: { refresh_token: 'synthetic-runtime-fixture' }, generation: '1' }]]);
@@ -70,15 +70,15 @@ test('trial persists rotation before inference, requires review and never emits 
     assert.equal((await produce(h.options)).status, 'trial_passed');assert.equal(h.calls(), 2);
     assert.equal(h.objects.get('auth/session.json').value.rotated, 2);
     assert.ok(!h.objects.has('bundles/2026-10-11.json'));
-    const retained = h.objects.get('evidence/trial-bundle-2026-10-11.json').value;
-    assert.deepEqual(validateBundle(retained, '2026-10-11'), renderEdition('2026-10-11', [event], [source]));
+    const retained = h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value;
+    assert.deepEqual(validateBundle(retained, '2026-10-11'), renderDailyEditions('2026-10-11', [event], [source]));
     await assert.rejects(produce(h.options), /state_already_exists/);
   } finally { h.cleanup(); }
 });
 test('no-news, partial feeds, failed generation and rejected review never publish', async () => {
   for (const config of [{ records: [] }, { complete: false }, { failure: true }, { rejectReview: true }]) {
     const h = harness(config);try {
-      if (config.records) { assert.equal((await produce(h.options)).status, 'no_news');assert.equal(h.calls(), 0); }
+      if (config.records) { assert.equal((await produce(h.options)).status, 'trial_passed');assert.equal(h.calls(), 0);assert.equal(Object.keys(h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value.files).length,4); }
       else await assert.rejects(produce(h.options));
       assert.ok(!h.objects.has('bundles/2026-10-11.json'));
       if (config.failure) assert.equal(h.objects.get('auth/session.json').value.rotated, 1);
@@ -113,10 +113,10 @@ test('personal reader is persisted privately and never enters inference or publi
   h.options.infer = async (...args) => { assert.ok(!JSON.stringify(args[0]).includes('GOOGLE_READER_ONLY_MARKER'));assert.ok(!JSON.stringify(args[0]).includes('EXTRA_READER_ONLY_MARKER'));return infer(...args); };
   try {
     assert.equal((await produce(h.options)).status, 'trial_passed');
-    assert.equal(h.objects.get('evidence/google-reader-trial-2026-10-11.json').value.marker, 'GOOGLE_READER_ONLY_MARKER');
-    assert.ok(!JSON.stringify(h.objects.get('evidence/trial-bundle-2026-10-11.json').value).includes('GOOGLE_READER_ONLY_MARKER'));
-    assert.equal(h.objects.get('evidence/additional-reader-trial-2026-10-11.json').value.marker, 'EXTRA_READER_ONLY_MARKER');
-    assert.ok(!JSON.stringify(h.objects.get('evidence/trial-bundle-2026-10-11.json').value).includes('EXTRA_READER_ONLY_MARKER'));
+    assert.equal(h.objects.get('evidence/google-reader-trial-aaaaaaaaaaaa-2026-10-11.json').value.marker, 'GOOGLE_READER_ONLY_MARKER');
+    assert.ok(!JSON.stringify(h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value).includes('GOOGLE_READER_ONLY_MARKER'));
+    assert.equal(h.objects.get('evidence/additional-reader-trial-aaaaaaaaaaaa-2026-10-11.json').value.marker, 'EXTRA_READER_ONLY_MARKER');
+    assert.ok(!JSON.stringify(h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value).includes('EXTRA_READER_ONLY_MARKER'));
     assert.ok(!h.objects.has('bundles/2026-10-11.json'));
   } finally { h.cleanup(); }
 });
@@ -134,4 +134,40 @@ test('failed official collection preserves private health without AI or publicat
     assert.ok(!h.objects.has('runs/metadata-aaaaaaaaaaaa-2026-10-11.json'));
     assert.equal(h.objects.get('auth/session.json').value.refresh_token, 'synthetic-runtime-fixture');
   } finally { h.cleanup(); }
+});
+
+test('two daily editions share Indonesia tech facts and exclude non-tech foreign news', () => {
+  const general = extractRssEvidence({ ...record, url: record.url.replace('1234567','1234568'), title: 'Indonesia parliament discusses education policy', description: 'Indonesia parliament discussed an education policy proposal at its meeting.' });
+  const vietnam = extractRssEvidence({ ...record, url: 'https://vietnamnews.vn/economy/12345/vietnam-online-commerce.html', feedId:'vietnam-news-economy', title: 'Vietnam expands online e-commerce services', description: 'Vietnam announced expanded online e-commerce services for businesses.' });
+  const make = (s, jpTitle) => ({ sourceIds:[s.id], en:{title:s.title,summary:s.excerpt.split('\n')[1]}, jp:{title:jpTitle,summary:'当局は新たな取り組みについて発表しました。'}, quotes:[{sourceId:s.id,text:s.excerpt.split('\n')[1]}] });
+  const events = [make(general,'インドネシアの議会、教育政策を議論'),event,make(vietnam,'ベトナム、オンラインECサービスを拡大')], sources = [general,source,vietnam];
+  const files = renderDailyEditions('2026-10-11',events,sources);
+  assert.equal(Object.keys(files).length,4);
+  const id = files['content/en/article/2026-10-11-indonesia-news.md'], tech = files['content/en/article/2026-10-11-southeast-asia-tech.md'];
+  assert.ok(id.includes(general.title) && !id.includes(vietnam.title));
+  assert.ok(tech.includes(vietnam.title) && !tech.includes(general.title));
+  for (const page of [id,tech]) { assert.ok(page.includes(event.en.summary));assert.ok(page.includes('](#news-1)'));assert.ok(page.includes('{#news-1}')); }
+  const foreign = {...general,excerpt:'Thailand parliament discussed education policy with its legislators.'};
+  const foreignEvent=make({...foreign,excerpt:'Headline\n'+foreign.excerpt},'タイ議会、教育政策について議論');
+  assert.throws(()=>renderDailyEditions('2026-10-11',[foreignEvent],[foreign,source,vietnam]),/irrelevant_event/);
+  const bundle = {schemaVersion:2,editionDate:'2026-10-11',revision:'a'.repeat(40),sources,events,review:{approved:true,checkedIds:events.flatMap(e=>e.sourceIds)},files};
+  assert.deepEqual(validateBundle(bundle,'2026-10-11'),files);
+  const altered = copy(bundle);delete altered.files['content/jp/article/2026-10-11-indonesia-news.md'];assert.throws(()=>validateBundle(altered,'2026-10-11'),/bundle_files_mismatch/);
+});
+test('complete empty collection publishes two empty editions without AI and remains idempotent',async()=>{
+  const h=harness({records:[]});try {
+    const options={...h.options,trial:false,replayDate:undefined};
+    assert.equal((await produce(options)).status,'prepared');assert.equal(h.calls(),0);
+    const bundle=h.objects.get('bundles/2026-10-11.json').value;
+    assert.equal(Object.keys(validateBundle(bundle,'2026-10-11')).length,4);
+    assert.ok(bundle.files['content/jp/article/2026-10-11-indonesia-news.md'].includes('本日の収集範囲'));
+    assert.ok(!bundle.files['content/en/article/2026-10-11-southeast-asia-tech.md'].includes('#news-1'));
+    await assert.rejects(produce(options),/state_already_exists/);
+  }finally{h.cleanup();}
+});
+test('shortlist reserves sources for both topics instead of letting general stories starve tech',()=>{
+  const records=Array.from({length:5},(_,i)=>({...record,url:record.url.replace('1234567',String(1234570+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discusses education policy.'}));
+  const tech={...record,url:record.url.replace('1234567','1234580'),title:'Vietnam e-commerce services expand',description:'Vietnam e-commerce firms expanded online services.'};records.push(tech);
+  const selected=shortlist(records,records.map(r=>({normalizedUrl:r.url})),[]);
+  assert.equal(selected.length,3);assert.ok(selected.includes(tech));
 });

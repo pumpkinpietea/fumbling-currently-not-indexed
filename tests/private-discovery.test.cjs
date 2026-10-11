@@ -3,7 +3,7 @@ const {safeLink,htmlLinks,sitemapLinks,schedule,discoverPrivate,newsletterCandid
 const {dailyQueries}=require('../scripts/google-news-reader.cjs');
 const {relevantNews}=require('../scripts/news-relevance.cjs');
 test('Six language searches rotate by Jakarta day and retain original fixed searches',()=>{
-  const ids=new Set();for(let day=10;day<16;day++){const queries=dailyQueries(new Date(`2026-10-${day}T00:30:00Z`));assert.equal(queries.length,3);assert.equal(queries[0].id,'sea-tech');ids.add(queries[2].id);}assert.equal(ids.size,6);
+  const ids=new Set();for(let day=10;day<16;day++){const queries=dailyQueries(new Date(`2026-10-${day}T00:30:00Z`));assert.equal(queries.length,5);assert.equal(queries[0].id,'sea-tech');ids.add(queries[4].id);}assert.equal(ids.size,6);
   for(const text of ['Indonesia teknologi digital','ベトナムのEC市場','Việt Nam công nghệ','อาเซียน เทคโนโลยี','印尼 电商','إندونيسيا التكنولوجيا'])assert.equal(relevantNews(text),true,text);
   assert.equal(relevantNews('Football https://example.com/Indonesia/digital'),false);
   assert.equal(relevantNews('China 人工智能'),false);

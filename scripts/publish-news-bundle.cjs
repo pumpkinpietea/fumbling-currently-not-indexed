@@ -57,7 +57,7 @@ async function validateMain(sha, { api = github,
 function inspectStaged(files) {
   const expected = Object.keys(files).sort();
   const names = git('diff', '--cached', '--name-only', '--diff-filter=A').split('\n').filter(Boolean).sort();
-  if (JSON.stringify(names) !== JSON.stringify(expected) || git('diff', '--cached', '--name-only').split('\n').length !== 2)
+  if (JSON.stringify(names) !== JSON.stringify(expected) || git('diff', '--cached', '--name-only').split('\n').length !== expected.length)
     throw new Error('unexpected_staged_paths');
   // Inspect the complete staged diff and each staged blob, rather than a search-only gate.
   const diff = git('diff', '--cached', '--no-ext-diff', '--unified=1000');
@@ -73,10 +73,9 @@ function inspectStaged(files) {
 function rehearsalFiles(bundle, date) {
   const originals = validateBundle(bundle, date), files = {};
   for (const [name, content] of Object.entries(originals)) {
-    const destination = name.replace(`${date}-southeast-asia-tech.md`, `${date}-southeast-asia-tech-rehearsal.md`);
+    const destination = name.replace(/\.md$/, '-rehearsal.md');
     files[destination] = content.replace('draft: false', 'draft: true')
-      .replace(`slug: southeast-asia-tech-${date}`, `slug: southeast-asia-tech-${date}-rehearsal`)
-      .replace(`translationKey: southeast-asia-tech-${date}`, `translationKey: southeast-asia-tech-${date}-rehearsal`);
+      .replace(/^(slug|translationKey): (.+)$/gm, '$1: $2-rehearsal');
   }
   return files;
 }
@@ -97,7 +96,7 @@ async function publish() {
   if ((await github('git/ref/heads/main')).object.sha !== original || git('status', '--porcelain')) throw new Error('clean_current_main_required');
   const existing = Object.keys(files).filter(file => fs.existsSync(file));
   if (existing.length) {
-    if (existing.length === 2 && existing.every(file => fs.readFileSync(file, 'utf8') === files[file]))
+    if (existing.length === Object.keys(files).length && existing.every(file => fs.readFileSync(file, 'utf8') === files[file]))
       return { status: 'already_published', editionDate: date };
     throw new Error('existing_edition_conflict');
   }
@@ -108,7 +107,7 @@ async function publish() {
     fs.mkdirSync(path.dirname(file), { recursive: true });fs.writeFileSync(file, content, { flag: 'wx' });
   }
   git('add', '--', ...Object.keys(files));inspectStaged(files);
-  git('diff', '--cached', '--check');git('commit', '-m', `${rehearsal ? 'Rehearse' : 'Publish'} Southeast Asia tech notes for ${date}`);
+  git('diff', '--cached', '--check');git('commit', '-m', `${rehearsal ? 'Rehearse' : 'Publish'} daily news editions for ${date}`);
   const head = git('rev-parse', 'HEAD');
   if (git('diff', '--name-only', `${original}...HEAD`).split('\n').sort().join('\n') !== Object.keys(files).sort().join('\n'))
     throw new Error('outgoing_scope_rejected');
@@ -117,20 +116,20 @@ async function publish() {
   try { execFileSync('git', ['push', `https://x-access-token@github.com/${REPO}.git`, `HEAD:refs/heads/${branch}`],
     { env: { ...process.env, GIT_ASKPASS: askpass, GIT_TERMINAL_PROMPT: '0' }, stdio: ['ignore', 'pipe', 'pipe'] }); }
   finally { fs.unlinkSync(askpass); }
-  const pr = await github('pulls', 'POST', { title: `${rehearsal ? 'Draft rehearsal: ' : ''}Southeast Asia tech notes — ${date}`, head: branch, base: 'main',
-    body: 'Automated factual EN/JP edition from the private bounded news pipeline. Source dates, exact grounding quotes, translation numbers and skeptical model review passed. The complete staged content and scope were checked before commit. Only the two new edition files are included.\n\nTracked in #55.' });
+  const pr = await github('pulls', 'POST', { title: `${rehearsal ? 'Draft rehearsal: ' : ''}Daily news editions — ${date}`, head: branch, base: 'main',
+    body: 'Automated factual EN/JP edition from the private bounded news pipeline. Source dates, exact grounding quotes, translation numbers and skeptical model review passed. The complete staged content and scope were checked before commit. Only the exact validated bilingual daily edition files are included.\n\nTracked in #55.' });
   const verifyScope = async () => {
     const current = await github(`pulls/${pr.number}`), changes = await github(`pulls/${pr.number}/files`);
     if (current.user.login !== 'github-actions[bot]' || current.head.repo.full_name !== REPO || current.base.repo.full_name !== REPO ||
         current.head.sha !== head || current.base.sha !== original ||
-        changes.length !== 2 || changes.some(c => c.status !== 'added' || !Object.hasOwn(files, c.filename)) ||
+        changes.length !== Object.keys(files).length || changes.some(c => c.status !== 'added' || !Object.hasOwn(files, c.filename)) ||
         (await github('git/ref/heads/main')).object.sha !== original) throw new Error('pr_scope_or_base_changed');
   };
   const validation = await validatePr(branch, head, pr.number, verifyScope);
   await verifyScope();
   // GitHub enforces required checks and up-to-date main; no administrator bypass is used.
   const merged = await github(`pulls/${pr.number}/merge`, 'PUT', { sha: head, merge_method: 'squash',
-    commit_title: `${rehearsal ? 'Rehearse' : 'Publish'} Southeast Asia tech notes for ${date}`,
+    commit_title: `${rehearsal ? 'Rehearse' : 'Publish'} daily news editions for ${date}`,
     commit_message: `Validated content-only edition. ${validation}` });
   if (!merged.merged) throw new Error('merge_failed');
   await validateMain(merged.sha);
