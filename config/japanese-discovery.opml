@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<opml version="2.0">
+  <head>
+    <title>Japanese publishers - personal discovery subscriptions</title>
+  </head>
+  <body>
+    <outline text="technology">
+      <outline text="ITmedia NEWS" title="ITmedia NEWS" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/news_bursts.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="ITmedia NEWS Overseas" title="ITmedia NEWS Overseas" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/news_foreign.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="ITmedia AI+" title="ITmedia AI+" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/aiplus.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="ITmedia Business Online" title="ITmedia Business Online" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/business.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="ITmedia Enterprise" title="ITmedia Enterprise" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/enterprise.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="@IT" title="@IT" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/ait.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="ITmedia Marketing" title="ITmedia Marketing" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/marketing.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="EE Times Japan" title="EE Times Japan" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/eetimes.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="MONOist" title="MONOist" type="rss" xmlUrl="https://rss.itmedia.co.jp/rss/2.0/monoist.xml" htmlUrl="https://corp.itmedia.co.jp/media/rss_list/" />
+      <outline text="Impress Watch" title="Impress Watch" type="rss" xmlUrl="https://www.watch.impress.co.jp/data/rss/1.0/ipw/feed.rdf" htmlUrl="https://www.watch.impress.co.jp/" />
+      <outline text="INTERNET Watch" title="INTERNET Watch" type="rss" xmlUrl="https://internet.watch.impress.co.jp/data/rss/1.0/iw/feed.rdf" htmlUrl="https://internet.watch.impress.co.jp/" />
+      <outline text="Cloud Watch" title="Cloud Watch" type="rss" xmlUrl="https://cloud.watch.impress.co.jp/data/rss/1.0/clw/feed.rdf" htmlUrl="https://cloud.watch.impress.co.jp/" />
+      <outline text="PC Watch" title="PC Watch" type="rss" xmlUrl="https://pc.watch.impress.co.jp/data/rss/1.0/pcw/feed.rdf" htmlUrl="https://pc.watch.impress.co.jp/" />
+      <outline text="ASCII.jp" title="ASCII.jp" type="rss" xmlUrl="https://ascii.jp/rss.xml" htmlUrl="https://ascii.jp/info/about_rss.html" />
+      <outline text="ASCII Business" title="ASCII Business" type="rss" xmlUrl="https://ascii.jp/biz/rss.xml" htmlUrl="https://ascii.jp/info/about_rss.html" />
+      <outline text="ASCII TECH" title="ASCII TECH" type="rss" xmlUrl="https://ascii.jp/tech/rss.xml" htmlUrl="https://ascii.jp/info/about_rss.html" />
+    </outline>
+    <outline text="institution">
+      <outline text="JETRO Business News" title="JETRO Business News" type="rss" xmlUrl="https://www.jetro.go.jp/rss2/biznews.xml" htmlUrl="https://www.jetro.go.jp/biznews/" />
+      <outline text="IDE-JETRO News" title="IDE-JETRO News" type="rss" xmlUrl="https://www.ide.go.jp/rss/japanese.xml" htmlUrl="https://www.ide.go.jp/Japanese/" />
+      <outline text="IDE-JETRO Publications" title="IDE-JETRO Publications" type="rss" xmlUrl="https://www.ide.go.jp/rss/japanese_download.xml" htmlUrl="https://www.ide.go.jp/Japanese/" />
+    </outline>
+    <outline text="regional">
+      <outline text="newsclip Thailand News" title="newsclip Thailand News" type="rss" xmlUrl="https://newsclip.be/feed" htmlUrl="https://newsclip.be/" />
+    </outline>
+  </body>
+</opml>
