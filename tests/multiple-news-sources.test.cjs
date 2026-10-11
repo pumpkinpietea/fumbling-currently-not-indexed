@@ -72,7 +72,7 @@ test('mixed-source bundles preserve author/license before adaptations and reject
     review: { approved: true, checkedIds: event.sourceIds }, files: renderEdition('2026-10-11', [event], sources) };
   validateBundle(bundle, bundle.editionDate);
   for (const language of ['en', 'jp']) {
-    const content = bundle.files[`content/${language}/article/2026-10-11-southeast-asia-tech.md`];
+    const content = bundle.files[`content/${language}/article/2026-10-11-southeast-asia-tech.md`].split('\n---\n')[1];
     assert.ok(content.includes('Viet Nam News') && content.includes('Global Voices · Synthetic Contributor'));
     assert.ok(content.includes('[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)'));
     assert.ok(content.indexOf('Synthetic Contributor') < content.indexOf(event[language].summary));

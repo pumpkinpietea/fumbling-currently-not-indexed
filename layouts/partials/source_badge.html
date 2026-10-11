@@ -1,0 +1,8 @@
+{{- $url := .url -}}
+{{- $lang := .page.Language.Lang -}}
+{{- $info := index site.Data.news_sources (urls.Parse $url).Host -}}
+{{- with $info -}}
+  {{- $country := index site.Data.news_labels.countries .country -}}
+  <span class="source-country"><span aria-hidden="true">{{ $country.flag }}</span> {{ index $country $lang }}</span>
+  <span class="source-kind">{{ index (index site.Data.news_labels.types .type) $lang }}</span>
+{{- end -}}

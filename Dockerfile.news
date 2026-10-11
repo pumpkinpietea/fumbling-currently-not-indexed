@@ -4,5 +4,6 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 COPY scripts ./scripts
 COPY config ./config
+COPY data ./data
 USER node
 ENTRYPOINT ["node", "scripts/daily-news.cjs"]

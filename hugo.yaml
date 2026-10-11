@@ -12,12 +12,48 @@ languages:
     languageCode: en-US
     languageName: English
     weight: 1
+    menu:
+      main:
+        - identifier: news
+          name: News
+          url: /news/
+          weight: 10
+        - identifier: search
+          name: Search
+          url: /search/
+          weight: 20
+        - identifier: categories
+          name: Categories
+          url: /categories/
+          weight: 30
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 40
   jp:
     contentDir: content/jp
     disabled: false
-    languageCode: jp-JP
+    languageCode: ja-JP
     languageName: Japanese
     weight: 2
+    menu:
+      main:
+        - identifier: news
+          name: ニュース
+          url: /jp/news/
+          weight: 10
+        - identifier: search
+          name: 検索
+          url: /jp/search/
+          weight: 20
+        - identifier: categories
+          name: カテゴリー
+          url: /jp/categories/
+          weight: 30
+        - identifier: tags
+          name: タグ
+          url: /jp/tags/
+          weight: 40
 
 enableRobotsTXT: true
 buildDrafts: false
@@ -38,7 +74,7 @@ params:
   # author: Me
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
-  DateFormat: "January 2, 2006"
+  DateFormat: "2006-01-02"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
 

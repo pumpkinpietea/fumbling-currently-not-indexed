@@ -1,1 +1,3 @@
-<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if or (hasPrefix .Destination "https://") (hasPrefix .Destination "http://") }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}</a>{{- /* Trim trailing whitespace. */ -}}
+{{- $external := or (hasPrefix .Destination "https://") (hasPrefix .Destination "http://") -}}
+{{- $source := and $external (or (hasPrefix (.Text | plainify) "出典") (hasPrefix (.Text | plainify) "Source")) -}}
+<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}{{ if $source }} class="source-link"{{ end }}>{{ if $source }}{{ partial "source_badge.html" (dict "url" .Destination "page" .Page) }} {{ end }}{{ .Text | safeHTML }}{{ if $external }}<span class="external-mark" aria-hidden="true"> ↗</span>{{ end }}</a>{{- /* Trim trailing whitespace. */ -}}

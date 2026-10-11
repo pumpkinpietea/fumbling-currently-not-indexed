@@ -1,0 +1,143 @@
+{
+  "countries": {
+    "ID": {
+      "flag": "🇮🇩",
+      "en": "Indonesia",
+      "jp": "インドネシア"
+    },
+    "VN": {
+      "flag": "🇻🇳",
+      "en": "Vietnam",
+      "jp": "ベトナム"
+    },
+    "JP": {
+      "flag": "🇯🇵",
+      "en": "Japan",
+      "jp": "日本"
+    },
+    "CN": {
+      "flag": "🇨🇳",
+      "en": "China",
+      "jp": "中国"
+    },
+    "IR": {
+      "flag": "🇮🇷",
+      "en": "Iran",
+      "jp": "イラン"
+    },
+    "QA": {
+      "flag": "🇶🇦",
+      "en": "Qatar",
+      "jp": "カタール"
+    },
+    "SG": {
+      "flag": "🇸🇬",
+      "en": "Singapore",
+      "jp": "シンガポール"
+    },
+    "US": {
+      "flag": "🇺🇸",
+      "en": "United States",
+      "jp": "米国"
+    },
+    "GB": {
+      "flag": "🇬🇧",
+      "en": "United Kingdom",
+      "jp": "英国"
+    },
+    "MY": {
+      "flag": "🇲🇾",
+      "en": "Malaysia",
+      "jp": "マレーシア"
+    },
+    "TH": {
+      "flag": "🇹🇭",
+      "en": "Thailand",
+      "jp": "タイ"
+    },
+    "PH": {
+      "flag": "🇵🇭",
+      "en": "Philippines",
+      "jp": "フィリピン"
+    },
+    "KH": {
+      "flag": "🇰🇭",
+      "en": "Cambodia",
+      "jp": "カンボジア"
+    },
+    "LA": {
+      "flag": "🇱🇦",
+      "en": "Laos",
+      "jp": "ラオス"
+    },
+    "MM": {
+      "flag": "🇲🇲",
+      "en": "Myanmar",
+      "jp": "ミャンマー"
+    },
+    "BN": {
+      "flag": "🇧🇳",
+      "en": "Brunei",
+      "jp": "ブルネイ"
+    },
+    "TL": {
+      "flag": "🇹🇱",
+      "en": "Timor-Leste",
+      "jp": "東ティモール"
+    },
+    "INT": {
+      "flag": "🌐",
+      "en": "International",
+      "jp": "国際"
+    },
+    "SEA": {
+      "flag": "🌏",
+      "en": "Southeast Asia",
+      "jp": "東南アジア"
+    }
+  },
+  "types": {
+    "reporting": {
+      "en": "Reporting",
+      "jp": "報道"
+    },
+    "company": {
+      "en": "Company announcement",
+      "jp": "企業発表"
+    },
+    "research": {
+      "en": "Research",
+      "jp": "調査"
+    },
+    "institution": {
+      "en": "Institution announcement",
+      "jp": "機関発表"
+    }
+  },
+  "topics": {
+    "ai": {
+      "en": "AI",
+      "jp": "AI"
+    },
+    "ecommerce": {
+      "en": "E-commerce",
+      "jp": "EC"
+    },
+    "infrastructure": {
+      "en": "Digital infrastructure",
+      "jp": "デジタル基盤"
+    },
+    "payments": {
+      "en": "Payments / fintech",
+      "jp": "決済・金融"
+    },
+    "policy": {
+      "en": "Digital policy",
+      "jp": "デジタル政策"
+    },
+    "security": {
+      "en": "Cybersecurity",
+      "jp": "サイバーセキュリティ"
+    }
+  }
+}
