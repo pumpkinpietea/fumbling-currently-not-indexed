@@ -16,13 +16,13 @@ test('reader bounds queries, deduplicates links, escapes markup and labels unver
   let calls = 0;
   const xml = Buffer.from(`<rss version="2.0"><channel><item><title><![CDATA[Indonesia digital & <script>synthetic</script>]]></title><link>${record.url.replace('&','&amp;')}</link><pubDate>Sat, 10 Oct 2026 04:00:00 GMT</pubDate></item></channel></rss>`);
   const reader = await readGoogleNews({ fetch: async url => { calls++;assert.equal(new URL(url).hostname, 'news.google.com');return xml; } });
-  assert.equal(calls, 2);assert.equal(reader.report.candidates.length, 1);
+  assert.equal(calls, 3);assert.equal(reader.report.candidates.length, 1);
   assert.equal(reader.report.candidates[0].originalVerified, false);
   assert.ok(reader.html.includes('&lt;script&gt;') && !reader.html.includes('<script>'));
   assert.ok(reader.html.includes('target="_blank" rel="noopener noreferrer"'));
 });
 test('discovery fetch failure is retained as private health without throwing', async () => {
   const reader = await readGoogleNews({ fetch: async () => { throw new Error('synthetic'); } });
-  assert.deepEqual(reader.report.feeds.map(f => f.status), ['failed', 'failed']);
+  assert.deepEqual(reader.report.feeds.map(f => f.status), ['failed', 'failed', 'failed']);
   assert.equal(reader.report.candidates.length, 0);
 });

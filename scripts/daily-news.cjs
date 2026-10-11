@@ -133,6 +133,10 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     // Personal reader output never enters model evidence or publication bundles.
     await state.write(`evidence/google-reader-${marker}${date}.json`, reader.report);
     await state.write(`evidence/google-reader-html-${marker}${date}.json`, { html: reader.html });
+    if (reader.additional) {
+      await state.write(`evidence/additional-reader-${marker}${date}.json`, reader.additional.report);
+      await state.write(`evidence/additional-reader-html-${marker}${date}.json`, { html: reader.additional.html });
+    }
   }
   const collected = await collect({ schemaVersion: 1, window: clock.window, feeds: dailyFeeds });
   if (collected.report) await state.write(`evidence/feed-health-${marker}${date}.json`, {
@@ -202,7 +206,13 @@ if (require.main === module) {
     try { return await produce({ state, credentialFile: path.join(work, 'session.json'), workDirectory: work,
       model: process.env.NEWS_MODEL, revision: process.env.NEWS_REVISION,
       instant: nextDayTrial ? new Date(Date.now() + 86400000) : new Date(),
-      trial: args.length > 0, metadataOnly, discover: require('./google-news-reader.cjs').readGoogleNews,
+      trial: args.length > 0, metadataOnly, discover: async () => {
+        const reader = await require('./google-news-reader.cjs').readGoogleNews();
+        const previousDate = new Date(Date.now() + 25200000 - 86400000).toISOString().slice(0, 10);
+        const prior = await state.read(`evidence/additional-reader-${previousDate}.json`);
+        reader.additional = await require('./private-discovery.cjs').discoverPrivate({ priorUrls: prior?.value.candidates.map(item => item.url) || [] });
+        return reader;
+      },
       replayDate: metadataOnly ? new Date(Date.now() + 7 * 3600000).toISOString().slice(0, 10) :
         args.length === 2 ? args[1] : undefined });
     } finally { await state.remove('locks/runtime.json', lease); }

@@ -12,7 +12,8 @@ for (const [address, prefix] of [
 const publicIpv4 = address => typeof address === 'string' && isIP(address) === 4 && !blocked.check(address, 'ipv4');
 
 function fetchFeed(url, { request = https.request, resolve = dns.resolve4,
-  timeoutMs = 15000, maxBytes = MAX_FEED_BYTES } = {}) {
+  timeoutMs = 15000, maxBytes = MAX_FEED_BYTES,
+  contentTypes = ['application/rss+xml', 'application/xml', 'text/xml'] } = {}) {
   return new Promise((resolveResult, reject) => {
     let req, response, finished = false;
     const finish = (error, data) => {
@@ -43,14 +44,14 @@ function fetchFeed(url, { request = https.request, resolve = dns.resolve4,
         try {
           req = request(parsed, { method: 'GET', agent: false, family: 4, lookup,
             rejectUnauthorized: true, servername: parsed.hostname,
-            headers: { Accept: 'application/rss+xml, application/xml, text/xml',
+            headers: { Accept: contentTypes.join(', '),
               'Accept-Encoding': 'identity', 'User-Agent': 'NewsMetadataTrial/1.0' } }, res => {
             response = res;
             res.on('error', () => finish('feed_network_error'));
             res.on('aborted', () => finish('feed_network_error'));
             const type = String(res.headers['content-type'] || '').split(';')[0].trim().toLowerCase();
             const encoding = res.headers['content-encoding'];
-            if (res.statusCode !== 200 || !['application/rss+xml', 'application/xml', 'text/xml'].includes(type) ||
+            if (res.statusCode !== 200 || !contentTypes.includes(type) ||
                 (encoding && encoding !== 'identity')) { finish('feed_response_rejected'); return; }
             if (res.headers['content-length'] && (!/^\d+$/.test(res.headers['content-length']) ||
                 Number(res.headers['content-length']) > maxBytes)) { finish('feed_size_limit'); return; }

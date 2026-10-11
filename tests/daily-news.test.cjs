@@ -109,12 +109,14 @@ test('metadata-only trial cannot read app credentials or invoke AI even with eli
 test('personal reader is persisted privately and never enters inference or publication', async () => {
   const h = harness();
   const infer = h.options.infer;
-  h.options.discover = async () => ({ report: { marker: 'GOOGLE_READER_ONLY_MARKER' }, html: '<p>GOOGLE_READER_ONLY_MARKER</p>' });
-  h.options.infer = async (...args) => { assert.ok(!JSON.stringify(args[0]).includes('GOOGLE_READER_ONLY_MARKER'));return infer(...args); };
+  h.options.discover = async () => ({ report: { marker: 'GOOGLE_READER_ONLY_MARKER' }, html: '<p>GOOGLE_READER_ONLY_MARKER</p>', additional: { report: { marker: 'EXTRA_READER_ONLY_MARKER' }, html: '<p>EXTRA_READER_ONLY_MARKER</p>' } });
+  h.options.infer = async (...args) => { assert.ok(!JSON.stringify(args[0]).includes('GOOGLE_READER_ONLY_MARKER'));assert.ok(!JSON.stringify(args[0]).includes('EXTRA_READER_ONLY_MARKER'));return infer(...args); };
   try {
     assert.equal((await produce(h.options)).status, 'trial_passed');
     assert.equal(h.objects.get('evidence/google-reader-trial-2026-10-11.json').value.marker, 'GOOGLE_READER_ONLY_MARKER');
     assert.ok(!JSON.stringify(h.objects.get('evidence/trial-bundle-2026-10-11.json').value).includes('GOOGLE_READER_ONLY_MARKER'));
+    assert.equal(h.objects.get('evidence/additional-reader-trial-2026-10-11.json').value.marker, 'EXTRA_READER_ONLY_MARKER');
+    assert.ok(!JSON.stringify(h.objects.get('evidence/trial-bundle-2026-10-11.json').value).includes('EXTRA_READER_ONLY_MARKER'));
     assert.ok(!h.objects.has('bundles/2026-10-11.json'));
   } finally { h.cleanup(); }
 });
