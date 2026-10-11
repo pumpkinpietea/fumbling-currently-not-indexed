@@ -1,7 +1,7 @@
 # Japanese source discovery
 
 Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/76
-Status: Implementing
+Status: Complete
 
 ## Goal
 Collect Japanese-language publishers and institutional sources for Indonesia/SEA IT and e-commerce discovery.
