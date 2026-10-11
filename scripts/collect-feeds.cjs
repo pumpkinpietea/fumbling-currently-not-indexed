@@ -17,7 +17,7 @@ function selectionRequest(window, articles = [], hosts = ['www.antaranews.com'])
 function validRequest(input) {
   return shape(input, ['schemaVersion', 'window', 'feeds']) && input.schemaVersion === 1 &&
     selectSources(selectionRequest(input.window)).valid && Array.isArray(input.feeds) &&
-    input.feeds.length >= 1 && input.feeds.length <= 8 && new Set(input.feeds).size === input.feeds.length &&
+    input.feeds.length >= 1 && input.feeds.length <= 12 && new Set(input.feeds).size === input.feeds.length &&
     input.feeds.every(id => typeof id === 'string' && Object.hasOwn(FEEDS, id));
 }
 async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date() } = {}) {
@@ -26,7 +26,8 @@ async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date() }
   for (const id of input.feeds) {
     let parsed;
     try { parsed = parseRss(await fetch(FEEDS[id].url), { allowFullMonthNames: FEEDS[id].fullMonthNames === true, includeDescription: FEEDS[id].includeDescription === true,
-      includeCreator: FEEDS[id].includeCreator === true, allowUtf16: FEEDS[id].utf16 === true }); }
+      includeCreator: FEEDS[id].includeCreator === true, allowUtf16: FEEDS[id].utf16 === true, localDateOffsetMinutes: FEEDS[id].localDateOffsetMinutes,
+      httpsArticleHost: FEEDS[id].httpsArticleHost }); }
     catch (error) {
       const known = ['feed_timeout', 'feed_dns_rejected', 'feed_network_error',
         'feed_response_rejected', 'feed_size_limit', 'feed_request_rejected'];

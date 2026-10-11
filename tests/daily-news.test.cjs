@@ -97,8 +97,11 @@ test('metadata-only trial cannot read app credentials or invoke AI even with eli
   try {
     const result = await produce({ ...h.options, metadataOnly: true });
     assert.equal(result.status, 'metadata_trial_passed');assert.equal(result.sources, 1);assert.equal(result.modelCalls, 0);
-    assert.equal(h.objects.get('runs/metadata-2026-10-11.json').value.status, 'metadata_verified');
-    assert.ok(h.objects.has('locks/metadata-2026-10-11.json'));
+    assert.equal(h.objects.get('runs/metadata-aaaaaaaaaaaa-2026-10-11.json').value.status, 'metadata_verified');
+    assert.ok(h.objects.has('locks/metadata-aaaaaaaaaaaa-2026-10-11.json'));
+    await assert.rejects(produce({ ...h.options, metadataOnly: true }), /state_already_exists/);
+    assert.equal((await produce({ ...h.options, metadataOnly: true, revision: 'b'.repeat(40) })).modelCalls, 0);
+    assert.ok(h.objects.has('runs/metadata-bbbbbbbbbbbb-2026-10-11.json'));
     assert.ok(!h.objects.has('locks/trial-2026-10-11.json'));
     assert.ok(!h.objects.has('bundles/2026-10-11.json'));
   } finally { h.cleanup(); }
