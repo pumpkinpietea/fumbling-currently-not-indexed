@@ -134,6 +134,8 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     await state.write(`evidence/google-reader-html-${marker}${date}.json`, { html: reader.html });
   }
   const collected = await collect({ schemaVersion: 1, window: clock.window, feeds: dailyFeeds });
+  if (collected.report) await state.write(`evidence/feed-health-${marker}${date}.json`, {
+    complete: collected.report.complete, feeds: collected.report.feeds || [] });
   if (!collected.valid || !collected.report.complete) throw new Error('incomplete_collection');
   const selected = shortlist(collected.report.records, collected.report.selection.accepted, priorUrls);
   const sources = [];
@@ -203,8 +205,11 @@ if (require.main === module) {
       replayDate: metadataOnly ? new Date(Date.now() + 7 * 3600000).toISOString().slice(0, 10) :
         args.length === 2 ? args[1] : undefined });
     } finally { await state.remove('locks/runtime.json', lease); }
-  })().then(result => console.log(JSON.stringify(result))).catch(() => {
-    console.log(JSON.stringify({ status: 'failed', code: 'daily_run_failed' }));process.exitCode = 1;
+  })().then(result => console.log(JSON.stringify(result))).catch(error => {
+    const known = ['incomplete_collection', 'source_metadata_rejected', 'insufficient_rss_evidence',
+      'source_attribution_rejected', 'state_already_exists', 'state_value_rejected'];
+    const code = known.includes(error.message) ? error.message : 'daily_run_failed';
+    console.log(JSON.stringify({ status: 'failed', code }));process.exitCode = 1;
   }).finally(() => fs.rmSync(work, { recursive: true, force: true }));
 }
 module.exports = { validateEvents, validateBundle, renderEdition, shortlist, produce };
