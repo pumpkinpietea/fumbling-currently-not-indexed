@@ -6,3 +6,6 @@
 !scripts/**
 !config/
 !config/**
+!data/
+!data/news_sources.json
+!data/news_labels.json

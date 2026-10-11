@@ -37,6 +37,8 @@ test('consumer is main-only, serialized, explicitly validates and keeps private 
   assert.ok(source.includes("object.value.revision !== process.env.NEWS_RUNTIME_REVISION"));
   assert.equal(YAML.parse(fs.readFileSync('.github/workflows/validate.yml', 'utf8')).on.workflow_dispatch, null);
   const ignore = fs.readFileSync('.dockerignore', 'utf8');assert.ok(ignore.startsWith('**\n'));
+  assert.ok(ignore.includes('!data/news_sources.json\n') && ignore.includes('!data/news_labels.json\n'));
+  assert.ok(!ignore.includes('!data/**')); 
   assert.ok(!ignore.includes('!.git') && !ignore.includes('!content') && !ignore.includes('!temp-script'));
 });
 
