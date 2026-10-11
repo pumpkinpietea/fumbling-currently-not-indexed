@@ -118,3 +118,18 @@ test('personal reader is persisted privately and never enters inference or publi
     assert.ok(!h.objects.has('bundles/2026-10-11.json'));
   } finally { h.cleanup(); }
 });
+
+test('failed official collection preserves private health without AI or publication', async () => {
+  const h = harness();
+  const feeds = [{ id: 'antara-tech', status: 'failed', itemCount: 0, error: 'feed_timeout' }];
+  h.options.collect = async () => ({ valid: true, report: { complete: false, feeds } });
+  try {
+    await assert.rejects(produce({ ...h.options, metadataOnly: true }), /incomplete_collection/);
+    assert.deepEqual(h.objects.get('evidence/feed-health-metadata-aaaaaaaaaaaa-2026-10-11.json').value,
+      { complete: false, feeds });
+    assert.equal(h.calls(), 0);
+    assert.ok(!h.objects.has('bundles/2026-10-11.json'));
+    assert.ok(!h.objects.has('runs/metadata-aaaaaaaaaaaa-2026-10-11.json'));
+    assert.equal(h.objects.get('auth/session.json').value.refresh_token, 'synthetic-runtime-fixture');
+  } finally { h.cleanup(); }
+});
