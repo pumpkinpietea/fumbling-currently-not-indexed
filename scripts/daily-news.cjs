@@ -120,7 +120,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   const clock = editionClock(instant, { replayDate, config });
   if ((metadataOnly && !trial) || !clock.valid || (!trial && (!clock.enabled || clock.replay))) throw new Error('publication_not_active');
   if (!/^[a-f0-9]{40}$/.test(revision) || !model) throw new Error('runtime_configuration_required');
-  const date = clock.editionDate, marker = metadataOnly ? 'metadata-' : trial ? 'trial-' : '';
+  const date = clock.editionDate, marker = metadataOnly ? `metadata-${revision.slice(0, 12)}-` : trial ? 'trial-' : '';
   await state.write(`locks/${marker}${date}.json`, { revision, startedAt: instant.toISOString() });
   const priorUrls = [], previousEvents = [];
   for (let offset = 1; offset <= 14; offset++) {

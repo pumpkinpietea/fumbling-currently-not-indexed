@@ -319,6 +319,60 @@
         "terms": "https://globalvoices.org/about/global-voices-attribution-policy/",
         "scope": "CC BY 3.0 RSS excerpt adaptation with original link, author, license link and adaptation notice. No images or article bodies. AI policy for their contributors was reviewed separately."
       }
+    },
+    {
+      "id": "ecns",
+      "name": "ECNS (China News Service)",
+      "role": "chinese_reporting",
+      "discoveryUrl": "https://www.ecns.cn/contactus.shtml",
+      "reviewStatus": "private_metadata_trial",
+      "automatedUse": "rss_excerpt_notes",
+      "articlePath": "^/(?:news|business|cns-wire)/[0-9]{4}-[0-9]{2}-[0-9]{2}/detail-[a-z0-9]+\\.shtml$",
+      "feeds": [
+        {
+          "id": "ecns-news",
+          "url": "https://www.ecns.cn/rss/rss.xml",
+          "allowedHosts": [
+            "www.ecns.cn"
+          ],
+          "includeDescription": true,
+          "daily": true,
+          "localDateOffsetMinutes": 480,
+          "httpsArticleHost": "www.ecns.cn"
+        }
+      ],
+      "accessReview": {
+        "checkedOn": "2026-10-11",
+        "rssPolicy": "https://www.ecns.cn/rss/rss.xml",
+        "terms": "https://www.ecns.cn/contactus.shtml",
+        "scope": "Official RSS titles/excerpts for brief original attributed factual notes on a personal noncommercial site; no article reproduction, body or images. Copyright retained; no blanket reuse license claimed."
+      }
+    },
+    {
+      "id": "mehr",
+      "name": "Mehr News Agency",
+      "role": "middle_eastern_reporting",
+      "discoveryUrl": "https://en.mehrnews.com/",
+      "reviewStatus": "private_metadata_trial",
+      "automatedUse": "rss_excerpt_notes",
+      "articlePath": "^/news/[0-9]+/[a-zA-Z0-9-]+$",
+      "feeds": [
+        {
+          "id": "mehr-news",
+          "url": "https://en.mehrnews.com/rss",
+          "allowedHosts": [
+            "en.mehrnews.com"
+          ],
+          "includeDescription": true,
+          "daily": true
+        }
+      ],
+      "accessReview": {
+        "checkedOn": "2026-10-11",
+        "rssPolicy": "https://en.mehrnews.com/rss",
+        "terms": "https://en.mehrnews.com/",
+        "scope": "Official RSS titles/excerpts for brief original attributed factual notes on a personal noncommercial site; no article reproduction, body or images. Copyright retained; no blanket reuse license claimed."
+      }
     }
   ]
 }

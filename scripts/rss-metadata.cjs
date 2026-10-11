@@ -3,8 +3,14 @@ const MAX_FEED_BYTES = 1024 * 1024;
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-function publicationTime(value, { allowFullMonthNames = false } = {}) {
+function publicationTime(value, { allowFullMonthNames = false, localDateOffsetMinutes } = {}) {
   if (typeof value !== 'string') return null;
+  if (localDateOffsetMinutes === 480 && /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(value)) {
+    const [date, time] = value.split(' '), [year, month, day] = date.split('-').map(Number);
+    // ECNS publishes China Standard Time without an explicit offset.
+    if (month < 1 || month > 12) return null;
+    return publicationTime(`${day} ${MONTHS[month - 1]} ${year} ${time} +0800`);
+  }
   if (allowFullMonthNames) {
     const fullMonths = ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'];
@@ -75,7 +81,17 @@ function parseRss(buffer, options = {}) {
       }
       if (stack.join('/') === 'rss/channel/item') {
         const one = key => item[key].length === 1 && item[key][0] ? item[key][0] : null;
-        records.push({ itemIndex: records.length, title: one('title'), url: one('link'),
+        let url = one('link');
+        if (options.httpsArticleHost === 'www.ecns.cn' && url) {
+          try {
+            const parsed = new URL(url);
+            if (parsed.protocol === 'http:' && parsed.hostname === options.httpsArticleHost &&
+                !parsed.port && !parsed.username && !parsed.password) {
+              parsed.protocol = 'https:';url = parsed.href;
+            }
+          } catch { /* Preserve invalid links for rejection by source selection. */ }
+        }
+        records.push({ itemIndex: records.length, title: one('title'), url,
           publicationDatesRaw: [...item.pubDate], publishedAt: publicationTime(one('pubDate'), options),
           ...(options.includeDescription ? { description: one('description') } : {}),
           ...(options.includeCreator ? { creator: one('creator') } : {}) });
