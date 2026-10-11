@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "enabled": false,
+  "enabled": true,
   "timezone": "Asia/Jakarta",
   "publishTime": "07:30",
   "firstEditionDate": "2026-10-11",

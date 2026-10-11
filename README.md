@@ -6,7 +6,7 @@ A news collection and website publishing application for
 The current implementation generates an English and Japanese static website using
 Hugo / PaperMod and publishes it to Firebase Hosting (`blog-pumpkinpie`).
 The target public content languages are Japanese, English, and Indonesian.
-Indonesian support remains planned. Bounded automated EN/JP news collection and publication are implemented under #55; runtime activation and live generation verification are pending.
+Indonesian support remains planned. Bounded automated EN/JP news collection and publication are implemented under #55; private generation and bot PR/merge/delivery are verified. Production configuration is enabled; runtime image rollout and Scheduler activation are recorded in specs/55-daily-production/tasks.md.
 
 ## Development approach and language policy
 
@@ -87,7 +87,7 @@ and commit both `package.json` and `package-lock.json`.
 The base image, Features, Node.js patch version, gh, and gcloud may change on rebuild.
 
 The local [ChatGPT plan transport](docs/chatgpt-plan.md) supports bounded private inference
-from separately authorized app OAuth credentials. Browser sign-in and live model discovery succeeded; scheduled article generation remains pending. Codex credentials are never imported.
+from separately authorized app OAuth credentials. Browser sign-in and live model discovery succeeded; bounded generation and skeptical review succeeded in a private source-reviewed rehearsal. Codex credentials are never imported.
 
 The [daily start guide](docs/daily-start.md) records the confirmed 07:30 Jakarta
 clock, activation boundaries, runtime costs and rollout prerequisites. See the
@@ -160,4 +160,4 @@ npm run deploy
 
 After a successful build, this publishes to Hosting in `blog-pumpkinpie`.
 Bounded daily RSS collection, article generation and protected publication are
-implemented under #55; runtime activation and live generation verification remain pending.
+implemented under #55; private generation and protected bot delivery are verified. See the #55 execution evidence for runtime activation and the first scheduled run.
