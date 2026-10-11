@@ -59,6 +59,8 @@ test('UTF-16 and trusted Dublin Core creators are enabled only by selected feed 
   assert.equal(parsed.records[0].publishedAt, common.publishedAt);
   const spoof = Buffer.from(xml.replace('encoding="utf-16"', 'encoding="utf-8"').replace('http://purl.org/dc/elements/1.1/', 'urn:untrusted'));
   assert.equal(parseRss(spoof, { includeCreator: true }).records[0].creator, null);
+  const unqualified = Buffer.from(xml.replace('encoding="utf-16"', 'encoding="utf-8"').replaceAll('dc:creator', 'creator'));
+  assert.equal(parseRss(unqualified, { includeCreator: true }).records[0].creator, null);
 });
 test('mixed-source bundles preserve author/license before adaptations and reject spoofed provenance', () => {
   const sources = records.map(extractRssEvidence);

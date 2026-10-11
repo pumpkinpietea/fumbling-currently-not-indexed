@@ -44,8 +44,9 @@ function parseRss(buffer, options = {}) {
     parser.on('error', fail);
     parser.on('doctype', fail);
     parser.on('opentag', tag => {
-      const name = options.includeCreator && tag.uri === 'http://purl.org/dc/elements/1.1/' && tag.local === 'creator'
-        ? 'creator' : tag.uri ? `namespace:${tag.name}` : tag.name;
+      const name = tag.local === 'creator'
+        ? options.includeCreator && tag.uri === 'http://purl.org/dc/elements/1.1/' ? 'creator' : `namespace:${tag.name}`
+        : tag.uri ? `namespace:${tag.name}` : tag.name;
       stack.push(name);
       if (++nodes > 10000 || stack.length > 32 || field) fail();
       if (stack.length === 1 && (name !== 'rss' || tag.attributes.version?.value !== '2.0')) fail();
