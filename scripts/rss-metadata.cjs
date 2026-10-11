@@ -34,7 +34,9 @@ function publicationTime(value, { allowFullMonthNames = false } = {}) {
 function parseRss(buffer, options = {}) {
   try {
     if (!Buffer.isBuffer(buffer) || buffer.length > MAX_FEED_BYTES) throw new Error();
-    const text = new TextDecoder('utf-8', { fatal: true }).decode(buffer);
+    const utf16 = options.allowUtf16 === true && ((buffer[0] === 0xff && buffer[1] === 0xfe) ||
+      buffer.subarray(0, 10).equals(Buffer.from('<\0?\0x\0m\0l\0')));
+    const text = new TextDecoder(utf16 ? 'utf-16le' : 'utf-8', { fatal: true }).decode(buffer);
     const parser = new SaxesParser({ xmlns: true });
     const stack = [], records = [];
     let nodes = 0, channels = 0, item, field;
@@ -42,7 +44,9 @@ function parseRss(buffer, options = {}) {
     parser.on('error', fail);
     parser.on('doctype', fail);
     parser.on('opentag', tag => {
-      const name = tag.uri ? `namespace:${tag.name}` : tag.name;
+      const name = tag.local === 'creator'
+        ? options.includeCreator && tag.uri === 'http://purl.org/dc/elements/1.1/' ? 'creator' : `namespace:${tag.name}`
+        : tag.uri ? `namespace:${tag.name}` : tag.name;
       stack.push(name);
       if (++nodes > 10000 || stack.length > 32 || field) fail();
       if (stack.length === 1 && (name !== 'rss' || tag.attributes.version?.value !== '2.0')) fail();
@@ -51,16 +55,16 @@ function parseRss(buffer, options = {}) {
       }
       if (stack.join('/') === 'rss/channel/item') {
         if (records.length >= 200) fail();
-        item = { title: [], link: [], pubDate: [], description: [] };
+        item = { title: [], link: [], pubDate: [], description: [], creator: [] };
       }
-      if (item && stack.length === 4 && ['title', 'link', 'pubDate', ...(options.includeDescription ? ['description'] : [])].includes(name)) {
+      if (item && stack.length === 4 && ['title', 'link', 'pubDate', ...(options.includeDescription ? ['description'] : []), ...(options.includeCreator ? ['creator'] : [])].includes(name)) {
         field = { name, text: '' };
       }
     });
     const append = value => {
       if (!field) return;
       field.text += value;
-      if (field.text.length > ({ title: 500, link: 4096, pubDate: 100, description: 10000 })[field.name]) fail();
+      if (field.text.length > ({ title: 500, link: 4096, pubDate: 100, description: 10000, creator: 160 })[field.name]) fail();
     };
     parser.on('text', append);
     parser.on('cdata', append);
@@ -73,7 +77,8 @@ function parseRss(buffer, options = {}) {
         const one = key => item[key].length === 1 && item[key][0] ? item[key][0] : null;
         records.push({ itemIndex: records.length, title: one('title'), url: one('link'),
           publicationDatesRaw: [...item.pubDate], publishedAt: publicationTime(one('pubDate'), options),
-          ...(options.includeDescription ? { description: one('description') } : {}) });
+          ...(options.includeDescription ? { description: one('description') } : {}),
+          ...(options.includeCreator ? { creator: one('creator') } : {}) });
         item = undefined;
       }
       stack.pop();

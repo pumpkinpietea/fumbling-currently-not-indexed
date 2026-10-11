@@ -5,6 +5,7 @@ const { editionClock } = require('./edition-clock.cjs');
 const settings = require('../config/news-publishing.json');
 const { collectFeeds } = require('./collect-feeds.cjs');
 const { extractRssEvidence } = require('./news-evidence.cjs');
+const { dailyFeeds, sourcePolicy, validCreator } = require('./news-source-policy.cjs');
 const { runPlan, privateWrite } = require('./chatgpt-plan.cjs');
 const { cloudState, cloudToken } = require('./news-state.cjs');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
@@ -47,13 +48,19 @@ function renderEdition(date, events, sources) {
       `slug: southeast-asia-tech-${date}`, `translationKey: southeast-asia-tech-${date}`,
       'draft: false', 'showToc: false', 'newsAutomation: 1', '---', ''];
     for (const event of events) {
-      lines.push(`## ${event[language].title}`, '', event[language].summary, '');
+      lines.push(`## ${event[language].title}`, '');
+      const licensed = event.sourceIds.some(id => sourcePolicy(sources.find(s => s.id === id))?.source.licenseUrl);
+      if (!licensed) lines.push(event[language].summary, '');
       for (const id of event.sourceIds) {
         const source = sources.find(s => s.id === id);
         const dateLabel = new Intl.DateTimeFormat(language === 'jp' ? 'ja-JP' : 'en-GB',
           { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(source.publishedAt));
-        lines.push(`[${language === 'jp' ? '出典' : 'Source'}: ANTARA · ${dateLabel} WIB](${source.url})`, '');
+        const policy = sourcePolicy(source).source;
+        const author = policy.requireCreator ? ` · ${source.creator}` : '';
+        lines.push(`[${language === 'jp' ? '出典' : 'Source'}: ${policy.name}${author} · ${dateLabel} WIB](${source.url})`, '');
+        if (policy.licenseUrl) lines.push(`[${policy.licenseLabel}](${policy.licenseUrl}) · ${language === 'jp' ? '要約・翻訳' : 'Adapted summary and translation'}`, '');
       }
+      if (licensed) lines.push(event[language].summary, '');
     }
     files[`content/${language}/article/${date}-southeast-asia-tech.md`] = lines.join('\n');
   }
@@ -67,10 +74,15 @@ function validateBundle(bundle, date) {
     throw new Error('invalid_publication_bundle');
   const clock = editionClock(new Date(`${date}T00:30:00Z`), { replayDate: date });
   for (const source of bundle.sources) {
-    const u = new URL(source.url);
-    if (source.publisher !== 'ANTARA' || source.evidenceType !== 'official_rss_excerpt' || u.protocol !== 'https:' || u.hostname !== 'www.antaranews.com' || u.username || u.password || u.port ||
-        !/^\/berita\/\d+\/[a-z0-9-]+$/.test(u.pathname) || u.search || u.hash ||
-        source.id !== hash(source.url).slice(0, 16) || typeof source.excerpt !== 'string' || source.excerpt.length > 2200 ||
+    const policy = sourcePolicy(source);
+    const titleOnly = policy?.source.automatedUse === 'rss_title_notes';
+    if (!policy || source.publisher !== policy.source.name ||
+        source.evidenceType !== (titleOnly ? 'official_rss_title' : 'official_rss_excerpt') ||
+        (policy.source.requireCreator && !validCreator(source.creator)) ||
+        typeof source.title !== 'string' || source.title.length < 8 || source.title.length > 500 ||
+        source.id !== hash(source.url).slice(0, 16) || typeof source.excerpt !== 'string' ||
+        source.excerpt.length < 40 || source.excerpt.length > 2200 ||
+        (titleOnly ? source.excerpt !== source.title : !source.excerpt.startsWith(`${source.title}\n`)) ||
         source.excerptHash !== hash(source.excerpt) || !Number.isFinite(Date.parse(source.publishedAt)) ||
         source.publishedAt < clock.window.start || source.publishedAt >= clock.window.end) throw new Error('invalid_bundle_evidence');
   }
@@ -80,12 +92,25 @@ function validateBundle(bundle, date) {
 }
 function shortlist(records, accepted, priorUrls) {
   const acceptedUrls = new Set(accepted.map(s => s.normalizedUrl));
-  const topic = /\b(?:AI|digital|teknologi|siber|internet|startup|e-commerce|ecommerce|fintech|data|shopee|tokopedia|lazada|grab|gojek|semikonduktor|komdigi)\b/i;
-  const seen = new Set(priorUrls), result = [];
+  const topic = /\b(?:AI|digital|technology|tech|cyber|teknologi|siber|internet|startup|e-commerce|ecommerce|fintech|data|shopee|tokopedia|lazada|grab|gojek|semiconductor|semikonduktor|komdigi|software|cloud|payments)\b|デジタル|電子商取引|人工知能|サイバー|スタートアップ|半導体|データ|決済|通信|DX/i;
+  const region = /\b(?:ASEAN|Southeast Asia|South-East Asia|Indonesia|Indonesian|Vietnam|Viet Nam|Vietnamese|Singapore|Singaporean|Malaysia|Malaysian|Thailand|Thai|Philippines|Filipino|Cambodia|Cambodian|Laos|Lao|Myanmar|Burmese|Brunei|Timor|Jakarta|Hanoi|Manila|Bangkok)\b|東南アジア|インドネシア|ベトナム|シンガポール|マレーシア|タイ|フィリピン|カンボジア|ラオス|ミャンマー|ブルネイ|東ティモール/i;
+  const seen = new Set(priorUrls), candidates = [];
   for (const record of [...records].sort((a, b) => String(b.publishedAt).localeCompare(String(a.publishedAt)))) {
-    if (!acceptedUrls.has(record.url) || seen.has(record.url) || !topic.test(record.title || '') ||
-        !record.url.startsWith('https://www.antaranews.com/berita/')) continue;
-    seen.add(record.url); result.push(record);
+    const policy = sourcePolicy(record);
+    if (!policy || !acceptedUrls.has(record.url) || seen.has(record.url)) continue;
+    const evidence = `${record.title || ''} ${policy.source.automatedUse === 'rss_title_notes' ? '' : record.description || ''}`
+      .normalize('NFKD').replace(/(\p{Script=Latin})\p{M}+/gu, '$1').normalize('NFC');
+    if (!topic.test(evidence) || !region.test(evidence)) continue;
+    seen.add(record.url);candidates.push({ record, publisher: policy.source.id });
+  }
+  const result = [], publishers = new Set();
+  for (const item of candidates) {
+    if (publishers.has(item.publisher)) continue;
+    result.push(item.record);publishers.add(item.publisher);
+    if (result.length === 3) return result;
+  }
+  for (const item of candidates) {
+    if (!result.includes(item.record)) result.push(item.record);
     if (result.length === 3) break;
   }
   return result;
@@ -95,8 +120,8 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   const clock = editionClock(instant, { replayDate, config });
   if ((metadataOnly && !trial) || !clock.valid || (!trial && (!clock.enabled || clock.replay))) throw new Error('publication_not_active');
   if (!/^[a-f0-9]{40}$/.test(revision) || !model) throw new Error('runtime_configuration_required');
-  const date = clock.editionDate;
-  await state.write(`locks/${trial ? 'trial-' : ''}${date}.json`, { revision, startedAt: instant.toISOString() });
+  const date = clock.editionDate, marker = metadataOnly ? 'metadata-' : trial ? 'trial-' : '';
+  await state.write(`locks/${marker}${date}.json`, { revision, startedAt: instant.toISOString() });
   const priorUrls = [], previousEvents = [];
   for (let offset = 1; offset <= 14; offset++) {
     const previous = new Date(Date.parse(`${date}T00:00:00Z`) - offset * 86400000).toISOString().slice(0, 10);
@@ -104,20 +129,20 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     priorUrls.push(...(prior?.value.sourceUrls || []));
     previousEvents.push(...(prior?.value.eventHints || []));
   }
-  const collected = await collect({ schemaVersion: 1, window: clock.window, feeds: ['antara-top-news', 'antara-tech', 'antara-asean'] });
+  const collected = await collect({ schemaVersion: 1, window: clock.window, feeds: dailyFeeds });
   if (!collected.valid || !collected.report.complete) throw new Error('incomplete_collection');
   const selected = shortlist(collected.report.records, collected.report.selection.accepted, priorUrls);
   const sources = [];
   for (const record of selected) sources.push(await body(record));
   if (metadataOnly) {
-    await state.write(`runs/trial-${date}.json`, { status: 'metadata_verified', sourceUrls: [], feedHealth: collected.report.feeds });
+    await state.write(`runs/${marker}${date}.json`, { status: 'metadata_verified', sourceUrls: [], feedHealth: collected.report.feeds });
     return { status: 'metadata_trial_passed', editionDate: date, sources: sources.length, modelCalls: 0 };
   }
   if (!sources.length) {
-    await state.write(`runs/${trial ? 'trial-' : ''}${date}.json`, { status: 'no_news', sourceUrls: [] });
+    await state.write(`runs/${marker}${date}.json`, { status: 'no_news', sourceUrls: [] });
     return { status: 'no_news', editionDate: date };
   }
-  await state.write(`evidence/${trial ? 'trial-' : ''}${date}.json`, { clock, collected: collected.report, sources });
+  await state.write(`evidence/${marker}${date}.json`, { clock, collected: collected.report, sources });
   const session = await state.read('auth/session.json');
   if (!session || !session.generation) throw new Error('private_session_missing');
   privateWrite(credentialFile, session.value);
@@ -130,7 +155,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     'Do not repeat events already listed in previousEvents; only a separately supported new development may be included. Do not imply adoption, outcomes or independent verification beyond evidence. Attribute statements to their speakers.',
     'No routine disclaimers, coverage notes, opinions or comparisons without evidence. No HTML, Markdown or URLs in text fields.',
     'Return only JSON {"events":[{"sourceIds":["id"],"en":{"title":"...","summary":"..."},"jp":{"title":"...","summary":"..."},"quotes":[{"sourceId":"id","text":"exact evidence substring"}]}]}.',
-    'Only report facts explicit in the official RSS excerpt; do not fill gaps from memory. Each summary should be one or two short sentences. At most 3 events. English summary <=700 characters; Japanese <=350; each title <=100. Each quote 20-250 characters.',
+    'Only report facts explicit in the supplied official RSS evidence. EvidenceType official_rss_title contains ONLY an announcement headline: do not infer any details beyond it. JICA is an institutional announcement; Global Voices can be commentary and must be attributed. Do not infer viewpoints from outlet geography; do not fill gaps from memory. Each summary should be one or two short sentences. At most 3 events. English summary <=700 characters; Japanese <=350; each title <=100. Each quote 20-250 characters.',
     'Both languages must express the same facts and use identical Arabic numeric strings. All numbers must appear in evidence.',
     'Quotes are private grounding, not for publication. Use brief original paraphrases, no copied paragraphs. Every used source needs an exact quote.',
     'If no adequately supported relevant events, return {"events":[]}.'
@@ -139,7 +164,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   if (!(await infer(request, credentialFile, output, { onCredentialsSaved })).valid) throw new Error('generation_failed');
   const generated = JSON.parse(JSON.parse(fs.readFileSync(output, 'utf8')).text);
   if (!generated.events?.length) {
-    await state.write(`runs/${trial ? 'trial-' : ''}${date}.json`, { status: 'no_news', sourceUrls: [] });
+    await state.write(`runs/${marker}${date}.json`, { status: 'no_news', sourceUrls: [] });
     return { status: 'no_news', editionDate: date };
   }
   const events = validateEvents(generated.events, sources);
@@ -151,7 +176,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   const bundle = { schemaVersion: 1, editionDate: date, revision, sources, events, review,
     files: renderEdition(date, events, sources) };
   validateBundle(bundle, date);
-  await state.write(`runs/${trial ? 'trial-' : ''}${date}.json`, { status: trial ? 'trial_passed' : 'prepared',
+  await state.write(`runs/${marker}${date}.json`, { status: trial ? 'trial_passed' : 'prepared',
     sourceUrls: events.flatMap(e => e.sourceIds.map(id => sources.find(s => s.id === id).url)),
     eventHints: events.map(e => e.en.title) });
   if (!trial) await state.write(`bundles/${date}.json`, bundle);
