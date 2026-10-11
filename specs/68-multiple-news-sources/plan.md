@@ -9,3 +9,5 @@ CNA RSS terms prohibit third-party transfer; Al Jazeera and CGTN restrict automa
 Eight daily feeds maximum: three ANTARA, JICA, two Viet Nam News and two Global Voices. The 500-record and 1 MiB/feed limits remain. Worst collection 120 seconds plus two bounded model calls remains within the existing 600-second job. Model input/output caps remain unchanged, so incremental costs stay within the prior bounded scenario; no paid resources are introduced.
 
 Implement policy, parser options, evidence checks, balanced relevance selection and attribution. Run synthetic regressions and real metadata-only collection, then a private trial with a distinct operator namespace so today's completed run is not overwritten. Merge through passing PR CI, build immutable main and update runtime revision. Preserve tomorrow's enabled schedule throughout rollout.
+
+Cloud connectivity validation uses --metadata-trial with dedicated metadata-DATE markers, separate from private AI-trial markers. This permits checking the expanded feeds without deleting old trial state or invoking inference. Duplicate metadata trials for the same date still fail closed.

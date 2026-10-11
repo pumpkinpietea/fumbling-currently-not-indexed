@@ -120,8 +120,8 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   const clock = editionClock(instant, { replayDate, config });
   if ((metadataOnly && !trial) || !clock.valid || (!trial && (!clock.enabled || clock.replay))) throw new Error('publication_not_active');
   if (!/^[a-f0-9]{40}$/.test(revision) || !model) throw new Error('runtime_configuration_required');
-  const date = clock.editionDate;
-  await state.write(`locks/${trial ? 'trial-' : ''}${date}.json`, { revision, startedAt: instant.toISOString() });
+  const date = clock.editionDate, marker = metadataOnly ? 'metadata-' : trial ? 'trial-' : '';
+  await state.write(`locks/${marker}${date}.json`, { revision, startedAt: instant.toISOString() });
   const priorUrls = [], previousEvents = [];
   for (let offset = 1; offset <= 14; offset++) {
     const previous = new Date(Date.parse(`${date}T00:00:00Z`) - offset * 86400000).toISOString().slice(0, 10);
@@ -135,14 +135,14 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   const sources = [];
   for (const record of selected) sources.push(await body(record));
   if (metadataOnly) {
-    await state.write(`runs/trial-${date}.json`, { status: 'metadata_verified', sourceUrls: [], feedHealth: collected.report.feeds });
+    await state.write(`runs/${marker}${date}.json`, { status: 'metadata_verified', sourceUrls: [], feedHealth: collected.report.feeds });
     return { status: 'metadata_trial_passed', editionDate: date, sources: sources.length, modelCalls: 0 };
   }
   if (!sources.length) {
-    await state.write(`runs/${trial ? 'trial-' : ''}${date}.json`, { status: 'no_news', sourceUrls: [] });
+    await state.write(`runs/${marker}${date}.json`, { status: 'no_news', sourceUrls: [] });
     return { status: 'no_news', editionDate: date };
   }
-  await state.write(`evidence/${trial ? 'trial-' : ''}${date}.json`, { clock, collected: collected.report, sources });
+  await state.write(`evidence/${marker}${date}.json`, { clock, collected: collected.report, sources });
   const session = await state.read('auth/session.json');
   if (!session || !session.generation) throw new Error('private_session_missing');
   privateWrite(credentialFile, session.value);
@@ -164,7 +164,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   if (!(await infer(request, credentialFile, output, { onCredentialsSaved })).valid) throw new Error('generation_failed');
   const generated = JSON.parse(JSON.parse(fs.readFileSync(output, 'utf8')).text);
   if (!generated.events?.length) {
-    await state.write(`runs/${trial ? 'trial-' : ''}${date}.json`, { status: 'no_news', sourceUrls: [] });
+    await state.write(`runs/${marker}${date}.json`, { status: 'no_news', sourceUrls: [] });
     return { status: 'no_news', editionDate: date };
   }
   const events = validateEvents(generated.events, sources);
@@ -176,7 +176,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   const bundle = { schemaVersion: 1, editionDate: date, revision, sources, events, review,
     files: renderEdition(date, events, sources) };
   validateBundle(bundle, date);
-  await state.write(`runs/${trial ? 'trial-' : ''}${date}.json`, { status: trial ? 'trial_passed' : 'prepared',
+  await state.write(`runs/${marker}${date}.json`, { status: trial ? 'trial_passed' : 'prepared',
     sourceUrls: events.flatMap(e => e.sourceIds.map(id => sources.find(s => s.id === id).url)),
     eventHints: events.map(e => e.en.title) });
   if (!trial) await state.write(`bundles/${date}.json`, bundle);
