@@ -1,6 +1,12 @@
 name: Deploy Hosting
 
 on:
+  workflow_dispatch:
+    inputs:
+      validation_run:
+        description: 'Successful main Validate run ID to independently verify before delivery'
+        type: string
+        required: true
   workflow_run:
     workflows: [Validate]
     types: [completed]
@@ -16,21 +22,36 @@ concurrency:
 jobs:
   deploy:
     if: >-
-      vars.HOSTING_DEPLOY_ENABLED == 'true' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch') &&
-      github.event.workflow_run.head_branch == 'main' &&
-      github.event.workflow_run.head_repository.id == github.event.repository.id
+      vars.HOSTING_DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: read
       id-token: write
     steps:
+      - name: Independently verify successful main validation
+        id: validation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATION_RUN: ${{ github.event.workflow_run.id || inputs.validation_run }}
+          REPOSITORY_ID: ${{ github.repository_id }}
+        run: |
+          set -euo pipefail
+          [[ "$VALIDATION_RUN" =~ ^[0-9]+$ ]]
+          run_data="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${VALIDATION_RUN}")"
+          workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/validate.yml" --jq '.id')"
+          echo "$run_data" | jq --exit-status --argjson repo "$REPOSITORY_ID" --argjson workflow "$workflow_id" '
+            .workflow_id == $workflow and .path == ".github/workflows/validate.yml" and
+            .head_repository.id == $repo and .head_branch == "main" and
+            (.event == "push" or .event == "workflow_dispatch") and
+            .status == "completed" and .conclusion == "success" and
+            (.head_sha | test("^[a-f0-9]{40}$"))' > /dev/null
+          echo "sha=$(echo "$run_data" | jq --raw-output '.head_sha')" >> "$GITHUB_OUTPUT"
       - name: Check out validated main revision
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ steps.validation.outputs.sha }}
           submodules: recursive
           persist-credentials: false
       - name: Check activation configuration
@@ -42,7 +63,7 @@ jobs:
         id: current
         env:
           GH_TOKEN: ${{ github.token }}
-          VALIDATED_SHA: ${{ github.event.workflow_run.head_sha }}
+          VALIDATED_SHA: ${{ steps.validation.outputs.sha }}
         run: |
           set -euo pipefail
           current_sha="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/heads/main" --jq '.object.sha')"
@@ -85,7 +106,7 @@ jobs:
         if: steps.current.outputs.deploy == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          VALIDATED_SHA: ${{ github.event.workflow_run.head_sha }}
+          VALIDATED_SHA: ${{ steps.validation.outputs.sha }}
           FIREBASE_CLI_DISABLE_UPDATE_CHECK: 'true'
         run: |
           set -euo pipefail
