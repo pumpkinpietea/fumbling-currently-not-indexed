@@ -1,0 +1,4 @@
+{{- $url := .page.Permalink -}}
+{{- $headings := findRESubmatch `<h2 id="([^"]+)"` .page.Content -}}
+{{- if lt .index (len $headings) -}}{{- $url = printf "%s#%s" $url (index (index $headings .index) 1) -}}{{- end -}}
+{{- return $url -}}

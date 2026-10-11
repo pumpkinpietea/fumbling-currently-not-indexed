@@ -1,3 +1,4 @@
+const { noteMetadata } = require('./news-ui.cjs');
 const { relevantNews } = require('./news-relevance.cjs');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -47,15 +48,15 @@ function renderEdition(date, events, sources) {
     const title = language === 'jp' ? `東南アジアITメモ — ${date}` : `Southeast Asia Tech Notes — ${date}`;
     const lines = ['---', `title: ${JSON.stringify(title)}`, `date: ${date}T07:30:00+07:00`,
       `slug: southeast-asia-tech-${date}`, `translationKey: southeast-asia-tech-${date}`,
-      'draft: false', 'showToc: false', 'newsAutomation: 1', '---', ''];
+      'draft: false', 'showToc: false', 'newsAutomation: 1',
+      `newsItems: ${JSON.stringify(events.map(event => noteMetadata(event, sources, language)))}`, '---', ''];
     for (const event of events) {
       lines.push(`## ${event[language].title}`, '');
       const licensed = event.sourceIds.some(id => sourcePolicy(sources.find(s => s.id === id))?.source.licenseUrl);
       if (!licensed) lines.push(event[language].summary, '');
       for (const id of event.sourceIds) {
         const source = sources.find(s => s.id === id);
-        const dateLabel = new Intl.DateTimeFormat(language === 'jp' ? 'ja-JP' : 'en-GB',
-          { timeZone: 'Asia/Jakarta', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(source.publishedAt));
+        const dateLabel = new Date(Date.parse(source.publishedAt) + 25200000).toISOString().slice(0, 16).replace('T', ' ');
         const policy = sourcePolicy(source).source;
         const author = policy.requireCreator ? ` · ${source.creator}` : '';
         lines.push(`[${language === 'jp' ? '出典' : 'Source'}: ${policy.name}${author} · ${dateLabel} WIB](${source.url})`, '');

@@ -1,0 +1,152 @@
+{
+  "www.antaranews.com": {
+    "name": "ANTARA",
+    "country": "ID",
+    "type": "reporting"
+  },
+  "antaranews.com": {
+    "name": "ANTARA",
+    "country": "ID",
+    "type": "reporting"
+  },
+  "en.antaranews.com": {
+    "name": "ANTARA",
+    "country": "ID",
+    "type": "reporting"
+  },
+  "vietnamnews.vn": {
+    "name": "Viet Nam News",
+    "country": "VN",
+    "type": "reporting"
+  },
+  "www.jetro.go.jp": {
+    "name": "JETRO",
+    "country": "JP",
+    "type": "research"
+  },
+  "www.ide.go.jp": {
+    "name": "JETRO",
+    "country": "JP",
+    "type": "research"
+  },
+  "www.jica.go.jp": {
+    "name": "JICA",
+    "country": "JP",
+    "type": "institution"
+  },
+  "www.cabis.gov.cn": {
+    "name": "CABIS",
+    "country": "CN",
+    "type": "institution"
+  },
+  "cabis.gov.cn": {
+    "name": "CABIS",
+    "country": "CN",
+    "type": "institution"
+  },
+  "www.telkom.co.id": {
+    "name": "Telkom Indonesia",
+    "country": "ID",
+    "type": "company"
+  },
+  "www.ecns.cn": {
+    "name": "ECNS",
+    "country": "CN",
+    "type": "reporting"
+  },
+  "en.mehrnews.com": {
+    "name": "Mehr News Agency",
+    "country": "IR",
+    "type": "reporting"
+  },
+  "globalvoices.org": {
+    "name": "Global Voices",
+    "country": "INT",
+    "type": "reporting"
+  },
+  "asia.nikkei.com": {
+    "name": "Nikkei Asia",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "www3.nhk.or.jp": {
+    "name": "NHK WORLD-JAPAN",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "www.nhk.or.jp": {
+    "name": "NHK WORLD-JAPAN",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "www.aljazeera.com": {
+    "name": "Al Jazeera",
+    "country": "QA",
+    "type": "reporting"
+  },
+  "aljazeera.com": {
+    "name": "Al Jazeera",
+    "country": "QA",
+    "type": "reporting"
+  },
+  "www.channelnewsasia.com": {
+    "name": "CNA",
+    "country": "SG",
+    "type": "reporting"
+  },
+  "channelnewsasia.com": {
+    "name": "CNA",
+    "country": "SG",
+    "type": "reporting"
+  },
+  "www.bbc.com": {
+    "name": "BBC",
+    "country": "GB",
+    "type": "reporting"
+  },
+  "www.bbc.co.uk": {
+    "name": "BBC",
+    "country": "GB",
+    "type": "reporting"
+  },
+  "www.itmedia.co.jp": {
+    "name": "ITmedia",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "www.watch.impress.co.jp": {
+    "name": "Impress",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "internet.watch.impress.co.jp": {
+    "name": "Impress",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "cloud.watch.impress.co.jp": {
+    "name": "Impress",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "netshop.impress.co.jp": {
+    "name": "Impress",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "ascii.jp": {
+    "name": "ASCII",
+    "country": "JP",
+    "type": "reporting"
+  },
+  "newsclip.be": {
+    "name": "newsclip",
+    "country": "TH",
+    "type": "reporting"
+  },
+  "www.bi.go.id": {
+    "name": "Bank Indonesia",
+    "country": "ID",
+    "type": "institution"
+  }
+}

@@ -1,0 +1,26 @@
+{{ $jp := eq .Language.Lang "jp" }}
+<header class="page-header"><h1>{{ .Title }}</h1></header>
+<form data-news-filters class="news-filters" hidden role="search">
+<label>{{ if $jp }}キーワード{{ else }}Search text{{ end }}<input name="query" type="search" autocomplete="off"></label>
+<label>{{ if $jp }}対象国・地域{{ else }}Subject country / region{{ end }}<select name="country"><option value="">{{ if $jp }}すべて{{ else }}All{{ end }}</option>{{ range $id, $label := site.Data.news_labels.countries }}{{ if not (in (slice "CN" "IR" "QA" "US" "GB" "INT" "JP") $id) }}<option value="{{ $id }}">{{ index $label $.Language.Lang }}</option>{{ end }}{{ end }}</select></label>
+<label>{{ if $jp }}分野{{ else }}Topic{{ end }}<select name="topic"><option value="">{{ if $jp }}すべて{{ else }}All{{ end }}</option>{{ range $id, $label := site.Data.news_labels.topics }}<option value="{{ $id }}">{{ index $label $.Language.Lang }}</option>{{ end }}</select></label>
+</form>
+<p data-news-status aria-live="polite" data-template="{{ if $jp }}{count}件{{ else }}{count} results{{ end }}"></p>
+{{ range where site.RegularPages.ByDate.Reverse "Section" "article" }}
+{{ $page := . }}
+{{ with .Params.newsitems }}
+{{ range $i, $item := . }}
+<article class="news-card" data-news-card data-countries="{{ delimit $item.countries " " }}" data-topics="{{ delimit $item.topics " " }}">
+<h2><a href="{{ partial "note_url.html" (dict "page" $page "index" $i) }}">{{ $item.title }}</a></h2>
+{{ range $item.attributions }}<p>{{ .publisher }} · {{ .creator }} · <a href="{{ .licenseUrl }}" target="_blank" rel="noopener noreferrer">{{ .licenseLabel }}</a> · {{ if $jp }}要約・翻訳{{ else }}Adapted summary and translation{{ end }}</p>{{ end }}
+<p>{{ $item.summary }}</p><p class="news-card-date">{{ partial "post_meta.html" $page }}</p>
+<p class="news-labels">{{ range $item.countries }}<span>{{ index (index site.Data.news_labels.countries .) $.Language.Lang }}</span> {{ end }}{{ range $item.topics }}<span>{{ index (index site.Data.news_labels.topics .) $.Language.Lang }}</span> {{ end }}</p>
+<ul class="news-sources">{{ range $item.sourceUrls }}{{ $info := index site.Data.news_sources (urls.Parse .).Host }}<li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ partial "source_badge.html" (dict "page" $page "url" .) }} {{ with $info }}{{ .name }}{{ else }}{{ (urls.Parse .).Host }}{{ end }} <span aria-hidden="true">↗</span></a></li>{{ end }}</ul>
+</article>
+{{ end }}
+{{ else }}
+{{ if or (eq $.Layout "news-search") (in .File.BaseFileName "news") }}
+<article class="news-card" data-news-card data-countries="" data-topics=""><h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2><p>{{ .Summary | plainify | htmlUnescape }}</p><p>{{ partial "post_meta.html" . }}</p></article>
+{{ end }}
+{{ end }}
+{{ end }}
