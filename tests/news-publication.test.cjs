@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
-const { inspectStaged, rehearsalFiles, validatePr } = require('../scripts/publish-news-bundle.cjs');
+const { inspectStaged, rehearsalFiles, validatePr, validateMain } = require('../scripts/publish-news-bundle.cjs');
 const YAML = require('yaml');
 test('publication privacy gate inspects only two new staged articles with pseudonymous identities', () => {
   const cwd = process.cwd(), directory = fs.mkdtempSync(path.join(os.tmpdir(), 'publication-gate-'));
@@ -86,4 +86,23 @@ test('PR validation approves only associated exact-head CI after scope verificat
   }), /scope_changed/);
   await assert.rejects(validatePr(ref, sha, 7, async () => {}, { delay: async () => {},
     api: async () => ({ workflow_runs: [{ ...run, conclusion: 'failure' }] }) }), /validation_failed/);
+});
+
+test('bot main delivery dispatch waits for exact merged-main successful validation', async () => {
+  const sha = 'c'.repeat(40), calls = [];let polls = 0;
+  const run = { id: 301, event: 'workflow_dispatch', head_sha: sha, head_branch: 'main',
+    path: '.github/workflows/validate.yml', status: 'completed', conclusion: 'success', html_url: 'https://github.com/synthetic/main-validation' };
+  const result = await validateMain(sha, { delay: async () => {}, api: async (endpoint, method, body) => {
+    if (method === 'POST') { calls.push({ endpoint, body });return null; }
+    return { workflow_runs: ++polls === 1 ? [{ ...run, head_sha: 'd'.repeat(40) }] : [run] };
+  } });
+  assert.equal(result, run.html_url);
+  assert.deepEqual(calls, [{ endpoint: 'actions/workflows/validate.yml/dispatches', body: { ref: 'main' } },
+    { endpoint: 'actions/workflows/deploy.yml/dispatches', body: { ref: 'main', inputs: { validation_run: '301' } } }]);
+  let posted = 0;
+  await assert.rejects(validateMain(sha, { delay: async () => {}, api: async (_endpoint, method) => {
+    if (method === 'POST') { posted++;return null; }
+    return { workflow_runs: [{ ...run, conclusion: 'failure' }] };
+  } }), /main_validation_failed/);
+  assert.equal(posted, 1);
 });

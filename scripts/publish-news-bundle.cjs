@@ -39,6 +39,21 @@ async function validatePr(ref, sha, number, verifyScope, { api = github,
   }
   throw new Error('validation_timeout');
 }
+async function validateMain(sha, { api = github,
+  delay = () => new Promise(resolve => setTimeout(resolve, 5000)) } = {}) {
+  await api('actions/workflows/validate.yml/dispatches', 'POST', { ref: 'main' });
+  for (let i = 0; i < 60; i++) {
+    await delay();
+    const result = await api(`actions/workflows/validate.yml/runs?event=workflow_dispatch&head_sha=${sha}&per_page=10`);
+    const run = result.workflow_runs.find(r => r.event === 'workflow_dispatch' && r.head_sha === sha &&
+      r.head_branch === 'main' && r.path === '.github/workflows/validate.yml');
+    if (!run || run.status !== 'completed') continue;
+    if (run.conclusion !== 'success') throw new Error('main_validation_failed');
+    await api('actions/workflows/deploy.yml/dispatches', 'POST', { ref: 'main', inputs: { validation_run: String(run.id) } });
+    return run.html_url;
+  }
+  throw new Error('main_validation_timeout');
+}
 function inspectStaged(files) {
   const expected = Object.keys(files).sort();
   const names = git('diff', '--cached', '--name-only', '--diff-filter=A').split('\n').filter(Boolean).sort();
@@ -118,11 +133,11 @@ async function publish() {
     commit_title: `${rehearsal ? 'Rehearse' : 'Publish'} Southeast Asia tech notes for ${date}`,
     commit_message: `Validated content-only edition. ${validation}` });
   if (!merged.merged) throw new Error('merge_failed');
-  await github('actions/workflows/validate.yml/dispatches', 'POST', { ref: 'main' });
+  await validateMain(merged.sha);
   return { status: 'merged_awaiting_delivery', editionDate: date, pr: pr.html_url, revision: merged.sha };
 }
 if (require.main === module) publish().then(result => console.log(JSON.stringify(result))).catch(error => {
   const code = /^github_request_failed_[1-5][0-9]{2}$/.test(error.message) ? error.message : 'news_publication_failed';
   console.log(JSON.stringify({ status: 'failed', code }));process.exitCode = 1;
 });
-module.exports = { inspectStaged, rehearsalFiles, validatePr };
+module.exports = { inspectStaged, rehearsalFiles, validatePr, validateMain };

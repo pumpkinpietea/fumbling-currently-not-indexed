@@ -43,3 +43,9 @@ Live rehearsal #61 exposed current GitHub behavior: GITHUB_TOKEN-created PRs rec
 Tests must verify exact PR/head association, scope verification before CI approval, single approval, successful completion, rejection of failed validation and ignoring unrelated workflow runs. The consumer must accept successful empty 201 API responses. Inspect and close the failed rehearsal PR, remove only its temporary branch, then repeat the draft rehearsal after the fix is validated and merged.
 
 References: https://docs.github.com/en/actions/concepts/security/github_token ; https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks ; https://docs.github.com/en/rest/actions/workflow-runs#approve-a-workflow-run-for-a-fork-pull-request .
+
+## Explicit delivery after bot merges
+
+Rehearsal #63 verified GITHUB_TOKEN PR creation, scoped CI execution approval, required PR Validate and protected merge. Its token-dispatched main Validate succeeded, but workflow_run did not start Hosting delivery. Preserve regular push delivery and add explicit main-only deployment dispatch with a validation-run identifier. The deploy workflow must independently verify the actual Validate workflow id/path, same-repository main head, permitted event, completed success and current-main SHA before checkout/authentication. WIF permits only this dedicated deploy workflow on main, for workflow_run or workflow_dispatch, with immutable repository/owner restrictions.
+
+The consumer waits for exact merged-main Validate success, then dispatches Deploy Hosting with that run id. No PAT or Google key is introduced. Tests cover unrelated/failed main validation and manual deployment gates. Remove the previously merged draft files through this PR, then repeat the draft cycle to prove bot-driven delivery before activation.
