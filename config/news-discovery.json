@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "watchlist": ["Indonesia AI", "Vietnam data centre", "ASEAN digital economy", "Southeast Asia ecommerce", "Indonesia QRIS", "Vietnam online exports", "ASEAN cybersecurity"],
+  "sources": [
+    {"id":"telkom-news","kind":"html","url":"https://www.telkom.co.id/sites/berita/id_ID/page/news-about-telkom-122","path":"^/sites/berita/id_ID/news/","context":"Indonesia"},
+    {"id":"bi-news","kind":"html","url":"https://www.bi.go.id/id/publikasi/ruang-media/news-release/Default.aspx","path":"^/id/publikasi/ruang-media/news-release/Pages/","context":"Indonesia"},
+    {"id":"cabis-news","kind":"html","url":"https://www.cabis.gov.cn/html/en/","path":"^/html/en/html/[0-9]{4}/CABISHighlights_","context":"ASEAN"},
+    {"id":"telkom-sitemap","kind":"sitemap","url":"https://telkom.co.id/sitemap.xml","path":"^/sites/berita/id_ID/news/","context":"Indonesia","articleHost":"www.telkom.co.id"},
+    {"id":"jetro-research","kind":"rss","url":"https://www.jetro.go.jp/rss2/biznews.xml","path":"^/biz/","weekly":true},
+    {"id":"ide-research","kind":"rss","url":"https://www.ide.go.jp/rss/japanese_download.xml","path":"^/Japanese/","weekly":true}
+  ]
+}

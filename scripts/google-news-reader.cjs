@@ -7,6 +7,18 @@ const queries = Object.freeze([
   { id: 'sea-tech', query: `${region} ${topic} when:2d` },
   { id: 'china-middle-east-sea-tech', query: `${region} ${topic} (site:ecns.cn OR site:chinadaily.com.cn OR site:cgtn.com OR site:aljazeera.com OR site:en.mehrnews.com OR site:arabnews.com) when:2d` },
 ]);
+const locales = Object.freeze([
+  { id: 'id', hl: 'id', gl: 'ID', ceid: 'ID:id', query: '(Indonesia OR ASEAN OR Asia Tenggara) (teknologi OR digital OR AI OR e-commerce) when:2d' },
+  { id: 'ja', hl: 'ja', gl: 'JP', ceid: 'JP:ja', query: '(東南アジア OR インドネシア OR ベトナム) (IT OR EC OR デジタル OR 人工知能) when:2d' },
+  { id: 'vi', hl: 'vi', gl: 'VN', ceid: 'VN:vi', query: '(Việt Nam OR Indonesia OR ASEAN) (công nghệ OR thương mại điện tử OR AI) when:2d' },
+  { id: 'th', hl: 'th', gl: 'TH', ceid: 'TH:th', query: '(อาเซียน OR อินโดนีเซีย OR เวียดนาม) (เทคโนโลยี OR ดิจิทัล OR AI) when:2d' },
+  { id: 'zh', hl: 'zh-CN', gl: 'CN', ceid: 'CN:zh-Hans', query: '(印尼 OR 东南亚 OR 越南 OR 东盟) (科技 OR 电商 OR 人工智能) when:2d' },
+  { id: 'ar', hl: 'ar', gl: 'QA', ceid: 'QA:ar', query: '(إندونيسيا OR فيتنام OR آسيان) (التكنولوجيا OR التجارة الإلكترونية OR الذكاء الاصطناعي) when:2d' },
+]);
+function dailyQueries(instant) {
+  const day = Math.floor((instant.getTime() + 25200000) / 86400000);
+  return [...queries, { ...locales[day % locales.length], id: 'local-' + locales[day % locales.length].id }];
+}
 const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 function candidate(record) {
   try {
@@ -20,15 +32,15 @@ async function readGoogleNews({ fetch = fetchFeed, now = () => new Date() } = {}
   const report = { schemaVersion: 1, purpose: 'private_personal_noncommercial_reader',
     collectedAt: now().toISOString(), dateMeaning: 'Google feed timestamp; original publication unverified', feeds: [], candidates: [] };
   const seen = new Set();
-  for (const query of queries) {
+  for (const query of dailyQueries(now())) {
     const url = new URL('https://news.google.com/rss/search');
-    url.search = new URLSearchParams({ q: query.query, hl: 'en-US', gl: 'US', ceid: 'US:en' }).toString();
+    url.search = new URLSearchParams({ q: query.query, hl: query.hl || 'en-US', gl: query.gl || 'US', ceid: query.ceid || 'US:en' }).toString();
     try {
       const parsed = parseRss(await fetch(url.href));
       if (!parsed.valid) throw new Error('invalid_feed');
       report.feeds.push({ id: query.id, status: 'ok', itemCount: parsed.records.length });
       for (const record of parsed.records) {
-        if (!candidate(record) || seen.has(record.url)) continue;
+        if (!candidate(record) || seen.has(record.url) || report.candidates.length >= 150 || record.url.length > 2048 || record.title.length > 500) continue;
         seen.add(record.url);report.candidates.push({ queryId: query.id, title: record.title,
           googleUrl: record.url, googleFeedTimestamp: record.publishedAt, originalVerified: false });
       }
@@ -39,7 +51,7 @@ async function readGoogleNews({ fetch = fetchFeed, now = () => new Date() } = {}
     report.candidates.map(c => `<li><a href="${escape(c.googleUrl)}" target="_blank" rel="noopener noreferrer">${escape(c.title)}</a> <time>${escape(c.googleFeedTimestamp)}</time></li>`).join('') + '</ul></html>';
   return { report, html };
 }
-module.exports = { readGoogleNews, candidate, queries };
+module.exports = { readGoogleNews, candidate, queries, dailyQueries };
 if (require.main === module) {
   const fs = require('node:fs'), path = require('node:path');
   const directory = process.argv.length === 3 ? process.argv[2] : null;
