@@ -1,5 +1,5 @@
 ---
-title: "東南アジアITメモ — 2026年10月10日"
+title: "東南アジアITメモ — 2026-10-10"
 date: 2026-10-10T12:13:47+00:00
 slug: southeast-asia-tech-2026-10-10
 translationKey: southeast-asia-tech-2026-10-10
