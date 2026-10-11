@@ -25,3 +25,7 @@ Real metadata check: all eight daily feeds succeeded with 151 records and 39 dat
 ## Chinese and Middle Eastern adapters (#71)
 
 ECNS (China News Service) and Mehr News Agency official RSS add publisher coverage without inferred viewpoint labels. ECNS has a strict feed-only +08:00 timestamp adapter and an exact-host HTTPS article-link upgrade; raw dates remain in private evidence. Its stale /rss.xml route is excluded. Mehr uses explicit GMT timestamps. Both supply RSS excerpt facts only, with original attribution and no bodies/images. See [low-cost discovery options](news-discovery.md) for Google News RSS, optional Feedly Free OPML and manual original URLs. Google/Feedly discovery is not automatically wired into daily evidence.
+
+## Japanese personal discovery (#76)
+
+The [Japanese inventory](japanese-news-feeds.md) adds 22 tested feed candidates and an OPML file with 20 working subscriptions, including ITmedia, Impress, ASCII, JETRO, IDE-JETRO and newsclip. These are personal discovery sources, not additions to the ten-feed daily evidence configuration. Original access/reuse and parser compatibility remain separate adoption checks.
