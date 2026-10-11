@@ -42,7 +42,7 @@ test('shortlist uses normalized accepted URLs, topic filtering and previous publ
   const accepted = [{ normalizedUrl: record.url }];
   assert.equal(shortlist([record], accepted, []).length, 1);
   assert.equal(shortlist([record], accepted, [record.url]).length, 0);
-  assert.equal(shortlist([{ ...record, title: 'Football match results' }], accepted, []).length, 0);
+  assert.equal(shortlist([{ ...record, title: 'Football match results', description: 'Football match results in Indonesia.' }], accepted, []).length, 0);
 });
 function harness({ records = [record], complete = true, rejectReview = false, failure } = {}) {
   const objects = new Map([['auth/session.json', { value: { refresh_token: 'synthetic-runtime-fixture' }, generation: '1' }]]);

@@ -15,7 +15,8 @@
             "www.antaranews.com",
             "antaranews.com"
           ],
-          "includeDescription": true
+          "includeDescription": true,
+          "daily": true
         },
         {
           "id": "antara-economy",
@@ -24,7 +25,8 @@
             "www.antaranews.com",
             "antaranews.com"
           ],
-          "includeDescription": true
+          "includeDescription": true,
+          "daily": false
         },
         {
           "id": "antara-tech",
@@ -33,7 +35,8 @@
             "www.antaranews.com",
             "antaranews.com"
           ],
-          "includeDescription": true
+          "includeDescription": true,
+          "daily": true
         },
         {
           "id": "antara-asean",
@@ -42,7 +45,8 @@
             "www.antaranews.com",
             "antaranews.com"
           ],
-          "includeDescription": true
+          "includeDescription": true,
+          "daily": true
         }
       ],
       "automatedUse": "rss_excerpt_notes",
@@ -51,7 +55,8 @@
         "rssPolicy": "https://www.antaranews.com/rss",
         "terms": "https://www.antaranews.com/ketentuan-penggunaan",
         "scope": "Official RSS title and excerpt for personal noncommercial original factual notes; no article body or images."
-      }
+      },
+      "articlePath": "^/berita/[0-9]+/[a-z0-9-]+$"
     },
     {
       "id": "jica",
@@ -66,9 +71,18 @@
           "allowedHosts": [
             "www.jica.go.jp"
           ],
-          "fullMonthNames": true
+          "fullMonthNames": true,
+          "daily": true
         }
-      ]
+      ],
+      "automatedUse": "rss_title_notes",
+      "articlePath": "^/information/(?:press|topics)/[0-9]{4}/[a-zA-Z0-9_-]+\\.html$",
+      "accessReview": {
+        "checkedOn": "2026-10-11",
+        "rssPolicy": "https://www.jica.go.jp/faq/rss.html",
+        "terms": "https://www.jica.go.jp/english/policy/",
+        "scope": "Original attributed factual notes from official RSS announcement titles only; no navigation description, body, images or copied paragraphs."
+      }
     },
     {
       "id": "cna",
@@ -91,7 +105,11 @@
             "www.channelnewsasia.com"
           ]
         }
-      ]
+      ],
+      "latestReview": {
+        "checkedOn": "2026-10-11",
+        "finding": "RSS terms prohibit transferring feeds to third parties; private metadata only."
+      }
     },
     {
       "id": "nikkei-asia",
@@ -107,7 +125,11 @@
       "role": "japanese_reporting",
       "discoveryUrl": "https://www3.nhk.or.jp/nhkworld/en/",
       "reviewStatus": "access_review",
-      "feeds": []
+      "feeds": [],
+      "latestReview": {
+        "checkedOn": "2026-10-11",
+        "finding": "Official portal returned a challenge response; usable official feed/access remains unverified."
+      }
     },
     {
       "id": "al-jazeera",
@@ -115,7 +137,11 @@
       "role": "middle_eastern_reporting",
       "discoveryUrl": "https://www.aljazeera.com/",
       "reviewStatus": "access_review",
-      "feeds": []
+      "feeds": [],
+      "latestReview": {
+        "checkedOn": "2026-10-11",
+        "finding": "Published terms restrict automated access and analysis; not activated."
+      }
     },
     {
       "id": "cgtn",
@@ -131,7 +157,11 @@
       "role": "chinese_reporting",
       "discoveryUrl": "https://english.news.cn/rss/",
       "reviewStatus": "access_review",
-      "feeds": []
+      "feeds": [],
+      "latestReview": {
+        "checkedOn": "2026-10-11",
+        "finding": "Official RSS business/science links return 2017 records; not suitable for current news."
+      }
     },
     {
       "id": "scmp",
@@ -212,6 +242,83 @@
       "discoveryUrl": "https://www.jetro.go.jp/biznews/",
       "reviewStatus": "access_review",
       "feeds": []
+    },
+    {
+      "id": "vietnam-news",
+      "name": "Viet Nam News",
+      "role": "regional_reporting",
+      "discoveryUrl": "https://vietnamnews.vn/rss",
+      "reviewStatus": "private_metadata_trial",
+      "automatedUse": "rss_excerpt_notes",
+      "articlePath": "^/(?:economy|industries|sci-tech)/[0-9]+/[a-zA-Z0-9-]+\\.html$",
+      "feeds": [
+        {
+          "id": "vietnam-news-economy",
+          "url": "https://vietnamnews.vn/rss/economy.rss",
+          "allowedHosts": [
+            "vietnamnews.vn"
+          ],
+          "includeDescription": true,
+          "utf16": true,
+          "daily": true
+        },
+        {
+          "id": "vietnam-news-industries",
+          "url": "https://vietnamnews.vn/rss/industries.rss",
+          "allowedHosts": [
+            "vietnamnews.vn"
+          ],
+          "includeDescription": true,
+          "utf16": true,
+          "daily": true
+        }
+      ],
+      "accessReview": {
+        "checkedOn": "2026-10-11",
+        "rssPolicy": "https://vietnamnews.vn/rss",
+        "terms": "https://vietnamnews.vn/privacy.html",
+        "scope": "Official RSS titles/excerpts for brief original source-linked factual notes; no article reproduction, body or images. Copyright retained; no blanket reuse license claimed."
+      }
+    },
+    {
+      "id": "global-voices",
+      "name": "Global Voices",
+      "role": "community_reporting",
+      "discoveryUrl": "https://globalvoices.org/feeds/",
+      "reviewStatus": "private_metadata_trial",
+      "automatedUse": "rss_excerpt_notes",
+      "articlePath": "^/[0-9]{4}/[0-9]{2}/[0-9]{2}/[a-zA-Z0-9%-]+/$",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "licenseLabel": "CC BY 3.0",
+      "requireCreator": true,
+      "feeds": [
+        {
+          "id": "global-voices-asia",
+          "url": "https://globalvoices.org/-/world/east-asia/feed/",
+          "allowedHosts": [
+            "globalvoices.org"
+          ],
+          "includeDescription": true,
+          "includeCreator": true,
+          "daily": true
+        },
+        {
+          "id": "global-voices-technology",
+          "url": "https://globalvoices.org/-/topics/technology/feed/",
+          "allowedHosts": [
+            "globalvoices.org"
+          ],
+          "includeDescription": true,
+          "includeCreator": true,
+          "daily": true
+        }
+      ],
+      "accessReview": {
+        "checkedOn": "2026-10-11",
+        "rssPolicy": "https://globalvoices.org/feeds/",
+        "terms": "https://globalvoices.org/about/global-voices-attribution-policy/",
+        "scope": "CC BY 3.0 RSS excerpt adaptation with original link, author, license link and adaptation notice. No images or article bodies. AI policy for their contributors was reviewed separately."
+      }
     }
   ]
 }

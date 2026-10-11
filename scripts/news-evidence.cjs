@@ -5,17 +5,24 @@ function text(node) {
   if (node.nodeName === '#text') return node.value;
   return (node.childNodes || []).map(text).join(' ');
 }
+const { sourcePolicy, validCreator } = require('./news-source-policy.cjs');
 function extractRssEvidence(record) {
-  const url = new URL(record.url);
-  if (url.protocol !== 'https:' || url.hostname !== 'www.antaranews.com' || url.username || url.password || url.port ||
-      !/^\/berita\/\d+\/[a-z0-9-]+$/.test(url.pathname) || url.search || url.hash ||
-      typeof record.title !== 'string' || typeof record.description !== 'string' ||
-      record.description.length > 10000 || !Number.isFinite(Date.parse(record.publishedAt))) throw new Error('source_metadata_rejected');
-  const description = text(parseFragment(record.description)).replace(/\s+/g, ' ').trim();
-  if (description.length < 40) throw new Error('insufficient_rss_evidence');
-  const excerpt = `${record.title}\n${description}`.slice(0, 2200);
+  const policy = sourcePolicy(record);
+  if (!policy || typeof record.title !== 'string' || record.title.length > 500 ||
+      !Number.isFinite(Date.parse(record.publishedAt))) throw new Error('source_metadata_rejected');
+  const title = text(parseFragment(record.title)).replace(/\s+/g, ' ').trim();
+  const titleOnly = policy.source.automatedUse === 'rss_title_notes';
+  if (!titleOnly && (typeof record.description !== 'string' || record.description.length > 10000))
+    throw new Error('source_metadata_rejected');
+  const description = titleOnly ? '' : text(parseFragment(record.description)).replace(/\s+/g, ' ').trim();
+  if (title.length < 8 || (titleOnly ? title.length < 40 : description.length < 40)) throw new Error('insufficient_rss_evidence');
+  if (policy.source.requireCreator && !validCreator(record.creator)) throw new Error('source_attribution_rejected');
+  const excerpt = (titleOnly ? title : `${title}\n${description}`).slice(0, 2200);
   return { id: crypto.createHash('sha256').update(record.url).digest('hex').slice(0, 16),
-    publisher: 'ANTARA', evidenceType: 'official_rss_excerpt', url: record.url, title: record.title,
-    publishedAt: record.publishedAt, excerpt, excerptHash: crypto.createHash('sha256').update(excerpt).digest('hex') };
+    publisher: policy.source.name, evidenceType: titleOnly ? 'official_rss_title' : 'official_rss_excerpt',
+    ...(record.feedId ? { feedId: record.feedId } : {}),
+    ...(policy.source.requireCreator ? { creator: record.creator } : {}),
+    url: record.url, title, publishedAt: record.publishedAt, excerpt,
+    excerptHash: crypto.createHash('sha256').update(excerpt).digest('hex') };
 }
 module.exports = { extractRssEvidence };
