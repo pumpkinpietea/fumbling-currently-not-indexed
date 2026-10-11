@@ -13,4 +13,4 @@ Publish two daily EN/JP editions at the existing 07:30 Jakarta collection schedu
 User explicitly requests implementation and daily automatic publication. Existing authorization covers scoped passing-CI merges, main-only delivery and GCP total USD10/month. No new billable resources, subscriptions or paid inference. Existing runtime caps remain unchanged; no claim of a hard total spending cap.
 
 Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/89
-Status: Implemented locally; rollout pending.
+Status: Delivered; rollout evidence in tasks.md. First unattended scheduled execution remains future verification under #55.
