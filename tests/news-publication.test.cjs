@@ -6,10 +6,12 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const { inspectStaged, rehearsalFiles, validatePr, validateMain } = require('../scripts/publish-news-bundle.cjs');
 const YAML = require('yaml');
-test('publication privacy gate inspects only two new staged articles with pseudonymous identities', () => {
+test('publication privacy gate inspects exactly four new staged articles with pseudonymous identities', () => {
   const cwd = process.cwd(), directory = fs.mkdtempSync(path.join(os.tmpdir(), 'publication-gate-'));
   const files = { 'content/en/article/2026-10-11-southeast-asia-tech.md': 'Synthetic original English news summary.\n',
     'content/jp/article/2026-10-11-southeast-asia-tech.md': '合成テスト用の日本語ニュース要約です。\n' };
+  files['content/en/article/2026-10-11-indonesia-news.md']='Synthetic Indonesia general news summary.\n';
+  files['content/jp/article/2026-10-11-indonesia-news.md']='インドネシア全般の合成ニュース要約です。\n';
   const git = (...args) => execFileSync('git', args, { cwd: directory, stdio: 'pipe' });
   try {
     git('init', '-b', 'main');git('config', 'user.name', 'News Publishing Bot');
@@ -33,7 +35,7 @@ test('consumer is main-only, serialized, explicitly validates and keeps private 
   assert.equal(auth.with.create_credentials_file, false);
   const source = fs.readFileSync('scripts/publish-news-bundle.cjs', 'utf8');
   assert.ok(source.includes("actions/workflows/validate.yml/dispatches"));
-  assert.ok(source.includes("current.head.sha !== head"));assert.ok(source.includes("changes.length !== 2"));
+  assert.ok(source.includes("current.head.sha !== head"));assert.ok(source.includes("changes.length !== Object.keys(files).length"));
   assert.ok(source.includes("object.value.revision !== process.env.NEWS_RUNTIME_REVISION"));
   assert.equal(YAML.parse(fs.readFileSync('.github/workflows/validate.yml', 'utf8')).on.workflow_dispatch, null);
   const ignore = fs.readFileSync('.dockerignore', 'utf8');assert.ok(ignore.startsWith('**\n'));
@@ -107,4 +109,13 @@ test('bot main delivery dispatch waits for exact merged-main successful validati
     return { workflow_runs: [{ ...run, conclusion: 'failure' }] };
   } }), /main_validation_failed/);
   assert.equal(posted, 1);
+});
+
+test('schema two empty-page rehearsal reconstructs exactly four isolated drafts',()=>{
+  const {renderDailyEditions}=require('../scripts/daily-news.cjs');
+  const date='2026-10-12';const bundle={schemaVersion:2,editionDate:date,revision:'a'.repeat(40),sources:[],events:[],review:{approved:true,checkedIds:[]},files:renderDailyEditions(date,[],[])};
+  const files=rehearsalFiles(bundle,date);assert.equal(Object.keys(files).length,4);
+  for(const [name,content] of Object.entries(files)){
+    assert.ok(name.endsWith('-rehearsal.md'));const frontmatter=YAML.parse(content.split('---')[1]);assert.equal(frontmatter.draft,true);assert.ok(frontmatter.slug.endsWith('-rehearsal'));assert.ok(frontmatter.translationKey.endsWith('-rehearsal'));
+  }
 });

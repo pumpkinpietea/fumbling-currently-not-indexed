@@ -1,4 +1,8 @@
 {{- $url := .page.Permalink -}}
+{{- if .page.Params.newsEdition -}}
+{{- $url = printf "%s#news-%d" $url (add .index 1) -}}
+{{- else -}}
 {{- $headings := findRESubmatch `<h2 id="([^"]+)"` .page.Content -}}
 {{- if lt .index (len $headings) -}}{{- $url = printf "%s#%s" $url (index (index $headings .index) 1) -}}{{- end -}}
+{{- end -}}
 {{- return $url -}}
