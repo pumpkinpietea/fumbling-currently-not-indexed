@@ -13,14 +13,14 @@
 <article class="news-card" data-news-card data-countries="{{ delimit $item.countries " " }}" data-topics="{{ delimit $item.topics " " }}">
 <h2><a href="{{ partial "note_url.html" (dict "page" $page "index" $i) }}">{{ $item.title }}</a></h2>
 {{ range $item.attributions }}<p>{{ .publisher }} · {{ .creator }} · <a href="{{ .licenseUrl }}" target="_blank" rel="noopener noreferrer">{{ .licenseLabel }}</a> · {{ if $jp }}要約・翻訳{{ else }}Adapted summary and translation{{ end }}</p>{{ end }}
-<p>{{ $item.summary }}</p><p class="news-card-date">{{ partial "post_meta.html" $page }}</p>
+<p>{{ $item.summary | markdownify | plainify }}</p><p class="news-card-date">{{ partial "post_meta.html" $page }}</p>
 <p class="news-labels">{{ range $item.countries }}<span>{{ index (index site.Data.news_labels.countries .) $.Language.Lang }}</span> {{ end }}{{ range $item.topics }}<span>{{ index (index site.Data.news_labels.topics .) $.Language.Lang }}</span> {{ end }}</p>
 <ul class="news-sources">{{ range $item.sourceUrls }}{{ $info := index site.Data.news_sources (urls.Parse .).Host }}<li><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ partial "source_badge.html" (dict "page" $page "url" .) }} {{ with $info }}{{ .name }}{{ else }}{{ (urls.Parse .).Host }}{{ end }} <span aria-hidden="true">↗</span></a></li>{{ end }}</ul>
 </article>
 {{ end }}
 {{ else }}
 {{ if or (eq $.Layout "news-search") (in .File.BaseFileName "news") }}
-<article class="news-card" data-news-card data-countries="" data-topics=""><h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2><p>{{ .Summary | plainify | htmlUnescape }}</p><p>{{ partial "post_meta.html" . }}</p></article>
+<article class="news-card" data-news-card data-countries="" data-topics=""{{ if eq $.Layout "news-search" }} data-search="{{ .Title }} {{ .Plain }}"{{ end }}><h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2><p>{{ .Summary | plainify | htmlUnescape }}</p><p>{{ partial "post_meta.html" . }}</p></article>
 {{ end }}
 {{ end }}
 {{ end }}

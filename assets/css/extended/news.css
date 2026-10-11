@@ -18,3 +18,16 @@
 a:focus-visible,input:focus-visible,select:focus-visible { outline:3px solid var(--primary); outline-offset:4px; }
 
 .news-headlines{position:relative;z-index:2;padding-left:1.2em;margin:1em 0}.news-headlines a:hover{text-decoration:underline}
+
+.home-info{min-height:unset;margin:2rem 0}.news-card-date{font-size:.85em;color:var(--secondary)}
+@media(max-width:600px){
+  .nav{line-height:1.5}
+  .logo{width:100%;flex-wrap:nowrap;align-items:center;gap:.4rem;margin-block:.75rem}
+  .logo>a{flex:1;min-width:0;font-size:18px;line-height:1.5}
+  .logo>a img{height:28px}
+  .logo-switches{flex-shrink:0;flex-wrap:nowrap}
+  .logo-switches button,.lang-switch a{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  #menu{min-height:44px;align-items:center}
+  #menu a{min-height:44px;display:flex;align-items:center}
+  #menu li+li{margin-inline-start:16px}
+}

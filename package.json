@@ -19,9 +19,11 @@
     "collect:feeds": "node scripts/collect-feeds.cjs",
     "shortlist:events": "node scripts/event-candidates.cjs shortlist",
     "evaluate:events": "node scripts/event-candidates.cjs evaluate",
-    "render:evidence": "node scripts/render-evidence.cjs"
+    "render:evidence": "node scripts/render-evidence.cjs",
+    "check:ui": "node scripts/check-ui.cjs"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.0",
     "firebase-tools": "15.33.0",
     "yaml": "2.9.1"
   },

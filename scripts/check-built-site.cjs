@@ -26,6 +26,11 @@ for (const [language, prefix] of [['en', ''], ['jp', '/jp']]) {
   const html = fs.readFileSync(path.join(root, prefix, 'news/index.html'), 'utf8');
   const nodes = []; const visit = node => { nodes.push(node); (node.childNodes || []).forEach(visit); }; visit(parse(html));
   const attr = (node, name) => node.attrs?.find(a => a.name === name)?.value;
+  assert.equal(attr(nodes.find(node => node.tagName === 'html'), 'lang'), language === 'jp' ? 'ja-JP' : 'en-US');
+  const alternates = nodes.filter(node => node.tagName === 'link' && attr(node, 'hreflang'));
+  assert.deepEqual(alternates.map(node => attr(node, 'hreflang')).sort(), ['en-US','ja-JP']);
+  const schemas = nodes.filter(node => node.tagName === 'script' && attr(node, 'type') === 'application/ld+json').map(node => JSON.parse(node.childNodes[0].value));
+  for (const schema of schemas.filter(value => value.inLanguage)) assert.equal(schema.inLanguage, language === 'jp' ? 'ja-JP' : 'en-US');
   assert.ok(nodes.filter(node => attr(node, 'data-news-card') !== undefined).length >= 7);
   assert.ok(nodes.some(node => attr(node, 'data-news-filters') !== undefined && attr(node, 'hidden') !== undefined));
   for (const node of nodes.filter(node => node.tagName === 'a' && attr(node, 'href')?.startsWith('https://') && (node.parentNode?.tagName === 'li' && node.parentNode?.parentNode?.attrs?.some(a => a.name === 'class' && a.value === 'news-sources')))) {

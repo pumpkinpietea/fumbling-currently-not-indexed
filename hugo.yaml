@@ -73,7 +73,6 @@ params:
   keywords: [Blog, Portfolio, PaperMod]
   # author: Me
   # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "2006-01-02"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
@@ -100,12 +99,11 @@ params:
     favicon: "/icons/favicon-96x96.png"
     favicon16x16: "/icons/favicon-16x16.png"
     favicon32x32: "/icons/favicon-32x32.png"
-    apple_touch_icon: "<link / abs url>"
-    safari_pinned_tab: "<link / abs url>"
+    apple_touch_icon: "/icons/favicon-96x96.png"
 
   label:
     text: "Fumbling - currently not indexed."
-    icon: /apple-touch-icon.png
+    icon: /icons/favicon-96x96.png
     iconHeight: 35
 
   # profile-mode

@@ -1,7 +1,7 @@
 # Bounded private discovery
 
 Issue: https://github.com/pumpkinpietea/fumbling-currently-not-indexed/issues/83
-Status: Implementing
+Status: Delivered; evidence in tasks.md
 
 ## Goal
 Broaden private discovery without expanding model/public evidence.
