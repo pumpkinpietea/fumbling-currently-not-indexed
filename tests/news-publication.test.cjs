@@ -111,11 +111,9 @@ test('bot main delivery dispatch waits for exact merged-main successful validati
   assert.equal(posted, 1);
 });
 
-test('schema two empty-page rehearsal reconstructs exactly four isolated drafts',()=>{
+test('retained schema two empty-page rehearsal produces no drafts',()=>{
   const {renderDailyEditions}=require('../scripts/daily-news.cjs');
-  const date='2026-10-12';const bundle={schemaVersion:2,editionDate:date,revision:'a'.repeat(40),sources:[],events:[],review:{approved:true,checkedIds:[]},files:renderDailyEditions(date,[],[])};
-  const files=rehearsalFiles(bundle,date);assert.equal(Object.keys(files).length,4);
-  for(const [name,content] of Object.entries(files)){
-    assert.ok(name.endsWith('-rehearsal.md'));const frontmatter=YAML.parse(content.split('---')[1]);assert.equal(frontmatter.draft,true);assert.ok(frontmatter.slug.endsWith('-rehearsal'));assert.ok(frontmatter.translationKey.endsWith('-rehearsal'));
-  }
+  const date='2026-10-11';
+  const bundle={schemaVersion:2,editionDate:date,revision:'a'.repeat(40),sources:[],events:[],review:{approved:true,checkedIds:[]},files:renderDailyEditions(date,[],[],{includeEmpty:true})};
+  assert.deepEqual(rehearsalFiles(bundle,date),{});
 });

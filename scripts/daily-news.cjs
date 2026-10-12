@@ -83,7 +83,7 @@ function eventScope(event, sources) {
   const subject = `${event.en.title} ${event.en.summary}`;
   return { indonesia: relevantIndonesia(evidence) && relevantIndonesia(subject), tech: relevantTech(evidence) && relevantTech(subject) };
 }
-function renderDailyEditions(date, events, sources) {
+function renderDailyEditions(date, events, sources, { includeEmpty = false } = {}) {
   if (!Array.isArray(events)) throw new Error('invalid_events');
   if (events.length) validateEvents(events, sources);
   const groups = { indonesia: [], tech: [] };
@@ -95,11 +95,11 @@ function renderDailyEditions(date, events, sources) {
     if (scope.indonesia) groups.indonesia.push(event);
     if (scope.tech) groups.tech.push(event);
   }
-  return { ...renderEdition(date, groups.indonesia, sources, 'indonesia'),
-    ...renderEdition(date, groups.tech, sources, 'tech') };
+  return { ...(includeEmpty || groups.indonesia.length ? renderEdition(date, groups.indonesia, sources, 'indonesia') : {}),
+    ...(includeEmpty || groups.tech.length ? renderEdition(date, groups.tech, sources, 'tech') : {}) };
 }
 function validateBundle(bundle, date) {
-  if (!bundle || ![1, 2].includes(bundle.schemaVersion) || bundle.editionDate !== date ||
+  if (!bundle || ![1, 2, 3].includes(bundle.schemaVersion) || bundle.editionDate !== date ||
       !/^[a-f0-9]{40}$/.test(bundle.revision) || !Array.isArray(bundle.sources) || (bundle.schemaVersion === 1 && !bundle.sources.length) || bundle.sources.length > 5 ||
       !bundle.review || bundle.review.approved !== true || !Array.isArray(bundle.review.checkedIds) ||
       JSON.stringify([...bundle.review.checkedIds].sort()) !== JSON.stringify(bundle.events?.flatMap(e => e.sourceIds).sort()))
@@ -118,7 +118,7 @@ function validateBundle(bundle, date) {
         source.excerptHash !== hash(source.excerpt) || !Number.isFinite(Date.parse(source.publishedAt)) ||
         source.publishedAt < clock.window.start || source.publishedAt >= clock.window.end) throw new Error('invalid_bundle_evidence');
   }
-  const files = bundle.schemaVersion === 2 ? renderDailyEditions(date, bundle.events, bundle.sources) : renderEdition(date, bundle.events, bundle.sources);
+  const files = bundle.schemaVersion >= 2 ? renderDailyEditions(date, bundle.events, bundle.sources, { includeEmpty: bundle.schemaVersion === 2 }) : renderEdition(date, bundle.events, bundle.sources);
   if (JSON.stringify(files) !== JSON.stringify(bundle.files)) throw new Error('bundle_files_mismatch');
   return files;
 }
@@ -191,12 +191,8 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     return { status: 'metadata_trial_passed', editionDate: date, sources: sources.length, modelCalls: 0 };
   }
   if (!sources.length) {
-    const bundle = { schemaVersion: 2, editionDate: date, revision, sources: [], events: [],
-      review: { approved: true, checkedIds: [] }, files: renderDailyEditions(date, [], []) };
-    validateBundle(bundle, date);
-    await state.write(`runs/${marker}${date}.json`, { status: trial ? 'trial_passed' : 'prepared', sourceUrls: [], eventHints: [] });
-    await state.write(trial ? `evidence/trial-bundle-${revision.slice(0, 12)}-${date}.json` : `bundles/${date}.json`, bundle);
-    return { status: trial ? 'trial_passed' : 'prepared', editionDate: date, events: 0, modelCalls: 0 };
+    await state.write(`runs/${marker}${date}.json`, { status: 'no_news', sourceUrls: [], eventHints: [] });
+    return { status: trial ? 'trial_passed' : 'no_news', editionDate: date, events: 0, modelCalls: 0 };
   }
   await state.write(`evidence/${marker}${date}.json`, { clock, collected: collected.report, sources });
   const session = await state.read('auth/session.json');
@@ -227,12 +223,13 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     input: JSON.stringify({ previousEvents: previousEvents.slice(-20), sources: modelSources, events, editionMembership: events.map(event => ({sourceIds:event.sourceIds,...eventScope(event,sources)})) }) };
   if (!(await infer(reviewRequest, credentialFile, reviewOutput, { onCredentialsSaved })).valid) throw new Error('review_failed');
   const review = JSON.parse(JSON.parse(fs.readFileSync(reviewOutput, 'utf8')).text);
-  const bundle = { schemaVersion: 2, editionDate: date, revision, sources, events, review,
+  const bundle = { schemaVersion: 3, editionDate: date, revision, sources, events, review,
     files: renderDailyEditions(date, events, sources) };
   validateBundle(bundle, date);
-  await state.write(`runs/${marker}${date}.json`, { status: trial ? 'trial_passed' : 'prepared',
+  await state.write(`runs/${marker}${date}.json`, { status: events.length ? (trial ? 'trial_passed' : 'prepared') : 'no_news',
     sourceUrls: events.flatMap(e => e.sourceIds.map(id => sources.find(s => s.id === id).url)),
     eventHints: events.map(e => e.en.title) });
+  if (!events.length) return { status: trial ? 'trial_passed' : 'no_news', editionDate: date, events: 0 };
   if (!trial) await state.write(`bundles/${date}.json`, bundle);
   else await state.write(`evidence/trial-bundle-${revision.slice(0, 12)}-${date}.json`, bundle);
   return { status: trial ? 'trial_passed' : 'prepared', editionDate: date, events: events.length };

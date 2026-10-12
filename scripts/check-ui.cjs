@@ -17,10 +17,10 @@ async function review(){
     }catch{response.writeHead(404);response.end('Not found');}
   });
   const live=args[0]==='--live';
-  let previewDate;
+  let previewDate, previewFiles;
   if(preview){
     const bundle=JSON.parse(fs.readFileSync(args[1],'utf8'));
-    const files=require('./daily-news.cjs').validateBundle(bundle,bundle.editionDate);previewDate=bundle.editionDate;
+    const files=require('./daily-news.cjs').validateBundle(bundle,bundle.editionDate);previewDate=bundle.editionDate;previewFiles=files;
     fs.cpSync('content',path.join(output,'content'),{recursive:true});
     fs.writeFileSync(path.join(output,'preview.json'),JSON.stringify({languages:{en:{contentDir:path.join(output,'content/en')},jp:{contentDir:path.join(output,'content/jp')}}}));
     for(const [name,content] of Object.entries(files)){const file=path.join(output,name);fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,content);}
@@ -42,7 +42,7 @@ async function review(){
       page.on('pageerror',error=>errors.push(error.message));
       page.on('response',response=>{if(response.url().startsWith(base+'/')&&response.status()>=400)broken.push({status:response.status(),pathname:new URL(response.url()).pathname});});
       const prefix=language==='jp'?'/jp':'';
-      const routes=[['home',prefix+'/'],['news',prefix+'/news/'],['article',prefix+`/article/southeast-asia-tech-${previewDate || '2026-10-11'}/`],...(preview?[['indonesia',prefix+`/article/indonesia-news-${previewDate}/`]]:[]),['search',prefix+'/search/']];
+      const routes=[['home',prefix+'/'],['news',prefix+'/news/'],...(!preview || Object.hasOwn(previewFiles,`content/${language}/article/${previewDate}-southeast-asia-tech.md`)?[['article',prefix+`/article/southeast-asia-tech-${previewDate || '2026-10-11'}/`]]:[]),...(preview && Object.hasOwn(previewFiles,`content/${language}/article/${previewDate}-indonesia-news.md`)?[['indonesia',prefix+`/article/indonesia-news-${previewDate}/`]]:[]),['search',prefix+'/search/']];
       for(const [name,route] of routes){
         const response=await page.goto(base+route,{waitUntil:'networkidle'});assert.equal(response.status(),200);
         await page.evaluate(()=>document.fonts.ready);
