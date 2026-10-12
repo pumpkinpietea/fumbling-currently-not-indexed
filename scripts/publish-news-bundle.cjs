@@ -3,7 +3,7 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 const { calendarDate, editionClock } = require('./edition-clock.cjs');
 const { cloudState } = require('./news-state.cjs');
-const { validateBundle } = require('./daily-news.cjs');
+const { validateBundle, renderDailyEditions } = require('./daily-news.cjs');
 const REPO = 'pumpkinpietea/fumbling-currently-not-indexed';
 const AUTHOR = 'News Publishing Bot';
 const EMAIL = '41898282+github-actions[bot]@users.noreply.github.com';
@@ -70,8 +70,13 @@ function inspectStaged(files) {
   if (!git('var', 'GIT_AUTHOR_IDENT').startsWith(`${AUTHOR} <${EMAIL}>`) ||
       !git('var', 'GIT_COMMITTER_IDENT').startsWith(`${AUTHOR} <${EMAIL}>`)) throw new Error('unsafe_git_identity');
 }
+function publicationFiles(bundle, date) {
+  const validated = validateBundle(bundle, date);
+  // Retained schema 2 bundles bind empty pages; validate first, then omit only those pages.
+  return bundle.schemaVersion === 2 ? renderDailyEditions(date, bundle.events, bundle.sources) : validated;
+}
 function rehearsalFiles(bundle, date) {
-  const originals = validateBundle(bundle, date), files = {};
+  const originals = publicationFiles(bundle, date), files = {};
   for (const [name, content] of Object.entries(originals)) {
     const destination = name.replace(/\.md$/, '-rehearsal.md');
     files[destination] = content.replace('draft: false', 'draft: true')
@@ -92,7 +97,8 @@ async function publish() {
   if (!object) return { status: 'no_bundle', editionDate: date };
   if (!process.env.NEWS_RUNTIME_REVISION || object.value.revision !== process.env.NEWS_RUNTIME_REVISION)
     throw new Error('unapproved_runtime_revision');
-  const files = rehearsal ? rehearsalFiles(object.value, date) : validateBundle(object.value, date), original = git('rev-parse', 'HEAD');
+  const files = rehearsal ? rehearsalFiles(object.value, date) : publicationFiles(object.value, date), original = git('rev-parse', 'HEAD');
+  if (!Object.keys(files).length) return { status: 'no_news', editionDate: date };
   if ((await github('git/ref/heads/main')).object.sha !== original || git('status', '--porcelain')) throw new Error('clean_current_main_required');
   const existing = Object.keys(files).filter(file => fs.existsSync(file));
   if (existing.length) {
@@ -139,4 +145,4 @@ if (require.main === module) publish().then(result => console.log(JSON.stringify
   const code = /^github_request_failed_[1-5][0-9]{2}$/.test(error.message) ? error.message : 'news_publication_failed';
   console.log(JSON.stringify({ status: 'failed', code }));process.exitCode = 1;
 });
-module.exports = { inspectStaged, rehearsalFiles, validatePr, validateMain };
+module.exports = { publicationFiles, inspectStaged, rehearsalFiles, validatePr, validateMain };

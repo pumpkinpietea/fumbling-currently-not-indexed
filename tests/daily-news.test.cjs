@@ -78,7 +78,7 @@ test('trial persists rotation before inference, requires review and never emits 
 test('no-news, partial feeds, failed generation and rejected review never publish', async () => {
   for (const config of [{ records: [] }, { complete: false }, { failure: true }, { rejectReview: true }]) {
     const h = harness(config);try {
-      if (config.records) { assert.equal((await produce(h.options)).status, 'trial_passed');assert.equal(h.calls(), 0);assert.equal(Object.keys(h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value.files).length,4); }
+      if (config.records) { assert.equal((await produce(h.options)).status, 'trial_passed');assert.equal(h.calls(), 0);assert.ok(!h.objects.has('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json'));assert.equal(h.objects.get('runs/trial-aaaaaaaaaaaa-2026-10-11.json').value.status,'no_news'); }
       else await assert.rejects(produce(h.options));
       assert.ok(!h.objects.has('bundles/2026-10-11.json'));
       if (config.failure) assert.equal(h.objects.get('auth/session.json').value.rotated, 1);
@@ -154,16 +154,40 @@ test('two daily editions share Indonesia tech facts and exclude non-tech foreign
   assert.deepEqual(validateBundle(bundle,'2026-10-11'),files);
   const altered = copy(bundle);delete altered.files['content/jp/article/2026-10-11-indonesia-news.md'];assert.throws(()=>validateBundle(altered,'2026-10-11'),/bundle_files_mismatch/);
 });
-test('complete empty collection publishes two empty editions without AI and remains idempotent',async()=>{
+test('complete empty collection records no_news without AI or a bundle and remains idempotent',async()=>{
   const h=harness({records:[]});try {
     const options={...h.options,trial:false,replayDate:undefined};
-    assert.equal((await produce(options)).status,'prepared');assert.equal(h.calls(),0);
-    const bundle=h.objects.get('bundles/2026-10-11.json').value;
-    assert.equal(Object.keys(validateBundle(bundle,'2026-10-11')).length,4);
-    assert.ok(bundle.files['content/jp/article/2026-10-11-indonesia-news.md'].includes('本日の収集範囲'));
-    assert.ok(!bundle.files['content/en/article/2026-10-11-southeast-asia-tech.md'].includes('#news-1'));
+    assert.equal((await produce(options)).status,'no_news');assert.equal(h.calls(),0);
+    assert.ok(!h.objects.has('bundles/2026-10-11.json'));
+    assert.equal(h.objects.get('runs/2026-10-11.json').value.status,'no_news');
     await assert.rejects(produce(options),/state_already_exists/);
   }finally{h.cleanup();}
+});
+test('empty reviewed generation records no_news but failed review never does',async()=>{
+  for(const approved of [true,false]){
+    const h=harness();let calls=0;
+    h.options.infer=async(req,cred,out)=>{calls++;fs.writeFileSync(out,JSON.stringify({text:JSON.stringify(calls===1?{events:[]}:{approved,checkedIds:[]})}));return {valid:true};};
+    try{
+      if(approved){assert.equal((await produce({...h.options,trial:false,replayDate:undefined})).status,'no_news');assert.equal(h.objects.get('runs/2026-10-11.json').value.status,'no_news');}
+      else{await assert.rejects(produce(h.options),/invalid_publication_bundle/);assert.ok(!h.objects.has('runs/trial-aaaaaaaaaaaa-2026-10-11.json'));}
+      assert.equal(calls,2);assert.ok(!h.objects.has('bundles/2026-10-11.json'));
+    }finally{h.cleanup();}
+  }
+});
+test('one populated topic publishes only its pair and retained empty bundles stay verifiable',()=>{
+  const {publicationFiles,rehearsalFiles}=require('../scripts/publish-news-bundle.cjs');
+  for(const tech of [false,true]){
+    const r={...record,title:tech?'Vietnam expands digital services':'Indonesia parliament discusses education policy',description:tech?'Vietnam announced a digital services initiative.':'Indonesia parliament discussed its education policy proposal.'};
+    const s=extractRssEvidence(r),e={sourceIds:[s.id],en:{title:r.title,summary:r.description},jp:{title:'新たな取り組みについて発表',summary:'新たな取り組みについて発表しました。'},quotes:[{sourceId:s.id,text:r.description}]};
+    const files=renderDailyEditions('2026-10-11',[e],[s]);assert.equal(Object.keys(files).length,2);
+    const slug=tech?'southeast-asia-tech':'indonesia-news';assert.ok(Object.keys(files).every(f=>f.endsWith(slug+'.md')));
+    const b={schemaVersion:3,editionDate:'2026-10-11',revision:'a'.repeat(40),sources:[s],events:[e],review:{approved:true,checkedIds:[s.id]},files};
+    assert.deepEqual(publicationFiles(b,b.editionDate),files);assert.equal(Object.keys(rehearsalFiles(b,b.editionDate)).length,2);
+    const tampered=copy(b);tampered.files['content/en/article/2026-10-11-extra.md']='injected';assert.throws(()=>validateBundle(tampered,b.editionDate),/bundle_files_mismatch/);
+    b.schemaVersion=2;b.files=renderDailyEditions(b.editionDate,b.events,b.sources,{includeEmpty:true});assert.equal(Object.keys(validateBundle(b,b.editionDate)).length,4);assert.deepEqual(publicationFiles(b,b.editionDate),files);
+  }
+  const empty={schemaVersion:2,editionDate:'2026-10-11',revision:'a'.repeat(40),sources:[],events:[],review:{approved:true,checkedIds:[]},files:renderDailyEditions('2026-10-11',[],[],{includeEmpty:true})};
+  assert.deepEqual(publicationFiles(empty,empty.editionDate),{});assert.deepEqual(rehearsalFiles(empty,empty.editionDate),{});
 });
 test('shortlist reserves sources for both topics instead of letting general stories starve tech',()=>{
   const records=Array.from({length:5},(_,i)=>({...record,url:record.url.replace('1234567',String(1234570+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discusses education policy.'}));
