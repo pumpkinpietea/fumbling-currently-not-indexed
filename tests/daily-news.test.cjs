@@ -193,5 +193,20 @@ test('shortlist reserves sources for both topics instead of letting general stor
   const records=Array.from({length:5},(_,i)=>({...record,url:record.url.replace('1234567',String(1234570+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discusses education policy.'}));
   const tech={...record,url:record.url.replace('1234567','1234580'),title:'Vietnam e-commerce services expand',description:'Vietnam e-commerce firms expanded online services.'};records.push(tech);
   const selected=shortlist(records,records.map(r=>({normalizedUrl:r.url})),[]);
-  assert.equal(selected.length,3);assert.ok(selected.includes(tech));
+  assert.equal(selected.length,4);assert.ok(selected.includes(tech));
+});
+
+test('one reviewed publisher fills unused capacity without admitting duplicate or previous URLs',()=>{
+  const records=Array.from({length:6},(_,i)=>({...record,url:record.url.replace('1234567',String(1234590+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discussed education policy.'}));
+  const prior=records[0].url;
+  const selected=shortlist([...records,records[1]],records.map(r=>({normalizedUrl:r.url})),[prior]);
+  assert.equal(selected.length,4);assert.equal(new Set(selected.map(r=>r.url)).size,4);assert.ok(!selected.some(r=>r.url===prior));
+  const rejected={...records[5],url:records[5].url.replace('1234595','1234599')};
+  assert.ok(!shortlist([rejected,...records],records.map(r=>({normalizedUrl:r.url})),[]).includes(rejected));
+});
+test('publisher diversity is preferred before same-publisher fallback',()=>{
+  const records=Array.from({length:5},(_,i)=>({...record,url:record.url.replace('1234567',String(1234600+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discussed education policy.'}));
+  const third={...record,url:'https://vietnamnews.vn/economy/12345/indonesia-education.html',feedId:'vietnam-news-economy',title:'Indonesia education policy discussed',description:'Indonesia education policy was discussed at a meeting.'};
+  const selected=shortlist([...records,third],[...records,third].map(r=>({normalizedUrl:r.url})),[]);
+  assert.equal(selected.length,4);assert.ok(selected.includes(third));
 });
