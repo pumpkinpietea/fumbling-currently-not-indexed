@@ -158,5 +158,10 @@
     "name": "FPT",
     "country": "VN",
     "type": "company"
+  },
+  "news.yahoo.co.jp": {
+    "name": "Yahoo!ニュース",
+    "country": "JP",
+    "type": "aggregation"
   }
 }

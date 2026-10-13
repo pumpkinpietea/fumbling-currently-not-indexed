@@ -17,8 +17,20 @@ function selectionRequest(window, articles = [], hosts = ['www.antaranews.com'])
 function validRequest(input) {
   return shape(input, ['schemaVersion', 'window', 'feeds']) && input.schemaVersion === 1 &&
     selectSources(selectionRequest(input.window)).valid && Array.isArray(input.feeds) &&
-    input.feeds.length >= 1 && input.feeds.length <= 12 && new Set(input.feeds).size === input.feeds.length &&
+    input.feeds.length >= 1 && input.feeds.length <= 14 && new Set(input.feeds).size === input.feeds.length &&
     input.feeds.every(id => typeof id === 'string' && Object.hasOwn(FEEDS, id));
+}
+function normalizeRecord(record, feed) {
+  let url = record.url;
+  if (feed.stripRssSource) {
+    try { const parsed = new URL(url);
+      if (parsed.protocol === 'https:' && parsed.hostname === 'news.yahoo.co.jp' &&
+          /^\/articles\/[a-f0-9]{40}$/.test(parsed.pathname) && parsed.search === '?source=rss' && !parsed.hash) {
+        parsed.search = '';url = parsed.href;
+      }
+    } catch { /* Invalid records remain invalid for source selection. */ }
+  }
+  return { ...record, url };
 }
 async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date() } = {}) {
   if (!validRequest(input)) return { valid: false, errors: [{ code: 'invalid_collection_request' }] };
@@ -41,7 +53,7 @@ async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date() }
       report.feeds.push({ id, url: FEEDS[id].url, status: 'failed', itemCount: 0, error: parsed.code });
     } else {
       report.feeds.push({ id, url: FEEDS[id].url, status: 'ok', itemCount: parsed.records.length, error: null });
-      report.records.push(...parsed.records.map(record => ({ feedId: id, ...record })));
+      report.records.push(...parsed.records.map(record => ({ feedId: id, ...normalizeRecord(record, FEEDS[id]) })));
     }
   }
   report.selection = selectSources(selectionRequest(input.window,
@@ -76,4 +88,4 @@ if (require.main === module) {
     : collectFile(process.argv[2], process.argv[3])).catch(() => ({ valid: false, errors: [{ code: 'collection_failed' }] }))
     .then(result => { console.log(JSON.stringify(result)); process.exitCode = usage ? 2 : result.valid ? 0 : 1; });
 }
-module.exports = { collectFeeds, collectFile, validRequest };
+module.exports = { collectFeeds, collectFile, validRequest, normalizeRecord };

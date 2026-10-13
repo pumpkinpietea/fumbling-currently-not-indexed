@@ -21,3 +21,5 @@ Google personal discovery now runs five bounded queries: SEA tech, Chinese/Middl
 ## Browser verification
 
 npm run check:ui -- --preview-bundle /absolute/private/bundle.json validates a bundle, overlays its reconstructed files into a temporary content copy, enables future dates only in that local preview, and covers populated daily layouts across EN/JP, three widths and light/dark (48 checks for one topic, 60 for both). It does not modify repository content or publish fixtures/trials. Inspect the captures through the image viewer; test success alone is not visual approval. After publication, run the ordinary live smoke check and inspect the shared production templates; verify the first actual dated pages after their scheduled publication.
+
+Under #100, [Japanese intake](japanese-intake.md) adds official Yahoo world/business RSS and Japanese JETRO headlines. Private Google/Alerts candidates can rank independently accepted RSS originals only; they never supply factual text or original dates. Yahoo distribution dates and provider credits are distinct from the original publisher's article/event dates.

@@ -240,8 +240,25 @@
       "name": "JETRO",
       "role": "institutional",
       "discoveryUrl": "https://www.jetro.go.jp/biznews/",
-      "reviewStatus": "access_review",
-      "feeds": []
+      "reviewStatus": "private_metadata_trial",
+      "feeds": [
+        {
+          "id": "jetro-biznews-ja",
+          "url": "https://www.jetro.go.jp/rss2/biznews.xml",
+          "allowedHosts": [
+            "www.jetro.go.jp"
+          ],
+          "daily": true
+        }
+      ],
+      "automatedUse": "rss_title_notes",
+      "articlePath": "^/biznews/[0-9]{4}/[0-9]{2}/[a-f0-9]+(?:\\.html)?$",
+      "accessReview": {
+        "checkedOn": "2026-10-13",
+        "rssPolicy": "https://www.jetro.go.jp/biznews/",
+        "terms": "https://www.jetro.go.jp/",
+        "scope": "Official RSS headline-only attributed factual notes. No article body, images, subscriber content or details beyond the announcement title."
+      }
     },
     {
       "id": "vietnam-news",
@@ -372,6 +389,44 @@
         "rssPolicy": "https://en.mehrnews.com/rss",
         "terms": "https://en.mehrnews.com/",
         "scope": "Official RSS titles/excerpts for brief original attributed factual notes on a personal noncommercial site; no article reproduction, body or images. Copyright retained; no blanket reuse license claimed."
+      }
+    },
+    {
+      "id": "yahoo-japan",
+      "name": "Yahoo!ニュース",
+      "role": "news_distribution",
+      "discoveryUrl": "https://support.yahoo-net.jp/PccNews/s/article/H000011243",
+      "reviewStatus": "private_metadata_trial",
+      "automatedUse": "rss_excerpt_notes",
+      "requireProvider": true,
+      "articlePath": "^/articles/[a-f0-9]{40}$",
+      "feeds": [
+        {
+          "id": "yahoo-world",
+          "url": "https://news.yahoo.co.jp/rss/categories/world.xml",
+          "allowedHosts": [
+            "news.yahoo.co.jp"
+          ],
+          "includeDescription": true,
+          "stripRssSource": true,
+          "daily": true
+        },
+        {
+          "id": "yahoo-business",
+          "url": "https://news.yahoo.co.jp/rss/categories/business.xml",
+          "allowedHosts": [
+            "news.yahoo.co.jp"
+          ],
+          "includeDescription": true,
+          "stripRssSource": true,
+          "daily": true
+        }
+      ],
+      "accessReview": {
+        "checkedOn": "2026-10-13",
+        "rssPolicy": "https://support.yahoo-net.jp/PccNews/s/article/H000011243",
+        "terms": "https://news.yahoo.co.jp/info/",
+        "scope": "Official category RSS only for brief original factual notes on a personal noncommercial site, preserving credited providers and distribution links. No article bodies, images, feed redistribution or blanket reuse license claimed."
       }
     }
   ]

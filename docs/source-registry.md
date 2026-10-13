@@ -29,3 +29,7 @@ ECNS (China News Service) and Mehr News Agency official RSS add publisher covera
 ## Japanese personal discovery (#76)
 
 The [Japanese inventory](japanese-news-feeds.md) adds 22 tested feed candidates and an OPML file with 20 working subscriptions, including ITmedia, Impress, ASCII, JETRO, IDE-JETRO and newsclip. These are personal discovery sources, not additions to the ten-feed daily evidence configuration. Original access/reuse and parser compatibility remain separate adoption checks.
+
+## Japanese original evidence (#100)
+
+Yahoo world/business category RSS and Japanese JETRO business headlines are reviewed daily adapters (13 total feeds). Yahoo provider credits are mandatory; the distribution platform and provider remain distinct. Exact Yahoo RSS tracking normalization precedes date/host selection. Other Japanese feeds remain candidates; ITmedia RSS modification/translation restrictions were explicitly reviewed. Google/Alerts candidate hints never replace independently verified official RSS metadata. See [Japanese intake](japanese-intake.md) for configuration, bounds and pending owner Alerts activation.

@@ -13,10 +13,10 @@ const records = [
   { ...common, feedId: 'vietnam-news-economy', url: 'https://vietnamnews.vn/economy/1234567/indonesia-digital-services.html' },
   { ...common, feedId: 'global-voices-asia', creator: 'Synthetic Contributor', url: 'https://globalvoices.org/2026/10/10/indonesia-digital-services/' },
 ];
-test('daily feed allowlist excludes restricted candidates and bounds collection to ten feeds', () => {
-  assert.equal(dailyFeeds.length, 10);
+test('daily feed allowlist excludes restricted candidates and bounds collection to thirteen feeds', () => {
+  assert.equal(dailyFeeds.length, 13);
   assert.ok(dailyFeeds.includes('jica-news-ja'));
-  assert.equal(new Set(dailyFeeds).size, 10);
+  assert.equal(new Set(dailyFeeds).size, 13);
   for (const id of ['cna-asia', 'al-jazeera', 'cgtn', 'nikkei-asia', 'nhk-world']) assert.ok(!dailyFeeds.includes(id));
 });
 test('source evidence binds feed identity to its own publisher host and article path', () => {

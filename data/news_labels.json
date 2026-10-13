@@ -112,6 +112,10 @@
     "institution": {
       "en": "Institution announcement",
       "jp": "機関発表"
+    },
+    "aggregation": {
+      "en": "News distribution",
+      "jp": "ニュース配信"
     }
   },
   "topics": {

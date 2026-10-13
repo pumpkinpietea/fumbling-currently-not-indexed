@@ -5,12 +5,13 @@ function text(node) {
   if (node.nodeName === '#text') return node.value;
   return (node.childNodes || []).map(text).join(' ');
 }
-const { sourcePolicy, validCreator } = require('./news-source-policy.cjs');
+const { sourcePolicy, validCreator, sourceProvider } = require('./news-source-policy.cjs');
 function extractRssEvidence(record) {
   const policy = sourcePolicy(record);
   if (!policy || typeof record.title !== 'string' || record.title.length > 500 ||
       !Number.isFinite(Date.parse(record.publishedAt))) throw new Error('source_metadata_rejected');
   const title = text(parseFragment(record.title)).replace(/\s+/g, ' ').trim();
+  if (policy.source.requireProvider && !sourceProvider(title)) throw new Error('source_attribution_rejected');
   const titleOnly = policy.source.automatedUse === 'rss_title_notes';
   if (!titleOnly && (typeof record.description !== 'string' || record.description.length > 10000))
     throw new Error('source_metadata_rejected');
