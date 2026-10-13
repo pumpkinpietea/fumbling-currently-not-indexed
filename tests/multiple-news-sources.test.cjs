@@ -45,7 +45,7 @@ test('balanced multilingual shortlist avoids one publisher crowding out eligible
   const many = Array.from({ length: 6 }, (_, i) => ({ ...records[0], url: records[0].url + '-' + i }));
   const items = [...many, ...records.slice(1), { ...records[1], title: 'Japan expands AI research', description: 'Japan announced an AI research initiative.', url: records[1].url.replace('indonesia', 'japan') }];
   const selected = shortlist(items, items.map(r => ({ normalizedUrl: r.url })), []);
-  assert.equal(selected.length, 3);
+  assert.equal(selected.length, 4);
   assert.equal(new Set(selected.map(r => sourcePolicy(r).source.id)).size, 3);
   assert.equal(shortlist([records[1]], [{ normalizedUrl: records[1].url }], [records[1].url]).length, 0);
 });

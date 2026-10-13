@@ -145,6 +145,8 @@ function shortlist(records, accepted, priorUrls) {
   for (const item of candidates) if (result.length < 4 && !publishers.has(item.publisher)) {
     result.push(item.record);publishers.add(item.publisher);
   }
+  // Prefer diverse publishers first, then use remaining capacity for distinct eligible stories.
+  for (const item of candidates) if (result.length < 4 && !result.includes(item.record)) result.push(item.record);
   return result;
 }
 async function produce({ instant = new Date(), replayDate, trial = false, state, credentialFile,
