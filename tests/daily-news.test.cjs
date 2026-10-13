@@ -210,3 +210,10 @@ test('publisher diversity is preferred before same-publisher fallback',()=>{
   const selected=shortlist([...records,third],[...records,third].map(r=>({normalizedUrl:r.url})),[]);
   assert.equal(selected.length,4);assert.ok(selected.includes(third));
 });
+test('private discovery ranks independent originals without leaking candidate text into inference',async()=>{
+ const h=harness(),infer=h.options.infer;
+ h.options.discover=async()=>({report:{feeds:[],candidates:[{url:record.url,title:'UNTRUSTED_DISCOVERY_ONLY_MARKER',publishedAt:'2100-01-01'}]},alerts:{configured:false,candidates:[]}});
+ h.options.infer=async(request,...args)=>{assert.ok(!request.input.includes('UNTRUSTED_DISCOVERY_ONLY_MARKER'));assert.ok(!request.input.includes('2100-01-01'));return infer(request,...args);};
+ try{await produce(h.options);assert.equal(h.calls(),2);assert.equal(h.objects.get('evidence/candidate-bridge-trial-aaaaaaaaaaaa-2026-10-11.json').value.directMatches,1);}
+ finally{h.cleanup();}
+});

@@ -25,3 +25,7 @@ The bounded 2026-10-11 local trial fetched all three Google feeds (100, 100 and 
 ## Inclusive scope update (#89)
 
 Indonesia is now eligible across all news topics; other SEA subjects require IT/e-commerce/digital-economy relevance. Five Google queries retain 30 candidates each (150 total), including fixed Indonesia-general and Yahoo Japan Indonesia searches, Chinese/Middle Eastern coverage and one rotating local-language query. These remain private candidates, not public evidence. See [two daily editions](two-daily-editions.md) for the superseding scope and publication contract.
+
+## Independent official-source bridge (#100)
+
+The Japanese intake guide at [japanese-intake.md](japanese-intake.md) supersedes the earlier entirely disconnected discovery boundary: private candidates may rank independently accepted official RSS records, but Google text/timestamps are never model/public evidence. Yahoo world/business RSS and Japanese JETRO headlines are active sources; the other OPML feeds are still discovery only. Optional owner-managed Google Alerts subscriptions remain disabled until private configuration is supplied. Exported-email parsing is local and does not imply a mailbox integration.

@@ -7,7 +7,7 @@ const { editionClock } = require('./edition-clock.cjs');
 const settings = require('../config/news-publishing.json');
 const { collectFeeds } = require('./collect-feeds.cjs');
 const { extractRssEvidence } = require('./news-evidence.cjs');
-const { dailyFeeds, sourcePolicy, validCreator } = require('./news-source-policy.cjs');
+const { dailyFeeds, sourcePolicy, validCreator, sourceProvider } = require('./news-source-policy.cjs');
 const { runPlan, privateWrite } = require('./chatgpt-plan.cjs');
 const { cloudState, cloudToken } = require('./news-state.cjs');
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
@@ -69,7 +69,8 @@ function renderEdition(date, events, sources, edition) {
         const dateLabel = new Date(Date.parse(source.publishedAt) + 25200000).toISOString().slice(0, 16).replace('T', ' ');
         const policy = sourcePolicy(source).source;
         const author = policy.requireCreator ? ` · ${source.creator}` : '';
-        lines.push(`[${language === 'jp' ? '出典' : 'Source'}: ${policy.name}${author} · ${dateLabel} WIB](${source.url})`, '');
+        const provider = policy.requireProvider ? ` / ${sourceProvider(source.title)}` : '';
+        lines.push(`[${language === 'jp' ? '出典' : 'Source'}: ${policy.name}${provider}${author} · ${dateLabel} WIB](${source.url})`, '');
         if (policy.licenseUrl) lines.push(`[${policy.licenseLabel}](${policy.licenseUrl}) · ${language === 'jp' ? '要約・翻訳' : 'Adapted summary and translation'}`, '');
       }
       if (licensed) lines.push(event[language].summary, '');
@@ -111,6 +112,7 @@ function validateBundle(bundle, date) {
     if (!policy || source.publisher !== policy.source.name ||
         source.evidenceType !== (titleOnly ? 'official_rss_title' : 'official_rss_excerpt') ||
         (policy.source.requireCreator && !validCreator(source.creator)) ||
+        (policy.source.requireProvider && !sourceProvider(source.title)) ||
         typeof source.title !== 'string' || source.title.length < 8 || source.title.length > 500 ||
         source.id !== hash(source.url).slice(0, 16) || typeof source.excerpt !== 'string' ||
         source.excerpt.length < 40 || source.excerpt.length > 2200 ||
@@ -122,16 +124,23 @@ function validateBundle(bundle, date) {
   if (JSON.stringify(files) !== JSON.stringify(bundle.files)) throw new Error('bundle_files_mismatch');
   return files;
 }
-function shortlist(records, accepted, priorUrls) {
+function shortlist(records, accepted, priorUrls, preferredUrls = []) {
   const acceptedUrls = new Set(accepted.map(s => s.normalizedUrl));
   const seen = new Set(priorUrls), candidates = [];
   for (const record of [...records].sort((a, b) => String(b.publishedAt).localeCompare(String(a.publishedAt)))) {
     const policy = sourcePolicy(record);
     if (!policy || !acceptedUrls.has(record.url) || seen.has(record.url)) continue;
+    if (policy.source.requireProvider) {
+      // Distribution records need usable evidence and provider credit before consuming a slot.
+      try { extractRssEvidence(record); } catch { continue; }
+    }
+    if (policy.source.automatedUse === 'rss_title_notes' && (record.title || '').length < 40) continue;
     const evidence = `${record.title || ''} ${policy.source.automatedUse === 'rss_title_notes' ? '' : record.description || ''}`;
     if (!relevantNews(evidence)) continue;
     seen.add(record.url);candidates.push({ record, publisher: policy.source.id });
   }
+  const preferred = new Set(preferredUrls);
+  candidates.sort((a,b) => Number(preferred.has(b.record.url)) - Number(preferred.has(a.record.url)));
   const result = [];
   for (const matches of [relevantIndonesia, relevantTech]) {
     const scoped = candidates.filter(item => matches(`${item.record.title} ${item.record.description || ''}`));
@@ -163,9 +172,12 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     priorUrls.push(...(prior?.value.sourceUrls || []));
     previousEvents.push(...(prior?.value.eventHints || []));
   }
+  const discoveredCandidates = [];
   if (discover) {
     const reader = await discover();
-    // Personal reader output never enters model evidence or publication bundles.
+    // Discovery can rank independent official records, but never supplies model or public evidence.
+    discoveredCandidates.push(...(reader.report.candidates || []), ...(reader.additional?.report.candidates || []), ...(reader.alerts?.candidates || []));
+    if (reader.alerts) await state.write(`evidence/alerts-reader-${marker}${date}.json`, reader.alerts);
     await state.write(`evidence/google-reader-${marker}${date}.json`, reader.report);
     await state.write(`evidence/google-reader-html-${marker}${date}.json`, { html: reader.html });
     if (reader.additional) {
@@ -177,7 +189,9 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   if (collected.report) await state.write(`evidence/feed-health-${marker}${date}.json`, {
     complete: collected.report.complete, feeds: collected.report.feeds || [] });
   if (!collected.valid || !collected.report.complete) throw new Error('incomplete_collection');
-  const selected = shortlist(collected.report.records, collected.report.selection.accepted, priorUrls);
+  const bridge = require('./alert-intake.cjs').reconcileCandidates(discoveredCandidates, collected.report.records, collected.report.selection.accepted);
+  await state.write(`evidence/candidate-bridge-${marker}${date}.json`, bridge);
+  const selected = shortlist(collected.report.records, collected.report.selection.accepted, priorUrls, bridge.preferredUrls);
   const sources = [];
   for (const record of selected) {
     const source = await body(record);
@@ -210,7 +224,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     'Do not repeat events already listed in previousEvents; only a separately supported new development may be included. Do not imply adoption, outcomes or independent verification beyond evidence. Attribute statements to their speakers.',
     'No routine disclaimers, coverage notes, opinions or comparisons without evidence. No HTML, Markdown or URLs in text fields.',
     'Return only JSON {"events":[{"sourceIds":["id"],"en":{"title":"...","summary":"..."},"jp":{"title":"...","summary":"..."},"quotes":[{"sourceId":"id","text":"exact evidence substring"}]}]}.',
-    'Only report facts explicit in the supplied official RSS evidence. EvidenceType official_rss_title contains ONLY an announcement headline: do not infer any details beyond it. JICA is an institutional announcement; Global Voices can be commentary and must be attributed. Do not infer viewpoints from outlet geography; do not fill gaps from memory. Each English title must name its subject country or ASEAN/Southeast Asia. Each summary should be one or two short sentences. At most 5 unique events. Do not merge different countries or unrelated events merely to fit limits. English summary <=400 characters; Japanese <=180; each title <=100. Each quote 20-250 characters.',
+    'Only report facts explicit in the supplied official RSS evidence. EvidenceType official_rss_title contains ONLY an announcement headline: do not infer any details beyond it. JICA and JETRO are institutional announcements; Yahoo!ニュース distributes articles from the provider named at the end of each source title; credit that provider and do not describe Yahoo as the original reporter; Yahoo RSS time is distribution time, not proof of the underlying original report or event date; Global Voices can be commentary and must be attributed. Do not infer viewpoints from outlet geography; do not fill gaps from memory. Each English title must name its subject country or ASEAN/Southeast Asia. Each summary should be one or two short sentences. At most 5 unique events. Do not merge different countries or unrelated events merely to fit limits. English summary <=400 characters; Japanese <=180; each title <=100. Each quote 20-250 characters.',
     'Both languages must express the same facts and use identical Arabic numeric strings. All numbers must appear in evidence.',
     'Quotes are private grounding, not for publication. Use brief original paraphrases, no copied paragraphs. Every used source needs exactly one exact quote, no duplicate source quotes.',
     'If no adequately supported relevant events, return {"events":[]}.'
@@ -250,6 +264,8 @@ if (require.main === module) {
       instant: nextDayTrial ? new Date(Date.now() + 86400000) : new Date(),
       trial: args.length > 0, metadataOnly, discover: async () => {
         const reader = await require('./google-news-reader.cjs').readGoogleNews();
+        const alerts = await state.read('auth/alerts.json');
+        reader.alerts = await require('./alert-intake.cjs').readAlerts(alerts?.value);
         const previousDate = new Date(Date.now() + 25200000 - 86400000).toISOString().slice(0, 10);
         const prior = await state.read(`evidence/additional-reader-${previousDate}.json`);
         reader.additional = await require('./private-discovery.cjs').discoverPrivate({ priorUrls: prior?.value.candidates.map(item => item.url) || [] });

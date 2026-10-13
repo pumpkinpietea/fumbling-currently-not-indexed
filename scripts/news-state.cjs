@@ -25,7 +25,7 @@ function cloudState(token, { fetch: send = global.fetch } = {}) {
       if (!r.ok) throw new Error('state_delete_failed');
     },
     async write(name, value, generation = '0') {
-      if (!/^(auth\/session\.json|(?:locks|runs|evidence|bundles)\/[a-zA-Z0-9._/-]+)$/.test(name))
+      if (!/^(auth\/(?:session|alerts)\.json|(?:locks|runs|evidence|bundles)\/[a-zA-Z0-9._/-]+)$/.test(name))
         throw new Error('state_path_rejected');
       const body = JSON.stringify(value);
       if (Buffer.byteLength(body) > 1048576 || !/^\d+$/.test(String(generation))) throw new Error('state_value_rejected');

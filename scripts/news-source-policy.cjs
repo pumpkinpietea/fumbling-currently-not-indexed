@@ -16,4 +16,10 @@ function sourcePolicy(record) {
 }
 const validCreator = value => typeof value === 'string' && value.length >= 2 && value.length <= 160 &&
   !/[<>\[\]{}\r\n`\\]|https?:|www\.|@/i.test(value);
-module.exports = { dailyFeeds, sourcePolicy, validCreator };
+function sourceProvider(title) {
+  if (typeof title !== 'string') return null;
+  const match = /(?:\(([^()]+)\)|（([^（）]+)）)$/.exec(title);
+  const provider = (match?.[1] || match?.[2] || '').trim();
+  return validCreator(provider) ? provider : null;
+}
+module.exports = { dailyFeeds, sourcePolicy, validCreator, sourceProvider };
