@@ -84,6 +84,12 @@ function rehearsalFiles(bundle, date) {
   }
   return files;
 }
+function generationStatus(value,date) {
+  if(!value)return {status:'no_bundle',editionDate:date};
+  if(value.schemaVersion!==1||value.editionDate!==date||!['failed','no_news'].includes(value.status))throw new Error('invalid_generation_status');
+  if(value.status==='failed')throw new Error('daily_generation_failed');
+  return {status:'no_news',editionDate:date};
+}
 async function publish() {
   const rehearsal = process.env.NEWS_REHEARSAL_DATE || '';
   if (process.env.GITHUB_REF !== 'refs/heads/main' ||
@@ -94,7 +100,7 @@ async function publish() {
   if (!rehearsal && (!clock.valid || !clock.enabled)) throw new Error('publication_not_due');
   const date = rehearsal || clock.editionDate, state = cloudState(process.env.GOOGLE_ACCESS_TOKEN);
   const object = await state.read(`bundles/${rehearsal ? 'rehearsal-' : ''}${date}.json`);
-  if (!object) return { status: 'no_bundle', editionDate: date };
+  if (!object) return generationStatus((await state.read(`bundles/status-${date}.json`))?.value,date);
   if (!process.env.NEWS_RUNTIME_REVISION || object.value.revision !== process.env.NEWS_RUNTIME_REVISION)
     throw new Error('unapproved_runtime_revision');
   const files = rehearsal ? rehearsalFiles(object.value, date) : publicationFiles(object.value, date), original = git('rev-parse', 'HEAD');
@@ -142,7 +148,7 @@ async function publish() {
   return { status: 'merged_awaiting_delivery', editionDate: date, pr: pr.html_url, revision: merged.sha };
 }
 if (require.main === module) publish().then(result => console.log(JSON.stringify(result))).catch(error => {
-  const code = /^github_request_failed_[1-5][0-9]{2}$/.test(error.message) ? error.message : 'news_publication_failed';
+  const code = /^github_request_failed_[1-5][0-9]{2}$/.test(error.message) || ['daily_generation_failed','invalid_generation_status'].includes(error.message) ? error.message : 'news_publication_failed';
   console.log(JSON.stringify({ status: 'failed', code }));process.exitCode = 1;
 });
-module.exports = { publicationFiles, inspectStaged, rehearsalFiles, validatePr, validateMain };
+module.exports = { generationStatus, publicationFiles, inspectStaged, rehearsalFiles, validatePr, validateMain };

@@ -56,7 +56,8 @@
         "terms": "https://www.antaranews.com/ketentuan-penggunaan",
         "scope": "Official RSS title and excerpt for personal noncommercial original factual notes; no article body or images."
       },
-      "articlePath": "^/berita/[0-9]+/[a-z0-9-]+$"
+      "articlePath": "^/berita/[0-9]+/[a-z0-9-]+$",
+      "numberLocale": "id-ID"
     },
     {
       "id": "jica",
