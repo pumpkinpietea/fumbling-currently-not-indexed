@@ -60,7 +60,7 @@ function harness({ records = [record], complete = true, rejectReview = false, fa
     infer: async (request, credential, output, hooks) => {
       calls++;await hooks.onCredentialsSaved({ rotated: calls });
       if (failure) return { valid: false };
-      const value = calls === 1 ? { events: [event] } : { approved: !rejectReview, checkedIds: [source.id] };
+      const value = calls === 1 ? { events: [{...event,editions:['indonesia','tech']}] } : { approved: !rejectReview, checkedIds: [source.id] };
       fs.writeFileSync(output, JSON.stringify({ text: JSON.stringify(value) }));return { valid: true };
     } };
   return { objects, options, calls: () => calls, cleanup: () => fs.rmSync(directory, { recursive: true, force: true }) };
@@ -81,7 +81,9 @@ test('no-news, partial feeds, failed generation and rejected review never publis
       if (config.records) { assert.equal((await produce(h.options)).status, 'trial_passed');assert.equal(h.calls(), 0);assert.ok(!h.objects.has('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json'));assert.equal(h.objects.get('runs/trial-aaaaaaaaaaaa-2026-10-11.json').value.status,'no_news'); }
       else await assert.rejects(produce(h.options));
       assert.ok(!h.objects.has('bundles/2026-10-11.json'));
-      if (config.failure) assert.equal(h.objects.get('auth/session.json').value.rotated, 1);
+      assert.ok(!h.objects.has('bundles/status-2026-10-11.json'));
+      if (config.failure) { assert.equal(h.objects.get('auth/session.json').value.rotated, 1);assert.equal(h.objects.get('evidence/failure-trial-aaaaaaaaaaaa-2026-10-11.json').value.phase,'generation'); }
+      if (config.rejectReview) assert.ok(h.objects.has('evidence/model-output-trial-aaaaaaaaaaaa-2026-10-11-review.json'));
     } finally { h.cleanup(); }
   }
 });
@@ -169,7 +171,7 @@ test('empty reviewed generation records no_news but failed review never does',as
     h.options.infer=async(req,cred,out)=>{calls++;fs.writeFileSync(out,JSON.stringify({text:JSON.stringify(calls===1?{events:[]}:{approved,checkedIds:[]})}));return {valid:true};};
     try{
       if(approved){assert.equal((await produce({...h.options,trial:false,replayDate:undefined})).status,'no_news');assert.equal(h.objects.get('runs/2026-10-11.json').value.status,'no_news');}
-      else{await assert.rejects(produce(h.options),/invalid_publication_bundle/);assert.ok(!h.objects.has('runs/trial-aaaaaaaaaaaa-2026-10-11.json'));}
+      else{await assert.rejects(produce(h.options),/review_rejected/);assert.ok(!h.objects.has('runs/trial-aaaaaaaaaaaa-2026-10-11.json'));}
       assert.equal(calls,2);assert.ok(!h.objects.has('bundles/2026-10-11.json'));
     }finally{h.cleanup();}
   }
@@ -216,4 +218,30 @@ test('private discovery ranks independent originals without leaking candidate te
  h.options.infer=async(request,...args)=>{assert.ok(!request.input.includes('UNTRUSTED_DISCOVERY_ONLY_MARKER'));assert.ok(!request.input.includes('2100-01-01'));return infer(request,...args);};
  try{await produce(h.options);assert.equal(h.calls(),2);assert.equal(h.objects.get('evidence/candidate-bridge-trial-aaaaaaaaaaaa-2026-10-11.json').value.directMatches,1);}
  finally{h.cleanup();}
+});
+test('declared editions normalize Indonesian punctuation without changing literal quotes', () => {
+  const {canonicalNumbers,eventScope}=require('../scripts/daily-news.cjs');
+  assert.equal(canonicalNumbers('1.222 households, 1,5 percent','id-ID'),'1222 households, 1.5 percent');
+  assert.equal(canonicalNumbers('1,222 households, 1.5 percent'),'1222 households, 1.5 percent');
+  const flood=extractRssEvidence({...record,title:'Indonesia flood displaces 1.222 households',description:'Indonesia reports flooding displaced 1.222 households after heavy rain.'});
+  const item={sourceIds:[flood.id],editions:['indonesia'],en:{title:'Indonesia reports flooding',summary:'Flooding displaced 1,222 households in Indonesia.'},jp:{title:'インドネシアの洪水被害',summary:'インドネシアの洪水で1222世帯が避難した。'},quotes:[{sourceId:flood.id,text:'Indonesia reports flooding displaced 1.222 households after heavy rain.'}]};
+  assert.equal(validateEvents([item],[flood]).length,1);
+  const bad=copy(item);bad.en.summary=bad.en.summary.replace('1,222','1.222');bad.jp.summary=bad.jp.summary.replace('1222','1.222');
+  assert.throws(()=>validateEvents([bad],[flood]),/unsupported_number/);
+  assert.deepEqual(eventScope({...event,editions:['indonesia']},[source]),{indonesia:true,tech:false});
+  assert.throws(()=>eventScope({...event,editions:['tech']},[source]),/invalid_edition_membership/);
+  const bundle={schemaVersion:4,editionDate:'2026-10-11',revision:'a'.repeat(40),sources:[flood],events:[item],review:{approved:true,checkedIds:[flood.id]},files:renderDailyEditions('2026-10-11',[item],[flood])};
+  assert.equal(Object.keys(validateBundle(bundle,'2026-10-11')).length,2);
+  assert.throws(()=>validateBundle({...bundle,schemaVersion:3},'2026-10-11'));
+});
+test('failure status exposes only bounded transport codes and distinguishes no news',()=>{
+  const {dailyFailure}=require('../scripts/daily-news.cjs');
+  const {generationStatus}=require('../scripts/publish-news-bundle.cjs');
+  const {safePlanFailure}=require('../scripts/chatgpt-plan.cjs');
+  const safe=safePlanFailure({code:'inference_failed',phase:'inference',httpStatus:429,upstreamCode:'subscription_sharing_usage_limit_exceeded',message:'private arbitrary payload'});
+  assert.deepEqual(safe,{code:'inference_failed',phase:'inference',upstreamCode:'subscription_sharing_usage_limit_exceeded',httpStatus:429});
+  assert.equal(JSON.stringify(dailyFailure(Object.assign(new Error('private arbitrary payload'),{planError:{code:'private arbitrary payload',upstreamCode:'private arbitrary payload'}}),'review')).includes('private arbitrary payload'),false);
+  assert.throws(()=>generationStatus({schemaVersion:1,editionDate:'2026-10-14',status:'failed'},'2026-10-14'),/daily_generation_failed/);
+  assert.equal(generationStatus({schemaVersion:1,editionDate:'2026-10-14',status:'no_news'},'2026-10-14').status,'no_news');
+  assert.throws(()=>generationStatus({schemaVersion:1,editionDate:'2026-10-13',status:'no_news'},'2026-10-14'),/invalid_generation_status/);
 });
