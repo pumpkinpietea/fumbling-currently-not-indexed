@@ -41,3 +41,8 @@ test('invalid configuration and instants never produce a runnable edition', () =
   assert.equal(editionClock(new Date('invalid')).valid, false);
   assert.equal(editionClock('2026-10-11T00:30:00Z').valid, false);
 });
+test('capacity configuration rejects values outside the owner-authorized daily envelope',()=>{
+  const instant=new Date('2026-10-14T00:30:00Z');
+  assert.equal(editionClock(instant).valid,true);
+  for(const limits of [{maxEvents:41},{maxEventsPerEdition:21},{maxSources:41}])assert.equal(editionClock(instant,{config:{...settings,limits:{...settings.limits,...limits}}}).valid,false);
+});

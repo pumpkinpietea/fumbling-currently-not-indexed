@@ -119,7 +119,7 @@ async function completedText(response) {
 function requestValid(value) {
   return value && Object.keys(value).sort().join(',') === 'input,instructions,model' &&
     ['model', 'instructions', 'input'].every(key => typeof value[key] === 'string' && value[key].trim()) &&
-    value.model.length <= 128 && Buffer.byteLength(value.instructions) + Buffer.byteLength(value.input) <= 16384;
+    value.model.length <= 128 && Buffer.byteLength(value.instructions) + Buffer.byteLength(value.input) <= 196608;
 }
 async function runPlan(request, credentialFile, outputFile, { fetch = global.fetch, onCredentialsSaved = async () => {} } = {}) {
   let lock, lockFile, phase = 'request_validation';
@@ -134,7 +134,7 @@ async function runPlan(request, credentialFile, outputFile, { fetch = global.fet
     try { lock = fs.openSync(lockFile, 'wx', 0o600); } catch { fail('credential_session_busy'); }
     // Re-read after locking so a previous invocation's rotation cannot be lost.
     saved = credentials(credentialFile);
-    const signal = AbortSignal.timeout(120000);
+    const signal = AbortSignal.timeout(240000);
     const send = (url, options = {}) => fetch(url, { ...options, redirect: 'error', signal });
     phase = 'refresh';
     const refreshed = JSON.parse(await boundedText(await send(TOKEN, { method: 'POST',
