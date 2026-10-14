@@ -22,4 +22,17 @@ function sourceProvider(title) {
   const provider = (match?.[1] || match?.[2] || '').trim();
   return validCreator(provider) ? provider : null;
 }
-module.exports = { dailyFeeds, sourcePolicy, validCreator, sourceProvider };
+function publisherGroup(record) {
+  const policy=sourcePolicy(record);
+  if(!policy)return null;
+  if(!policy.source.requireProvider)return policy.source.id;
+  const provider=sourceProvider(record.title);
+  if(!provider)return null;
+  const normalize=value=>value.normalize('NFKC').toLowerCase().replace(/[\s._-]+/g,'');
+  const key=normalize(provider);
+  const original=active.find(source=>[source.id,source.name].some(name=>normalize(name)===key));
+  if(original)return original.id;
+  if(['アンタラ通信','アンタラ'].includes(key))return 'antara';
+  return `provider:${key}`;
+}
+module.exports = { dailyFeeds, sourcePolicy, validCreator, sourceProvider, publisherGroup };
