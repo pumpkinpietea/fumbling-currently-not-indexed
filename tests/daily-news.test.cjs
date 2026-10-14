@@ -195,14 +195,14 @@ test('shortlist reserves sources for both topics instead of letting general stor
   const records=Array.from({length:5},(_,i)=>({...record,url:record.url.replace('1234567',String(1234570+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discusses education policy.'}));
   const tech={...record,url:record.url.replace('1234567','1234580'),title:'Vietnam e-commerce services expand',description:'Vietnam e-commerce firms expanded online services.'};records.push(tech);
   const selected=shortlist(records,records.map(r=>({normalizedUrl:r.url})),[]);
-  assert.equal(selected.length,4);assert.ok(selected.includes(tech));
+  assert.equal(selected.length,6);assert.ok(selected.includes(tech));
 });
 
 test('one reviewed publisher fills unused capacity without admitting duplicate or previous URLs',()=>{
   const records=Array.from({length:6},(_,i)=>({...record,url:record.url.replace('1234567',String(1234590+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discussed education policy.'}));
   const prior=records[0].url;
   const selected=shortlist([...records,records[1]],records.map(r=>({normalizedUrl:r.url})),[prior]);
-  assert.equal(selected.length,4);assert.equal(new Set(selected.map(r=>r.url)).size,4);assert.ok(!selected.some(r=>r.url===prior));
+  assert.equal(selected.length,5);assert.equal(new Set(selected.map(r=>r.url)).size,5);assert.ok(!selected.some(r=>r.url===prior));
   const rejected={...records[5],url:records[5].url.replace('1234595','1234599')};
   assert.ok(!shortlist([rejected,...records],records.map(r=>({normalizedUrl:r.url})),[]).includes(rejected));
 });
@@ -210,7 +210,7 @@ test('publisher diversity is preferred before same-publisher fallback',()=>{
   const records=Array.from({length:5},(_,i)=>({...record,url:record.url.replace('1234567',String(1234600+i)),title:'Indonesia parliament discusses education',description:'Indonesia parliament discussed education policy.'}));
   const third={...record,url:'https://vietnamnews.vn/economy/12345/indonesia-education.html',feedId:'vietnam-news-economy',title:'Indonesia education policy discussed',description:'Indonesia education policy was discussed at a meeting.'};
   const selected=shortlist([...records,third],[...records,third].map(r=>({normalizedUrl:r.url})),[]);
-  assert.equal(selected.length,4);assert.ok(selected.includes(third));
+  assert.equal(selected.length,6);assert.ok(selected.includes(third));
 });
 test('private discovery ranks independent originals without leaking candidate text into inference',async()=>{
  const h=harness(),infer=h.options.infer;
@@ -244,4 +244,35 @@ test('failure status exposes only bounded transport codes and distinguishes no n
   assert.throws(()=>generationStatus({schemaVersion:1,editionDate:'2026-10-14',status:'failed'},'2026-10-14'),/daily_generation_failed/);
   assert.equal(generationStatus({schemaVersion:1,editionDate:'2026-10-14',status:'no_news'},'2026-10-14').status,'no_news');
   assert.throws(()=>generationStatus({schemaVersion:1,editionDate:'2026-10-13',status:'no_news'},'2026-10-14'),/invalid_generation_status/);
+});
+test('twenty stories per topic render, twenty-one fail, and shared events consume both caps',()=>{
+  const {capacityFixture}=require('./fixtures/daily-capacity.cjs');
+  const f=capacityFixture(),date='2026-10-14';
+  const files=renderDailyEditions(date,f.events,f.sources);
+  assert.equal(Object.keys(files).length,4);
+  for(const content of Object.values(files))assert.equal((content.match(/^## .+ \{#news-/gm)||[]).length,20);
+  const bundle={schemaVersion:4,editionDate:date,revision:'a'.repeat(40),sources:f.sources,events:f.events,review:{approved:true,checkedIds:f.sources.map(s=>s.id)},files};
+  assert.deepEqual(validateBundle(bundle,date),files);
+  const over=capacityFixture(21,19);assert.throws(()=>renderDailyEditions(date,over.events,over.sources),/edition_event_limit/);
+  const shared={...event,editions:['indonesia','tech']};
+  assert.throws(()=>renderDailyEditions(date,[...f.events,shared],[...f.sources,source]),/invalid_events/);
+  assert.throws(()=>renderDailyEditions(date,[...f.events.slice(0,39),shared],[...f.sources,source]),/edition_event_limit/);
+  assert.throws(()=>validateBundle({...bundle,schemaVersion:3},date),/invalid_publication_bundle/);
+  assert.ok(Buffer.byteLength(JSON.stringify(bundle))<1048576);
+});
+test('forty-source generation and review fit bounded requests without additional model calls',async()=>{
+  const {capacityFixture}=require('./fixtures/daily-capacity.cjs'),f=capacityFixture();
+  for(const source of f.sources){source.excerpt=source.excerpt.padEnd(1600,'x');source.excerptHash=require('node:crypto').createHash('sha256').update(source.excerpt).digest('hex');}
+  for(const event of f.events){event.en.title=event.en.title.padEnd(100,'x');event.jp.title=event.jp.title.padEnd(100,'字');event.en.summary=event.en.summary.padEnd(400,'x');event.jp.summary=event.jp.summary.padEnd(180,'字');event.quotes[0].text=f.sources.find(s=>s.id===event.sourceIds[0]).excerpt.slice(0,250);}
+  const h=harness({records:f.records});let calls=0;
+  h.options.body=async record=>f.sources.find(s=>s.url===record.url);
+  h.options.infer=async(request,credential,output)=>{calls++;assert.ok(Buffer.byteLength(request.input)+Buffer.byteLength(request.instructions)<196608);const input=JSON.parse(request.input);assert.equal(input.sources.length,40);fs.writeFileSync(output,JSON.stringify({text:JSON.stringify(calls===1?{events:f.events}:{approved:true,checkedIds:f.sources.map(s=>s.id)})}));return {valid:true};};
+  try{const result=await produce({...h.options,instant:new Date('2026-10-14T00:30:00Z'),replayDate:'2026-10-14'});assert.equal(result.events,40);assert.equal(calls,2);}finally{h.cleanup();}
+});
+test('large single-publisher candidate pools respect total cap and preserve both topic reservations',()=>{
+  const {capacityFixture}=require('./fixtures/daily-capacity.cjs'),f=capacityFixture(45,45);
+  const selected=shortlist(f.records,f.records.map(r=>({normalizedUrl:r.url})),[]);
+  assert.equal(selected.length,40);
+  assert.equal(selected.filter(r=>r.title.startsWith('Indonesia')).length,20);
+  assert.equal(selected.filter(r=>r.title.startsWith('Vietnam')).length,20);
 });

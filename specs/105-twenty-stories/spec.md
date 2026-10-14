@@ -1,0 +1,12 @@
+## Goal and authority
+Owner allows up to twenty stories per day on EACH topic page. Increase candidate capacity accordingly without filling quotas with weak or duplicate stories. Existing merge/production authority and USD10/month GCP total budget apply.
+
+## Acceptance criteria
+1. Each Indonesia/SEA-tech edition allows 0–20 approved events; shared Indonesia tech consumes one slot on both. Union cap40. Reject overflow rather than silently dropping reviewed events. Empty topics remain unpublished.
+2. Shortlist can select twenty candidates per topic, prefers publisher diversity then fills from eligible sources. Existing feeds, previous-day window, history, original evidence and independent review remain mandatory.
+3. Model input/output and bundle capacities support forty short bilingual events, with explicit finite byte caps. Keep two calls, zero retries,600 seconds,1CPU/512Mi, no paid fallback/new resources. Preserve historical bundle contracts.
+4. Regression-test 20/20,21 overflow, shared count, candidate diversity, bounded worst-case requests and historical bundles. Build and real-browser preview a private full-capacity fixture; never publish synthetic news. Deliver protected PR/main CI, immutable runtime and metadata-only verification. Existing October14 articles are not regenerated.
+
+## Design and costs
+Use settings maxEvents40/maxEventsPerEdition20/maxSources40; per-topic bounded candidate reservations and explicit schema4 membership. Raise request cap to192KiB and private model JSON envelope cap256KiB (existing transport text256KiB and stream1MiB remain). Keep compact summaries and twenty prior hints.
+At31 daily runs at the existing600sec maximum:18,600vCPU-sec and9,300GiB-sec/month. us-central1 instance-based CPU0.000018 andmemory0.000002 give USD0.3534/month before shared free allowances (240,000vCPU-sec/450,000GiB-sec). Existing Scheduler one job stays within three-job allowance if not consumed elsewhere. Small evidence/bundle retention14days under1MiB/object; allowance sharing, Hosting traffic, registry storage, network/logging and other project usage prevent a total-bill guarantee. No new paid inference: existing Plus OAuth usage may constrain generation capacity; never enable credits/fallback. Higher input volume may increase latency/usage even with two calls. Sources: https://cloud.google.com/run/pricing and https://cloud.google.com/scheduler/pricing . No compute resource increase.

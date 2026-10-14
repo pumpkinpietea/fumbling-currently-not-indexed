@@ -4,12 +4,17 @@
   "timezone": "Asia/Jakarta",
   "publishTime": "07:30",
   "firstEditionDate": "2026-10-11",
-  "languages": ["en", "jp"],
+  "languages": [
+    "en",
+    "jp"
+  ],
   "limits": {
-    "maxEvents": 5,
+    "maxEvents": 40,
     "maxModelCalls": 2,
     "maxRunSeconds": 600,
     "maxRetries": 0,
-    "maxConcurrentRuns": 1
+    "maxConcurrentRuns": 1,
+    "maxEventsPerEdition": 20,
+    "maxSources": 40
   }
 }

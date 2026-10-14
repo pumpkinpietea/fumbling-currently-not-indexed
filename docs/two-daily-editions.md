@@ -31,3 +31,9 @@ Schema4 events declare `editions` explicitly. The independent factual review che
 Bounded model output and allowlisted phase/transport failures remain in private dated evidence for the existing retention period. Production writes a redacted failed/no_news status under the bundle prefix. When no bundle exists, the publication consumer fails on a known generation failure and succeeds without a post on no_news. Missing historical status remains distinguishable as no_bundle. No raw output or arbitrary upstream message is logged publicly; no automatic model retry or paid fallback is introduced.
 
 Recover a failed date from retained evidence using a separately reviewed operator candidate and a protected content PR. Preserve original locks and evidence. Record source history only after live delivery, using a create-only write. See [the recovery contract](../specs/103-generation-recovery/spec.md).
+
+## Daily capacity
+
+Each topic page permits up to twenty independently reviewed events (forty unique events and sources across both pages). Shared Indonesia technology stories count toward both page caps. Candidate selection reserves twenty per topic, prefers publisher diversity, then uses eligible distinct stories from existing reviewed sources. Counts are ceilings, not quotas; unsupported, duplicate or irrelevant items are omitted and empty topics remain unpublished.
+
+Normal execution remains two model calls, zero retries and600 seconds on the existing job. Combined model instructions/input are bounded at192KiB per call, private output envelope at256KiB, transport text at256KiB and stream at1MiB. Each inference timeout is240seconds within the job ceiling. More text can consume more plan usage or time; no paid fallback is enabled. See [capacity contract and cost assumptions](../specs/105-twenty-stories/spec.md).

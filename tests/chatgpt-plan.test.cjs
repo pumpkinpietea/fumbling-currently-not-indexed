@@ -97,7 +97,7 @@ test('fragmented UTF-8 SSE succeeds while failed, incomplete and malformed strea
 });
 test('input and stream caps reject oversized work', async t => {
   const f = fixture(t);
-  assert.equal((await runPlan({ ...request, input: 'x'.repeat(16385) }, f.credentialFile, f.outputFile, { fetch: f.fetch })).valid, false);
+  assert.equal((await runPlan({ ...request, input: 'x'.repeat(196609) }, f.credentialFile, f.outputFile, { fetch: f.fetch })).valid, false);
   assert.equal(f.calls.length, 0);
   await assert.rejects(completedText(new Response('x'.repeat(1048577), { headers: { 'content-type': 'text/event-stream' } })), /stream_size_limit/);
 });
@@ -151,4 +151,9 @@ test('completed item streams require terminal completion and reject gaps, duplic
   for (const events of [[done], [end], [done, done, end], [{ ...done, output_index: 1 }, end],
     [{ ...done, item: { ...done.item, status: 'in_progress' } }, end],
     [done, { type: 'response.failed' }]]) await assert.rejects(completedText(response(events)));
+});
+test('larger bounded text input remains one inference request with no automatic retries',async t=>{
+  const f=fixture(t);
+  assert.equal((await runPlan({...request,input:'x'.repeat(180000)},f.credentialFile,f.outputFile,{fetch:f.fetch})).valid,true);
+  assert.equal(f.calls.length,3);
 });

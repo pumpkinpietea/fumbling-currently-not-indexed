@@ -27,7 +27,7 @@ const DAILY_CODES = new Set(['incomplete_collection','source_metadata_rejected',
   'source_attribution_rejected','state_already_exists','state_value_rejected','private_session_missing',
   'generation_failed','review_failed','review_rejected','invalid_model_output','invalid_events',
   'invalid_localized_text','invalid_event_sources','translation_number_conflict','unsupported_number','unsupported_quote',
-  'daily_text_budget_exceeded','irrelevant_event','invalid_edition_membership','invalid_publication_bundle','bundle_files_mismatch',
+  'daily_text_budget_exceeded','edition_event_limit','irrelevant_event','invalid_edition_membership','invalid_publication_bundle','bundle_files_mismatch',
   'publication_not_active','runtime_configuration_required']);
 function dailyFailure(error, phase) {
   const phases = ['lock','history','discovery','collection','evidence','credentials','generation','generation_validation','review','review_validation','bundle'];
@@ -35,7 +35,7 @@ function dailyFailure(error, phase) {
     phase:phases.includes(phase)?phase:'unknown',...(error?.planError ? {transport:safePlanFailure(error.planError)} : {})};
 }
 function validateEvents(events, sources) {
-  if (!Array.isArray(events) || !events.length || events.length > settings.limits.maxEvents) throw new Error('invalid_events');
+  if (!Array.isArray(events) || !events.length || events.length > (events.every(event=>event?.editions) ? settings.limits.maxEvents : 5)) throw new Error('invalid_events');
   const used = new Set();
   for (const event of events) {
     if (!event || !['en,jp,quotes,sourceIds','editions,en,jp,quotes,sourceIds'].includes(Object.keys(event).sort().join(',')) ||
@@ -123,12 +123,13 @@ function renderDailyEditions(date, events, sources, { includeEmpty = false } = {
     if (scope.indonesia) groups.indonesia.push(event);
     if (scope.tech) groups.tech.push(event);
   }
+  if(events.some(event=>event.editions)&&Object.values(groups).some(group=>group.length>settings.limits.maxEventsPerEdition))throw new Error('edition_event_limit');
   return { ...(includeEmpty || groups.indonesia.length ? renderEdition(date, groups.indonesia, sources, 'indonesia') : {}),
     ...(includeEmpty || groups.tech.length ? renderEdition(date, groups.tech, sources, 'tech') : {}) };
 }
 function validateBundle(bundle, date) {
   if (!bundle || ![1, 2, 3, 4].includes(bundle.schemaVersion) || bundle.editionDate !== date ||
-      !/^[a-f0-9]{40}$/.test(bundle.revision) || !Array.isArray(bundle.sources) || (bundle.schemaVersion === 1 && !bundle.sources.length) || bundle.sources.length > 5 ||
+      !/^[a-f0-9]{40}$/.test(bundle.revision) || !Array.isArray(bundle.sources) || (bundle.schemaVersion === 1 && !bundle.sources.length) || bundle.sources.length > (bundle.schemaVersion===4?settings.limits.maxSources:5) ||
       !bundle.review || bundle.review.approved !== true || !Array.isArray(bundle.review.checkedIds) ||
       JSON.stringify([...bundle.review.checkedIds].sort()) !== JSON.stringify(bundle.events?.flatMap(e => e.sourceIds).sort()))
     throw new Error('invalid_publication_bundle');
@@ -174,16 +175,16 @@ function shortlist(records, accepted, priorUrls, preferredUrls = []) {
     const scoped = candidates.filter(item => matches(`${item.record.title} ${item.record.description || ''}`));
     if(matches === relevantIndonesia) scoped.sort((a,b) => Number(relevantTech(`${a.record.title} ${a.record.description || ''}`)) - Number(relevantTech(`${b.record.title} ${b.record.description || ''}`)));
     const chosen = [], publishers = new Set();
-    for (const item of scoped) if (!publishers.has(item.publisher)) { chosen.push(item.record);publishers.add(item.publisher);if (chosen.length === 2) break; }
-    for (const item of scoped) { if (chosen.length === 2) break;if (!chosen.includes(item.record)) chosen.push(item.record); }
+    for (const item of scoped) if (!publishers.has(item.publisher)) { chosen.push(item.record);publishers.add(item.publisher);if (chosen.length === settings.limits.maxEventsPerEdition) break; }
+    for (const item of scoped) { if (chosen.length === settings.limits.maxEventsPerEdition) break;if (!chosen.includes(item.record)) chosen.push(item.record); }
     for (const record of chosen) if (!result.includes(record)) result.push(record);
   }
   const publishers = new Set(result.map(record => sourcePolicy(record).source.id));
-  for (const item of candidates) if (result.length < 4 && !publishers.has(item.publisher)) {
+  for (const item of candidates) if (result.length < settings.limits.maxSources && !publishers.has(item.publisher)) {
     result.push(item.record);publishers.add(item.publisher);
   }
   // Prefer diverse publishers first, then use remaining capacity for distinct eligible stories.
-  for (const item of candidates) if (result.length < 4 && !result.includes(item.record)) result.push(item.record);
+  for (const item of candidates) if (result.length < settings.limits.maxSources && !result.includes(item.record)) result.push(item.record);
   return result;
 }
 async function produce({ instant = new Date(), replayDate, trial = false, state, credentialFile,
@@ -258,7 +259,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     await state.write(`evidence/model-status-${marker}${date}-${name}.json`,{valid:result.valid===true,...(detail?{error:detail}:{})});
     if(!result.valid)throw Object.assign(new Error(name==='generation'?'generation_failed':'review_failed'),{planError:detail});
     let value;
-    try {if(fs.statSync(output).size>65536)throw new Error();value=JSON.parse(fs.readFileSync(output,'utf8'));if(typeof value.text!=='string'||Buffer.byteLength(value.text)>65536)throw new Error();}
+    try {if(fs.statSync(output).size>262144)throw new Error();value=JSON.parse(fs.readFileSync(output,'utf8'));if(typeof value.text!=='string'||Buffer.byteLength(value.text)>262144)throw new Error();}
     catch{throw new Error('invalid_model_output');}
     await state.write(`evidence/model-output-${marker}${date}-${name}.json`,{schemaVersion:1,text:value.text});
     try{return JSON.parse(value.text);}catch{throw new Error('invalid_model_output');}
@@ -271,7 +272,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     'Do not repeat events already listed in previousEvents; only a separately supported new development may be included. Do not imply adoption, outcomes or independent verification beyond evidence. Attribute statements to their speakers.',
     'No routine disclaimers, coverage notes, opinions or comparisons without evidence. No HTML, Markdown or URLs in text fields.',
     'Return only JSON {"events":[{"editions":["indonesia","tech"],"sourceIds":["id"],"en":{"title":"...","summary":"..."},"jp":{"title":"...","summary":"..."},"quotes":[{"sourceId":"id","text":"exact evidence substring"}]}]}.',
-    'Only report facts explicit in the supplied official RSS evidence. EvidenceType official_rss_title contains ONLY an announcement headline: do not infer any details beyond it. JICA and JETRO are institutional announcements; Yahoo!ニュース distributes articles from the provider named at the end of each source title; credit that provider and do not describe Yahoo as the original reporter; Yahoo RSS time is distribution time, not proof of the underlying original report or event date; Global Voices can be commentary and must be attributed. Do not infer viewpoints from outlet geography; do not fill gaps from memory. Each English title must name its subject country or ASEAN/Southeast Asia. Each summary should be one or two short sentences. At most 5 unique events. Do not merge different countries or unrelated events merely to fit limits. English summary <=400 characters; Japanese <=180; each title <=100. Each quote 20-250 characters.',
+    'Only report facts explicit in the supplied official RSS evidence. EvidenceType official_rss_title contains ONLY an announcement headline: do not infer any details beyond it. JICA and JETRO are institutional announcements; Yahoo!ニュース distributes articles from the provider named at the end of each source title; credit that provider and do not describe Yahoo as the original reporter; Yahoo RSS time is distribution time, not proof of the underlying original report or event date; Global Voices can be commentary and must be attributed. Do not infer viewpoints from outlet geography; do not fill gaps from memory. Each English title must name its subject country or ASEAN/Southeast Asia. Each summary should be one or two short sentences. At most 40 unique events overall and 20 in each edition. A shared Indonesia technology event counts toward both edition caps. Select as many distinct substantial supported events as fit, without padding or a minimum quota. Do not merge different countries or unrelated events merely to fit limits. English summary <=400 characters; Japanese <=180; each title <=100. Each quote 20-250 characters.',
     'Declare editions explicitly: Indonesia general across all topics; tech only substantive Southeast Asia technology/e-commerce/digital-economy developments. Indonesia technology items must declare both. Incidental AI background in cultural advocacy can be Indonesia-only. Both languages must express the same numeric values. ANTARA Indonesian evidence uses dots for thousands and commas for decimals: 1.222 KK means 1,222 households, never 1.222 households. Localize numeric punctuation correctly without inventing numbers, changing units or changing exact source quotes.',
     'Quotes are private grounding, not for publication. Use brief original paraphrases, no copied paragraphs. Every used source needs exactly one exact quote, no duplicate source quotes.',
     'If no adequately supported relevant events, return {"events":[]}.'
