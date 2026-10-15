@@ -266,7 +266,7 @@ test('forty-source generation and review fit bounded requests without additional
   for(const event of f.events){event.en.title=event.en.title.padEnd(100,'x');event.jp.title=event.jp.title.padEnd(100,'字');event.en.summary=event.en.summary.padEnd(400,'x');event.jp.summary=event.jp.summary.padEnd(180,'字');event.quotes[0].text=f.sources.find(s=>s.id===event.sourceIds[0]).excerpt.slice(0,250);}
   const h=harness({records:f.records});let calls=0;
   h.options.body=async record=>f.sources.find(s=>s.url===record.url);
-  h.options.infer=async(request,credential,output)=>{calls++;assert.ok(Buffer.byteLength(request.input)+Buffer.byteLength(request.instructions)<196608);const input=JSON.parse(request.input);assert.equal(input.sources.length,40);fs.writeFileSync(output,JSON.stringify({text:JSON.stringify(calls===1?{events:f.events}:{approved:true,checkedIds:f.sources.map(s=>s.id)})}));return {valid:true};};
+  h.options.infer=async(request,credential,output)=>{calls++;assert.ok(Buffer.byteLength(request.input)+Buffer.byteLength(request.instructions)<196608);const input=JSON.parse(request.input);assert.equal(input.sources.length,40);assert.ok(input.sources.every(source=>typeof source.originalPublisher==='string'));assert.match(request.instructions,/five.*originalPublisher/);fs.writeFileSync(output,JSON.stringify({text:JSON.stringify(calls===1?{events:f.events}:{approved:true,checkedIds:f.sources.map(s=>s.id)})}));return {valid:true};};
   try{const result=await produce({...h.options,instant:new Date('2026-10-14T00:30:00Z'),replayDate:'2026-10-14'});assert.equal(result.events,40);assert.equal(calls,2);}finally{h.cleanup();}
 });
 test('large single-publisher candidate pools respect total cap and preserve both topic reservations',()=>{

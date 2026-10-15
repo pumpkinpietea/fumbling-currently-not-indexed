@@ -15,6 +15,7 @@ function editionClock(instant, { replayDate, config = settings } = {}) {
       !config.limits || config.limits.maxConcurrentRuns !== 1 || config.limits.maxRetries !== 0 ||
       !Number.isInteger(config.limits.maxEvents) || config.limits.maxEvents < 1 || config.limits.maxEvents > 40 ||
       (config.limits.maxEvents > 5 && (config.limits.maxEventsPerEdition !== 20 || config.limits.maxSources !== 40)) ||
+      (config.limits.preferredEventsPerPublisher !== undefined && config.limits.preferredEventsPerPublisher !== 5) ||
       !Number.isInteger(config.limits.maxModelCalls) || config.limits.maxModelCalls < 1 || config.limits.maxModelCalls > 2 ||
       !Number.isInteger(config.limits.maxRunSeconds) || config.limits.maxRunSeconds < 1 || config.limits.maxRunSeconds > 600)
     return invalid('invalid_publishing_configuration');

@@ -15,6 +15,7 @@
     "maxRetries": 0,
     "maxConcurrentRuns": 1,
     "maxEventsPerEdition": 20,
-    "maxSources": 40
+    "maxSources": 40,
+    "preferredEventsPerPublisher": 5
   }
 }
