@@ -32,10 +32,12 @@ function normalizeRecord(record, feed) {
   }
   return { ...record, url };
 }
-async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date() } = {}) {
+async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date(), concurrency = 1 } = {}) {
   if (!validRequest(input)) return { valid: false, errors: [{ code: 'invalid_collection_request' }] };
   const report = { schemaVersion: 1, collectedAt: now().toISOString(), complete: true, feeds: [], records: [] };
-  for (const id of input.feeds) {
+  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 4) return { valid: false, errors: [{ code: 'invalid_collection_request' }] };
+  const retrieved = new Map();
+  async function retrieve(id) {
     let parsed;
     try { parsed = parseRss(await fetch(FEEDS[id].url), { allowFullMonthNames: FEEDS[id].fullMonthNames === true, includeDescription: FEEDS[id].includeDescription === true,
       includeCreator: FEEDS[id].includeCreator === true, allowUtf16: FEEDS[id].utf16 === true, localDateOffsetMinutes: FEEDS[id].localDateOffsetMinutes,
@@ -45,6 +47,11 @@ async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date() }
         'feed_response_rejected', 'feed_size_limit', 'feed_request_rejected'];
       parsed = { valid: false, code: known.includes(error.message) ? error.message : 'feed_retrieval_failed' };
     }
+    retrieved.set(id, parsed);
+  }
+  for (let i = 0; i < input.feeds.length; i += concurrency) await Promise.all(input.feeds.slice(i, i + concurrency).map(retrieve));
+  for (const id of input.feeds) {
+    let parsed = retrieved.get(id);
     if (parsed.valid && report.records.length + parsed.records.length > MAX_COLLECTION_RECORDS) {
       parsed = { valid: false, code: 'collection_record_limit' };
     }
@@ -88,4 +95,4 @@ if (require.main === module) {
     : collectFile(process.argv[2], process.argv[3])).catch(() => ({ valid: false, errors: [{ code: 'collection_failed' }] }))
     .then(result => { console.log(JSON.stringify(result)); process.exitCode = usage ? 2 : result.valid ? 0 : 1; });
 }
-module.exports = { collectFeeds, collectFile, validRequest, normalizeRecord };
+module.exports = { FEEDS, collectFeeds, collectFile, validRequest, normalizeRecord };
