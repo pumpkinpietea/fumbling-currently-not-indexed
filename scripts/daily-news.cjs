@@ -14,15 +14,7 @@ const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const plain = (s, max) => typeof s === 'string' && s.length >= 8 && s.length <= max &&
   !/[\r\n<>\[\]{}\\`]/.test(s) && !/https?:|www\.|@[\w.-]+\.[a-z]{2,}/i.test(s);
 const digits = s => [...new Set(s.match(/\d+(?:[.,]\d+)*/g) || [])].sort();
-function canonicalNumbers(text, locale = 'en') {
-  return text.replace(/\d+(?:[.,]\d+)*/g, number => {
-    if (locale === 'id-ID') {
-      if (/^[1-9]\d{0,2}(?:\.\d{3})+(?:,\d+)?$/.test(number)) return number.replace(/\./g, '').replace(',', '.');
-      if (/^\d+,\d+$/.test(number)) return number.replace(',', '.');
-    } else if (/^\d{1,3}(?:,\d{3})+(?:\.\d+)?$/.test(number)) return number.replace(/,/g, '');
-    return number;
-  });
-}
+const { canonicalNumbers, numericFacts } = require('./news-numbers.cjs');
 const DAILY_CODES = new Set(['incomplete_collection','source_metadata_rejected','insufficient_rss_evidence',
   'source_attribution_rejected','state_already_exists','state_value_rejected','private_session_missing',
   'generation_failed','review_failed','review_rejected','invalid_model_output','invalid_events',
@@ -50,11 +42,12 @@ function validateEvents(events, sources) {
       if (!item || Object.keys(item).sort().join(',') !== 'summary,title' ||
           !plain(item.title, 100) || !plain(item.summary, language === 'jp' ? 350 : 700)) throw new Error('invalid_localized_text');
     }
-    const factNumbers = text => digits(event.editions ? canonicalNumbers(text) : text);
+    const factNumbers = text => event.editions ? numericFacts(text) : digits(text);
     if (JSON.stringify(factNumbers(event.en.title + ' ' + event.en.summary)) !==
         JSON.stringify(factNumbers(event.jp.title + ' ' + event.jp.summary))) throw new Error('translation_number_conflict');
-    const evidence = event.sourceIds.map(id => {const source=sources.find(s=>s.id===id);return event.editions ? canonicalNumbers(source.excerpt,sourcePolicy(source)?.source.numberLocale || 'en') : source.excerpt;}).join(' ');
-    if (factNumbers(event.en.title + ' ' + event.en.summary).some(n => event.editions ? !digits(evidence).includes(n) : !evidence.includes(n))) throw new Error('unsupported_number');
+    const evidence = event.sourceIds.map(id => sources.find(s=>s.id===id));
+    const evidenceNumbers = event.editions ? evidence.flatMap(source => numericFacts(source.excerpt,sourcePolicy(source)?.source.numberLocale || 'en')) : [];
+    if (factNumbers(event.en.title + ' ' + event.en.summary).some(n => event.editions ? !evidenceNumbers.includes(n) : !evidence.some(source=>source.excerpt.includes(n)))) throw new Error('unsupported_number');
     if (!Array.isArray(event.quotes) || event.quotes.length < event.sourceIds.length || event.quotes.length > 6 ||
         event.sourceIds.some(id => !event.quotes.some(q => q.sourceId === id)) ||
         event.quotes.some(q => !q || Object.keys(q).sort().join(',') !== 'sourceId,text' ||
@@ -280,6 +273,7 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
     'Return only JSON {"events":[{"editions":["indonesia","tech"],"sourceIds":["id"],"en":{"title":"...","summary":"..."},"jp":{"title":"...","summary":"..."},"quotes":[{"sourceId":"id","text":"exact evidence substring"}]}]}.',
     'Only report facts explicit in the supplied official RSS evidence. EvidenceType official_rss_title contains ONLY an announcement headline: do not infer any details beyond it. JICA and JETRO are institutional announcements; Yahoo!ニュース distributes articles from the provider named at the end of each source title; credit that provider and do not describe Yahoo as the original reporter; Yahoo RSS time is distribution time, not proof of the underlying original report or event date; Global Voices can be commentary and must be attributed. Do not infer viewpoints from outlet geography; do not fill gaps from memory. Each English title must name its subject country or ASEAN/Southeast Asia. Each summary should be one or two short sentences. At most 40 unique events overall and 20 in each edition. A shared Indonesia technology event counts toward both edition caps. Select as many distinct substantial supported events as fit, without padding or a minimum quota. Do not merge different countries or unrelated events merely to fit limits. English summary <=400 characters; Japanese <=180; each title <=100. Each quote 20-250 characters.',
     'Declare editions explicitly: Indonesia general across all topics; tech only substantive Southeast Asia technology/e-commerce/digital-economy developments. Indonesia technology items must declare both. Incidental AI background in cultural advocacy can be Indonesia-only. Both languages must express the same numeric values. ANTARA Indonesian evidence uses dots for thousands and commas for decimals: 1.222 KK means 1,222 households, never 1.222 households. Localize numeric punctuation correctly without inventing numbers, changing units or changing exact source quotes.',
+    'Use ASCII digits for numeric quantities in both languages; prefer numeric month/date and HH:MM times consistently across EN/JP, full comma-grouped amounts rather than million/万 abbreviations, and matching explicit per-unit denominators. Preserve exact evidence quotes and never invent a value or unit to satisfy formatting.',
     'Quotes are private grounding, not for publication. Use brief original paraphrases, no copied paragraphs. Every used source needs exactly one exact quote, no duplicate source quotes.',
     'If no adequately supported relevant events, return {"events":[]}.'
   ].join(' '), input: JSON.stringify({ editionDate: date, previousEvents: previousEvents.slice(-20), sources: modelSources }) };
