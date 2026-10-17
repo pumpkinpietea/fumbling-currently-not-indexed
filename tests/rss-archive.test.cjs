@@ -68,3 +68,12 @@ test('archived original reaches metadata-only production wiring without any app 
 test('invalid latest excerpt cannot replace usable earlier evidence, but changed raw dates remain quarantined',()=>{
  const old=article(1),bad=article(1,old.publishedAt,{description:null});assert.deepEqual(mergeRecords(report([bad]),[{records:[old]}],window).report.records,[old]);assert.equal(mergeRecords(report([bad]),[{records:[old]}],window).audit.invalidEvidence,1);
 });
+test('old registry snapshots remain usable after expansion but missing feed coverage stays explicit',async()=>{
+ const h=memory(),oldInstant=new Date('2026-10-10T12:30:00Z'),old=report([article(1)]);
+ const added=['vietnam-news-sci-tech','yahoo-it','setkab-news-en'];old.feeds=old.feeds.filter(f=>!added.includes(f.id));
+ await saveSnapshot(h.state,old,oldInstant);const value=h.data.get(key(oldInstant));assert.equal(validSnapshot(value,slot(oldInstant),instant),true);
+ const result=await collectArchived(input,{state:h.state,instant,retainLive:false,collect:async(request,options)=>{assert.equal(options.concurrency,4);return {valid:true,report:report()};}});
+ assert.deepEqual(result.report.records,[article(1)]);assert.equal(result.report.archive.coverageComplete,false);assert.deepEqual(result.report.archive.missingFeeds,[{slot:slot(oldInstant),feeds:added}]);
+ for(const alter of [v=>v.feeds.push(v.feeds[0]),v=>v.feeds.reverse(),v=>v.feeds[0].id='private-unknown',v=>v.feeds=[],v=>v.records[0].feedId='yahoo-it']){const bad=structuredClone(value);alter(bad);assert.equal(validSnapshot(bad,slot(oldInstant),instant),false);}
+ await assert.rejects(collectArchived(input,{state:h.state,instant,retainLive:false,collect:async()=>({valid:true,report:old})}),/incomplete_collection/);
+});

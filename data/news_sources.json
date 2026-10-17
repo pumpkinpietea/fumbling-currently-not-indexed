@@ -163,5 +163,10 @@
     "name": "Yahoo!ニュース",
     "country": "JP",
     "type": "aggregation"
+  },
+  "setkab.go.id": {
+    "name": "Cabinet Secretariat of Indonesia",
+    "country": "ID",
+    "type": "institution"
   }
 }

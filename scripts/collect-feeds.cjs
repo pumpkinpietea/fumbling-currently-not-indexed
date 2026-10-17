@@ -17,7 +17,7 @@ function selectionRequest(window, articles = [], hosts = ['www.antaranews.com'])
 function validRequest(input) {
   return shape(input, ['schemaVersion', 'window', 'feeds']) && input.schemaVersion === 1 &&
     selectSources(selectionRequest(input.window)).valid && Array.isArray(input.feeds) &&
-    input.feeds.length >= 1 && input.feeds.length <= 14 && new Set(input.feeds).size === input.feeds.length &&
+    input.feeds.length >= 1 && input.feeds.length <= 16 && new Set(input.feeds).size === input.feeds.length &&
     input.feeds.every(id => typeof id === 'string' && Object.hasOwn(FEEDS, id));
 }
 function normalizeRecord(record, feed) {

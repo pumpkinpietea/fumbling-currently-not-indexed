@@ -1,0 +1,10 @@
+# Design and tasks
+
+1. Centralize title evidence minimum in the RSS extractor, using explicit feed language and cleaned Japanese-script text. Generate schema5; retain legacy evidence validation for versions1–4 and version4+ edition membership/limits.
+2. Check every candidate with the extractor before allocating publisher/topic slots and count exclusions. Add precise quantum-computing expressions to the common relevance module; keep region AND topic requirements and semantic editor gate.
+3. Add the three reviewed feeds and cabinet source metadata. Raise only the collection feed-count bound to16. Keep total records/bytes unchanged. Fetch current archive collection four-way with8-second transport deadlines.
+4. Make snapshot validation accept strictly ordered known subsets, check record-to-present-feed membership, and report each slot's missing active feed IDs. Completeness of an old snapshot means completeness of its recorded feed set, not coverage of newly added feeds.
+5. Add a strict create-only dated editorial history marker reader under expiring evidence. Migrate only the already-live #113 supplement into that separate history after verifying source metadata and publication revision; never overwrite daily history.
+6. Regression tests cover Japanese headline extraction/schema boundaries, genuine quantum positives and unrelated negatives, evidence rejection before slots, old/new archive compatibility, missing coverage and malformed snapshots, editorial history suppression/invalid history and new feed provenance/bounds.
+7. Prioritize up to40 newest history hints rather than the oldest20-tail; test both generator/reviewer context and dated editorial exclusion.
+8. Replay saved original reports offline before/after, save private aggregate evidence and inspect sample candidates. Live collection stays metadata-only. Run portable CI and review exact staged/outgoing privacy and identities. PR -> exact CI -> protected merge -> main CI/build/Hosting -> immutable runtime update preserving --scheduled/hourly cron -> cloud metadata trial. Record actual coverage and limitations; do not treat advance-clock trial as complete future coverage.
