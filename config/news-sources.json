@@ -300,7 +300,8 @@
           ],
           "includeDescription": true,
           "utf16": true,
-          "daily": true
+          "daily": true,
+          "dailyOptional": true
         }
       ],
       "accessReview": {
@@ -442,7 +443,8 @@
           ],
           "includeDescription": true,
           "stripRssSource": true,
-          "daily": true
+          "daily": true,
+          "dailyOptional": true
         }
       ],
       "accessReview": {
@@ -467,7 +469,8 @@
           "allowedHosts": [
             "setkab.go.id"
           ],
-          "daily": true
+          "daily": true,
+          "dailyOptional": true
         }
       ],
       "accessReview": {

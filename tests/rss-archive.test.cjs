@@ -30,7 +30,7 @@ test('partial and missing archives are visible; failed live collection never bor
  const h=memory();const partial=report([article(1)],'ecns-news');
  assert.equal((await captureRss({state:h.state,instant:new Date('2026-10-10T12:30:00Z'),collect:async()=>({valid:true,report:partial})})).status,'rss_capture_incomplete');
  const result=await collectArchived(input,{state:h.state,instant,retainLive:false,collect:async()=>({valid:true,report:report()})});assert.equal(result.report.archive.incomplete.length,1);assert.equal(result.report.archive.coverageComplete,false);assert.equal(result.report.records.length,1);
- const failed=await collectArchived(input,{state:h.state,instant,collect:async()=>({valid:true,report:partial})});assert.equal(failed.report.complete,false);
+ const failed=await collectArchived(input,{state:h.state,instant,collect:async()=>({valid:true,report:partial})});assert.equal(failed.report.complete,false);assert.equal(failed.valid,false);
  const unavailable=memory();unavailable.state.read=async()=>{throw new Error('synthetic_private_failure');};
  const readResult=await collectArchived(input,{state:unavailable.state,instant,retainLive:false,collect:async()=>({valid:true,report:report()})});assert.equal(readResult.report.archive.failedReads.length,32);assert.ok(!JSON.stringify(readResult).includes('synthetic_private_failure'));
  for(const error of [new SyntaxError('synthetic malformed private JSON'),new Error('response_size_limit')]){unavailable.state.read=async()=>{throw error;};await assert.rejects(collectArchived(input,{state:unavailable.state,instant,retainLive:false,collect:async()=>({valid:true,report:report()})}),/invalid_rss_snapshot/);}
@@ -75,5 +75,5 @@ test('old registry snapshots remain usable after expansion but missing feed cove
  const result=await collectArchived(input,{state:h.state,instant,retainLive:false,collect:async(request,options)=>{assert.equal(options.concurrency,4);return {valid:true,report:report()};}});
  assert.deepEqual(result.report.records,[article(1)]);assert.equal(result.report.archive.coverageComplete,false);assert.deepEqual(result.report.archive.missingFeeds,[{slot:slot(oldInstant),feeds:added}]);
  for(const alter of [v=>v.feeds.push(v.feeds[0]),v=>v.feeds.reverse(),v=>v.feeds[0].id='private-unknown',v=>v.feeds=[],v=>v.records[0].feedId='yahoo-it']){const bad=structuredClone(value);alter(bad);assert.equal(validSnapshot(bad,slot(oldInstant),instant),false);}
- await assert.rejects(collectArchived(input,{state:h.state,instant,retainLive:false,collect:async()=>({valid:true,report:old})}),/incomplete_collection/);
+ assert.equal((await collectArchived(input,{state:h.state,instant,retainLive:false,collect:async()=>({valid:true,report:old})})).valid,false);
 });

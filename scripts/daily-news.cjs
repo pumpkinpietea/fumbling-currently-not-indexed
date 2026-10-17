@@ -5,7 +5,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { editionClock } = require('./edition-clock.cjs');
 const settings = require('../config/news-publishing.json');
-const { collectFeeds } = require('./collect-feeds.cjs');
+const { collectFeeds, publicationReady } = require('./collect-feeds.cjs');
 const { extractRssEvidence, titleEvidenceMinimum, sourceTextForRelevance } = require('./news-evidence.cjs');
 const { dailyFeeds, sourcePolicy, validCreator, sourceProvider, publisherGroup } = require('./news-source-policy.cjs');
 const { runPlan, privateWrite, safePlanFailure } = require('./chatgpt-plan.cjs');
@@ -231,9 +231,10 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   }
   phase='collection';
   const collected = await collect({ schemaVersion: 1, window: clock.window, feeds: dailyFeeds });
+  const ready=collected.report && (Array.isArray(collected.report.feeds) ? publicationReady(collected.report,dailyFeeds) : collected.report.complete===true);
   if (collected.report) await state.write(`evidence/feed-health-${marker}${date}.json`, {
-    complete: collected.report.complete, feeds: collected.report.feeds || [] });
-  if (!collected.valid || !collected.report.complete) throw new Error('incomplete_collection');
+    complete: collected.report.complete, publicationReady:ready, feeds: collected.report.feeds || [] });
+  if (!collected.valid || !ready) throw new Error('incomplete_collection');
   const bridge = require('./alert-intake.cjs').reconcileCandidates(discoveredCandidates, collected.report.records, collected.report.selection.accepted);
   await state.write(`evidence/candidate-bridge-${marker}${date}.json`, bridge);
   const selectionAudit = {};
