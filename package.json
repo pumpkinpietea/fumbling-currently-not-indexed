@@ -20,7 +20,9 @@
     "shortlist:events": "node scripts/event-candidates.cjs shortlist",
     "evaluate:events": "node scripts/event-candidates.cjs evaluate",
     "render:evidence": "node scripts/render-evidence.cjs",
-    "check:ui": "node scripts/check-ui.cjs"
+    "check:ui": "node scripts/check-ui.cjs",
+    "collect:specialists": "node scripts/specialist-news.cjs",
+    "render:specialists": "node scripts/render-specialist.cjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.0",

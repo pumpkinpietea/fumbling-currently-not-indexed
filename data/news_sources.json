@@ -168,5 +168,50 @@
     "name": "Cabinet Secretariat of Indonesia",
     "country": "ID",
     "type": "institution"
+  },
+  "www.jpcert.or.jp": {
+    "name": "JPCERT/CC",
+    "country": "JP",
+    "type": "institution"
+  },
+  "www.cisa.gov": {
+    "name": "CISA",
+    "country": "US",
+    "type": "institution"
+  },
+  "www.cert.org.cn": {
+    "name": "CNCERT/CC",
+    "country": "CN",
+    "type": "institution"
+  },
+  "cert.europa.eu": {
+    "name": "CERT-EU",
+    "country": "EU",
+    "type": "institution"
+  },
+  "www.ncsc.gov.uk": {
+    "name": "NCSC",
+    "country": "GB",
+    "type": "institution"
+  },
+  "github.com": {
+    "name": "GitHub / official releases",
+    "country": "US",
+    "type": "aggregation"
+  },
+  "developers.googleblog.com": {
+    "name": "Google for Developers",
+    "country": "US",
+    "type": "company"
+  },
+  "developer.apple.com": {
+    "name": "Apple Developer",
+    "country": "US",
+    "type": "company"
+  },
+  "api-docs.deepseek.com": {
+    "name": "DeepSeek",
+    "country": "CN",
+    "type": "company"
   }
 }

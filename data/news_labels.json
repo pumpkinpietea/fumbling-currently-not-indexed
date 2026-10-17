@@ -94,6 +94,11 @@
       "flag": "🌏",
       "en": "Southeast Asia",
       "jp": "東南アジア"
+    },
+    "EU": {
+      "flag": "🇪🇺",
+      "en": "European Union",
+      "jp": "欧州連合"
     }
   },
   "types": {
@@ -142,6 +147,10 @@
     "security": {
       "en": "Cybersecurity",
       "jp": "サイバーセキュリティ"
+    },
+    "developer-tools": {
+      "en": "Developer tools",
+      "jp": "開発ツール"
     }
   }
 }
