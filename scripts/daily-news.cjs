@@ -20,7 +20,7 @@ const DAILY_CODES = new Set(['incomplete_collection','source_metadata_rejected',
   'generation_failed','review_failed','review_rejected','invalid_model_output','invalid_events',
   'invalid_localized_text','invalid_event_sources','translation_number_conflict','unsupported_number','unsupported_quote',
   'daily_text_budget_exceeded','edition_event_limit','irrelevant_event','invalid_edition_membership','invalid_publication_bundle','bundle_files_mismatch',
-  'publication_not_active','runtime_configuration_required']);
+  'publication_not_active','runtime_configuration_required','invalid_rss_snapshot','archive_record_limit','invalid_archive_window','rss_capture_timeout']);
 function dailyFailure(error, phase) {
   const phases = ['lock','history','discovery','collection','evidence','credentials','generation','generation_validation','review','review_validation','bundle'];
   return {status:'failed',code:DAILY_CODES.has(error?.message)?error.message:'daily_run_failed',
@@ -146,12 +146,18 @@ function validateBundle(bundle, date) {
   if (JSON.stringify(files) !== JSON.stringify(bundle.files)) throw new Error('bundle_files_mismatch');
   return files;
 }
-function shortlist(records, accepted, priorUrls, preferredUrls = []) {
+function shortlist(records, accepted, priorUrls, preferredUrls = [], audit) {
   const acceptedUrls = new Set(accepted.map(s => s.normalizedUrl));
   const seen = new Set(priorUrls), candidates = [];
   for (const record of [...records].sort((a, b) => String(b.publishedAt).localeCompare(String(a.publishedAt)))) {
     const policy = sourcePolicy(record);
-    if (!policy || !acceptedUrls.has(record.url) || seen.has(record.url)) continue;
+    const group = (policy && publisherGroup(record)) || record.feedId || 'unrecognized';
+    const stats = audit ? (audit[group] ||= {received:0,dateAccepted:0,policyRejected:0,historyOrDuplicate:0,relevanceMatched:0,selected:0}) : null;
+    if(stats)stats.received++;
+    if(!policy){if(stats)stats.policyRejected++;continue;}
+    if(!acceptedUrls.has(record.url))continue;
+    if(stats)stats.dateAccepted++;
+    if(seen.has(record.url)){if(stats)stats.historyOrDuplicate++;continue;}
     if (policy.source.requireProvider) {
       // Distribution records need usable evidence and provider credit before consuming a slot.
       try { extractRssEvidence(record); } catch { continue; }
@@ -159,14 +165,15 @@ function shortlist(records, accepted, priorUrls, preferredUrls = []) {
     if (policy.source.automatedUse === 'rss_title_notes' && (record.title || '').length < 40) continue;
     const evidence = `${record.title || ''} ${policy.source.automatedUse === 'rss_title_notes' ? '' : record.description || ''}`;
     if (!relevantNews(evidence)) continue;
-    seen.add(record.url);candidates.push({ record, publisher: publisherGroup(record) });
+    if(stats)stats.relevanceMatched++;
+    seen.add(record.url);candidates.push({ record, evidence, publisher: publisherGroup(record) });
   }
   const preferred = new Set(preferredUrls);
   candidates.sort((a,b) => Number(preferred.has(b.record.url)) - Number(preferred.has(a.record.url)));
   const result = [];
   for (const matches of [relevantIndonesia, relevantTech]) {
-    const scoped = candidates.filter(item => matches(`${item.record.title} ${item.record.description || ''}`));
-    if(matches === relevantIndonesia) scoped.sort((a,b) => Number(relevantTech(`${a.record.title} ${a.record.description || ''}`)) - Number(relevantTech(`${b.record.title} ${b.record.description || ''}`)));
+    const scoped = candidates.filter(item => matches(item.evidence));
+    if(matches === relevantIndonesia) scoped.sort((a,b) => Number(relevantTech(a.evidence)) - Number(relevantTech(b.evidence)));
     const chosen = [], counts = new Map();
     for(const limit of [1,settings.limits.preferredEventsPerPublisher,Infinity]) {
       for(const item of scoped) {
@@ -183,6 +190,7 @@ function shortlist(records, accepted, priorUrls, preferredUrls = []) {
   }
   // Prefer diverse publishers first, then use remaining capacity for distinct eligible stories.
   for (const item of candidates) if (result.length < settings.limits.maxSources && !result.includes(item.record)) result.push(item.record);
+  if(audit)for(const record of result)audit[publisherGroup(record)].selected++;
   return result;
 }
 async function produce({ instant = new Date(), replayDate, trial = false, state, credentialFile,
@@ -223,7 +231,9 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
   if (!collected.valid || !collected.report.complete) throw new Error('incomplete_collection');
   const bridge = require('./alert-intake.cjs').reconcileCandidates(discoveredCandidates, collected.report.records, collected.report.selection.accepted);
   await state.write(`evidence/candidate-bridge-${marker}${date}.json`, bridge);
-  const selected = shortlist(collected.report.records, collected.report.selection.accepted, priorUrls, bridge.preferredUrls);
+  const selectionAudit = {};
+  const selected = shortlist(collected.report.records, collected.report.selection.accepted, priorUrls, bridge.preferredUrls, selectionAudit);
+  await state.write(`evidence/source-selection-${marker}${date}.json`, {publishers:selectionAudit,archive:collected.report.archive || null});
   phase='evidence';
   const sources = [];
   for (const record of selected) {
@@ -316,15 +326,25 @@ async function produce({ instant = new Date(), replayDate, trial = false, state,
 }
 if (require.main === module) {
   const work = fs.mkdtempSync('/tmp/news-daily-');fs.chmodSync(work, 0o700);
-  const args = process.argv.slice(2);
+  const rawArgs = process.argv.slice(2);
+  const runtimeInstant = new Date();
+  const archive = require('./rss-archive.cjs');
+  const mode = archive.runtimeMode(rawArgs,runtimeInstant);
+  const args = mode === 'daily' ? [] : rawArgs;
   (async () => {
-    const nextDayTrial = args.length === 1 && args[0] === '--trial-next-day';
-    const metadataOnly = args.length === 1 && args[0] === '--metadata-trial';
-    if (args.length && !nextDayTrial && !metadataOnly && (args.length !== 2 || args[0] !== '--trial-date')) throw new Error('invalid_runtime_arguments');
+    const nextDayTrial = args.length === 1 && ['--trial-next-day','--metadata-next-day'].includes(args[0]);
+    const metadataOnly = args.length === 1 && ['--metadata-trial','--metadata-next-day'].includes(args[0]);
+    if (mode !== 'capture' && args.length && !nextDayTrial && !metadataOnly && (args.length !== 2 || args[0] !== '--trial-date')) throw new Error('invalid_runtime_arguments');
     const state = cloudState(await cloudToken());
+    if(mode === 'capture'){
+      const timer=setTimeout(()=>{console.log(JSON.stringify({status:'failed',code:'rss_capture_timeout'}));process.exit(1);},75000);
+      timer.unref();
+      try{return await archive.captureRss({state,instant:runtimeInstant});}finally{clearTimeout(timer);}
+    }
     const lease = await state.write('locks/runtime.json', { owner: crypto.randomUUID(), startedAt: new Date().toISOString() });
     try { return await produce({ state, credentialFile: path.join(work, 'session.json'), workDirectory: work,
       model: process.env.NEWS_MODEL, revision: process.env.NEWS_REVISION,
+      collect:request=>archive.collectArchived(request,{state,instant:runtimeInstant,retainLive:args.length===0}),
       instant: nextDayTrial ? new Date(Date.now() + 86400000) : new Date(),
       trial: args.length > 0, metadataOnly, discover: async () => {
         const reader = await require('./google-news-reader.cjs').readGoogleNews();
@@ -335,10 +355,10 @@ if (require.main === module) {
         reader.additional = await require('./private-discovery.cjs').discoverPrivate({ priorUrls: prior?.value.candidates.map(item => item.url) || [] });
         return reader;
       },
-      replayDate: metadataOnly ? new Date(Date.now() + 7 * 3600000).toISOString().slice(0, 10) :
+      replayDate: metadataOnly && !nextDayTrial ? new Date(Date.now() + 7 * 3600000).toISOString().slice(0, 10) :
         args.length === 2 ? args[1] : undefined });
     } finally { await state.remove('locks/runtime.json', lease); }
-  })().then(result => console.log(JSON.stringify(result))).catch(error => {
+  })().then(result => {console.log(JSON.stringify(result));if(result.status==='rss_capture_incomplete')process.exitCode=1;}).catch(error => {
     console.log(JSON.stringify(error.failure || dailyFailure(error,'unknown')));process.exitCode = 1;
   }).finally(() => fs.rmSync(work, { recursive: true, force: true }));
 }

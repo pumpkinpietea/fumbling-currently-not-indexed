@@ -11,9 +11,9 @@ function cloudState(token, { fetch: send = global.fetch } = {}) {
   const headers = { authorization: `Bearer ${token}` };
   const encoded = value => encodeURIComponent(value);
   return {
-    async read(name) {
+    async read(name, { timeoutMs = 15000 } = {}) {
       const r = await send(`https://storage.googleapis.com/storage/v1/b/${BUCKET}/o/${encoded(name)}?alt=media`,
-        { headers, redirect: 'error', signal: AbortSignal.timeout(15000) });
+        { headers, redirect: 'error', signal: AbortSignal.timeout(timeoutMs) });
       if (r.status === 404) return null;
       const generation = r.headers.get('x-goog-generation');
       return { value: JSON.parse(await boundedText(r, 1048576)), generation };
