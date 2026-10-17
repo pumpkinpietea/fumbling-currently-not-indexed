@@ -3,7 +3,7 @@ const { dailyFeeds, sourcePolicy, publisherGroup } = require('./news-source-poli
 const { relevantNews } = require('./news-relevance.cjs');
 const { publicationTime } = require('./rss-metadata.cjs');
 const { selectSources } = require('./select-sources.cjs');
-const { extractRssEvidence } = require('./news-evidence.cjs');
+const { extractRssEvidence, sourceTextForRelevance } = require('./news-evidence.cjs');
 const { fetchFeed } = require('./feed-transport.cjs');
 const HOUR = 3600000, MAX_RECORDS = 500, MAX_BYTES = 1048576;
 const slot = instant => new Date(Math.floor(instant.getTime() / HOUR) * HOUR).toISOString().slice(0, 13).replace('T', '-');
@@ -14,19 +14,23 @@ function validSnapshot(value, expectedSlot, instant) {
       typeof value.capturedAt !== 'string' || !Number.isFinite(Date.parse(value.capturedAt)) ||
       slot(new Date(value.capturedAt)) !== expectedSlot || Date.parse(value.capturedAt) > instant.getTime() ||
       typeof value.complete !== 'boolean' || !Array.isArray(value.records) || value.records.length > MAX_RECORDS ||
-      !Array.isArray(value.feeds) || value.feeds.length !== dailyFeeds.length ||
+      !Array.isArray(value.feeds) || !value.feeds.length || value.feeds.length > dailyFeeds.length ||
       [...value.feeds,...value.records].some(item=>!item || typeof item!=='object' || Array.isArray(item)) ||
       Buffer.byteLength(JSON.stringify(value)) > MAX_BYTES) return false;
-  for (const [i, feed] of value.feeds.entries()) {
-    if (feed.id !== dailyFeeds[i] || feed.url !== FEEDS[feed.id].url || !['ok','failed'].includes(feed.status) ||
+  let previousFeed = -1;
+  const presentFeeds = new Set();
+  for (const feed of value.feeds) {
+    const index = dailyFeeds.indexOf(feed.id);
+    if (index <= previousFeed || feed.url !== FEEDS[feed.id]?.url || !['ok','failed'].includes(feed.status) ||
         !Number.isInteger(feed.itemCount) || feed.itemCount < 0 || feed.itemCount > 200 ||
         (feed.status === 'ok' ? feed.error !== null : feed.itemCount !== 0 || !['feed_timeout','feed_dns_rejected','feed_network_error','feed_response_rejected','feed_size_limit','feed_request_rejected','feed_retrieval_failed','invalid_or_oversized_rss','collection_record_limit'].includes(feed.error)) ||
         value.records.filter(record => record.feedId === feed.id).length !== feed.itemCount) return false;
+    previousFeed = index;presentFeeds.add(feed.id);
   }
   if (value.complete !== value.feeds.every(feed => feed.status === 'ok')) return false;
   for (const record of value.records) {
     const feed = FEEDS[record.feedId];
-    if (!feed || !dailyFeeds.includes(record.feedId) || !Number.isInteger(record.itemIndex) || record.itemIndex < 0 || record.itemIndex >= 200 ||
+    if (!feed || !presentFeeds.has(record.feedId) || !Number.isInteger(record.itemIndex) || record.itemIndex < 0 || record.itemIndex >= 200 ||
         !Object.keys(record).every(k => ['feedId','itemIndex','title','url','publicationDatesRaw','publishedAt','description','creator'].includes(k)) ||
         !['title','url','publicationDatesRaw','publishedAt'].every(k => Object.hasOwn(record,k)) ||
         !['title','url','description','creator'].every(k => !Object.hasOwn(record,k) || record[k] === null ||
@@ -87,7 +91,7 @@ function mergeRecords(report, snapshots, window) {
     if(!Number.isFinite(time)){audit.invalidDates++;continue;}
     if(time<Date.parse(window.start)||time>=Date.parse(window.end)){audit.outsideWindow++;continue;}
     publisher.dateAccepted++;
-    const evidence = `${record.title || ''} ${policy.source.automatedUse==='rss_title_notes'?'':record.description || ''}`;
+    const evidence = sourceTextForRelevance(extractRssEvidence(record));
     if(!relevantNews(evidence)){audit.scopeRejected++;continue;}
     publisher.relevanceMatched++;
     records.push(record);
@@ -100,11 +104,12 @@ function mergeRecords(report, snapshots, window) {
   return {report:{...report,records,selection:selected.selection},audit};
 }
 async function collectArchived(input,{state,instant=new Date(),collect=collectFeeds,retainLive=true}={}) {
-  const live=await collect(input);
+  const live=await collect(input,{concurrency:4,fetch:url=>fetchFeed(url,{timeoutMs:8000})});
   if(!live.valid || !live.report?.complete)return live;
+  if(JSON.stringify(live.report.feeds?.map(feed=>feed.id))!==JSON.stringify(input.feeds))throw new Error('incomplete_collection');
   // The morning observation also preserves newly arriving current-day RSS for tomorrow.
   const saved=retainLive?await saveSnapshot(state,live.report,instant):{status:'trial_read_only'};
-  const hours=snapshotHours(input.window,instant),snapshots=[],coverage={expected:hours.length,present:0,missing:[],failedReads:[],incomplete:[],saved};
+  const hours=snapshotHours(input.window,instant),snapshots=[],coverage={expected:hours.length,present:0,missing:[],failedReads:[],incomplete:[],missingFeeds:[],saved};
   for(let i=0;i<hours.length;i+=4){
     const results=await Promise.all(hours.slice(i,i+4).map(async hour=>{
       try{return {hour,object:await state.read(key(hour),{timeoutMs:3000})};}catch(error){if(error instanceof SyntaxError || error.message==='response_size_limit')throw new Error('invalid_rss_snapshot');return {hour,error:true};}
@@ -113,11 +118,13 @@ async function collectArchived(input,{state,instant=new Date(),collect=collectFe
       if(error){coverage.failedReads.push(slot(hour));continue;}
       if(!object){coverage.missing.push(slot(hour));continue;}
       if(!validSnapshot(object.value,slot(hour),instant))throw new Error('invalid_rss_snapshot');
+      const absent=dailyFeeds.filter(id=>!object.value.feeds.some(feed=>feed.id===id));
+      if(absent.length)coverage.missingFeeds.push({slot:slot(hour),feeds:absent});
       coverage.present++;if(!object.value.complete)coverage.incomplete.push(slot(hour));snapshots.push(object.value);
     }
   }
   const merged=mergeRecords(live.report,snapshots,input.window);
-  merged.report.archive={...coverage,...merged.audit,coverageComplete:coverage.missing.length===0 && coverage.failedReads.length===0 && coverage.incomplete.length===0};
+  merged.report.archive={...coverage,...merged.audit,coverageComplete:coverage.missing.length===0 && coverage.failedReads.length===0 && coverage.incomplete.length===0 && coverage.missingFeeds.length===0};
   return {...live,report:merged.report};
 }
 function runtimeMode(args,instant=new Date()) {

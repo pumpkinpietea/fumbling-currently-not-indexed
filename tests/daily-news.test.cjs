@@ -42,7 +42,7 @@ test('shortlist uses normalized accepted URLs, topic filtering and previous publ
   const accepted = [{ normalizedUrl: record.url }];
   assert.equal(shortlist([record], accepted, []).length, 1);
   assert.equal(shortlist([record], accepted, [record.url]).length, 0);
-  assert.equal(shortlist([{ ...record, title: 'Football match results', description: 'Football match results in Indonesia.' }], accepted, []).length, 1);
+  assert.equal(shortlist([{ ...record, title: 'Football match results', description: 'Football match results and team performances in Indonesia.' }], accepted, []).length, 1);
 });
 function harness({ records = [record], complete = true, rejectReview = false, failure } = {}) {
   const objects = new Map([['auth/session.json', { value: { refresh_token: 'synthetic-runtime-fixture' }, generation: '1' }]]);
@@ -275,4 +275,14 @@ test('large single-publisher candidate pools respect total cap and preserve both
   assert.equal(selected.length,40);
   assert.equal(selected.filter(r=>r.title.startsWith('Indonesia')).length,20);
   assert.equal(selected.filter(r=>r.title.startsWith('Vietnam')).length,20);
+});
+test('schema5 producer supplies newest history first rather than oldest tail, within40 hints',async()=>{
+ const h=harness(),read=h.options.state.read,infer=h.options.infer,requests=[];
+ h.options.state.read=async name=>{
+  if(name==='runs/2026-10-10.json')return {value:{sourceUrls:[],eventHints:Array.from({length:40},(_,i)=>`Recent synthetic event ${i}`)}};
+  if(name==='runs/2026-10-09.json')return {value:{sourceUrls:[],eventHints:Array.from({length:40},(_,i)=>`Older synthetic event ${i}`)}};
+  return read(name);
+ };
+ h.options.infer=async(request,...args)=>{requests.push(JSON.parse(request.input));return infer(request,...args);};
+ try{await produce(h.options);for(const request of requests){assert.equal(request.previousEvents.length,40);assert.equal(request.previousEvents[0],'Recent synthetic event 0');assert.equal(request.previousEvents.at(-1),'Recent synthetic event 39');}assert.equal(h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value.schemaVersion,5);}finally{h.cleanup();}
 });

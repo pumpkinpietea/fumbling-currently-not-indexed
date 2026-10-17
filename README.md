@@ -8,6 +8,8 @@ Hugo / PaperMod and publishes it to Firebase Hosting (`blog-pumpkinpie`).
 The target public content languages are Japanese, English, and Indonesian.
 Indonesian support remains planned. Bounded automated EN/JP news collection and publication are implemented under #55; private generation and bot PR/merge/delivery are verified. Production configuration is enabled; runtime image rollout and Scheduler activation are recorded in specs/55-daily-production/tasks.md.
 
+Increasing eligible news and additional feeds: [coverage guide](docs/source-coverage.md).
+
 Hourly official-RSS retention and source diagnostics: [retention guide](docs/rss-retention.md).
 
 Japanese/Yahoo evidence and optional Google Alerts: [intake guide](docs/japanese-intake.md).

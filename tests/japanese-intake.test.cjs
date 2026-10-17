@@ -25,7 +25,7 @@ test('Yahoo evidence requires credited provider and renders explicit distributio
 test('new Japanese feeds fit the bounded complete collection and retain canonical Yahoo URLs',async()=>{
  const xml=Buffer.from(`<rss version="2.0"><channel><item><title>${record.title}</title><link>${url}?source=rss</link><pubDate>Mon, 12 Oct 2026 04:00:00 GMT</pubDate><description>${record.description}</description></item></channel></rss>`);
  const result=await collectFeeds({schemaVersion:1,window:{start:'2026-10-12T00:00:00Z',end:'2026-10-13T00:00:00Z'},feeds:dailyFeeds},{fetch:async()=>xml});
- assert.equal(result.valid,true);assert.equal(result.report.complete,true);assert.equal(result.report.feeds.length,13);
+ assert.equal(result.valid,true);assert.equal(result.report.complete,true);assert.equal(result.report.feeds.length,16);
  assert.equal(result.report.records.find(r=>r.feedId==='yahoo-world').url,url);
 });
 const atom=link=>Buffer.from(`<feed xmlns="http://www.w3.org/2005/Atom"><entry><title>Indonesia disaster planning announcement</title><link href="${link.replace(/&/g,'&amp;')}"/><updated>2026-10-13T00:00:00Z</updated></entry></feed>`);

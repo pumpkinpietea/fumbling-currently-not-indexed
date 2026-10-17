@@ -73,7 +73,8 @@
             "www.jica.go.jp"
           ],
           "fullMonthNames": true,
-          "daily": true
+          "daily": true,
+          "language": "ja"
         }
       ],
       "automatedUse": "rss_title_notes",
@@ -249,7 +250,8 @@
           "allowedHosts": [
             "www.jetro.go.jp"
           ],
-          "daily": true
+          "daily": true,
+          "language": "ja"
         }
       ],
       "automatedUse": "rss_title_notes",
@@ -268,7 +270,7 @@
       "discoveryUrl": "https://vietnamnews.vn/rss",
       "reviewStatus": "private_metadata_trial",
       "automatedUse": "rss_excerpt_notes",
-      "articlePath": "^/(?:economy|industries|sci-tech)/[0-9]+/[a-zA-Z0-9-]+\\.html$",
+      "articlePath": "^/(?:economy|industries|sci-tech|Sci-Tech)/[0-9]+/[a-zA-Z0-9-]+\\.html$",
       "feeds": [
         {
           "id": "vietnam-news-economy",
@@ -289,10 +291,20 @@
           "includeDescription": true,
           "utf16": true,
           "daily": true
+        },
+        {
+          "id": "vietnam-news-sci-tech",
+          "url": "https://vietnamnews.vn/rss/sci-tech.rss",
+          "allowedHosts": [
+            "vietnamnews.vn"
+          ],
+          "includeDescription": true,
+          "utf16": true,
+          "daily": true
         }
       ],
       "accessReview": {
-        "checkedOn": "2026-10-11",
+        "checkedOn": "2026-10-17",
         "rssPolicy": "https://vietnamnews.vn/rss",
         "terms": "https://vietnamnews.vn/privacy.html",
         "scope": "Official RSS titles/excerpts for brief original source-linked factual notes; no article reproduction, body or images. Copyright retained; no blanket reuse license claimed."
@@ -421,13 +433,48 @@
           "includeDescription": true,
           "stripRssSource": true,
           "daily": true
+        },
+        {
+          "id": "yahoo-it",
+          "url": "https://news.yahoo.co.jp/rss/categories/it.xml",
+          "allowedHosts": [
+            "news.yahoo.co.jp"
+          ],
+          "includeDescription": true,
+          "stripRssSource": true,
+          "daily": true
         }
       ],
       "accessReview": {
-        "checkedOn": "2026-10-13",
+        "checkedOn": "2026-10-17",
         "rssPolicy": "https://support.yahoo-net.jp/PccNews/s/article/H000011243",
         "terms": "https://news.yahoo.co.jp/info/",
         "scope": "Official category RSS only for brief original factual notes on a personal noncommercial site, preserving credited providers and distribution links. No article bodies, images, feed redistribution or blanket reuse license claimed."
+      }
+    },
+    {
+      "id": "setkab",
+      "name": "Cabinet Secretariat of Indonesia",
+      "role": "institutional",
+      "discoveryUrl": "https://setkab.go.id/en/",
+      "reviewStatus": "private_metadata_trial",
+      "automatedUse": "rss_title_notes",
+      "articlePath": "^/en/[a-z0-9-]+/$",
+      "feeds": [
+        {
+          "id": "setkab-news-en",
+          "url": "https://setkab.go.id/en/feed/",
+          "allowedHosts": [
+            "setkab.go.id"
+          ],
+          "daily": true
+        }
+      ],
+      "accessReview": {
+        "checkedOn": "2026-10-17",
+        "rssPolicy": "https://setkab.go.id/en/feed/",
+        "terms": "https://setkab.go.id/en/",
+        "scope": "Official RSS announcement headlines only for short original attributed factual notes; no descriptions, bodies, images or copied paragraphs. Institutional assertions must remain attributed. Copyright retained; no blanket reuse license claimed."
       }
     }
   ]
