@@ -130,7 +130,7 @@ test('failed official collection preserves private health without AI or publicat
   try {
     await assert.rejects(produce({ ...h.options, metadataOnly: true }), /incomplete_collection/);
     assert.deepEqual(h.objects.get('evidence/feed-health-metadata-aaaaaaaaaaaa-2026-10-11.json').value,
-      { complete: false, feeds });
+      { complete: false, publicationReady: false, feeds });
     assert.equal(h.calls(), 0);
     assert.ok(!h.objects.has('bundles/2026-10-11.json'));
     assert.ok(!h.objects.has('runs/metadata-aaaaaaaaaaaa-2026-10-11.json'));

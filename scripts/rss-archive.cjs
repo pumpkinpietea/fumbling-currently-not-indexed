@@ -1,4 +1,4 @@
-const { collectFeeds, FEEDS } = require('./collect-feeds.cjs');
+const { collectFeeds, FEEDS, publicationReady } = require('./collect-feeds.cjs');
 const { dailyFeeds, sourcePolicy, publisherGroup } = require('./news-source-policy.cjs');
 const { relevantNews } = require('./news-relevance.cjs');
 const { publicationTime } = require('./rss-metadata.cjs');
@@ -60,7 +60,7 @@ async function captureRss({ state, instant = new Date(), collect = collectFeeds 
     {now:()=>instant,concurrency:4,fetch:url=>fetchFeed(url,{timeoutMs:8000})})).report;
   if (!report) throw new Error('incomplete_collection');
   const result = await saveSnapshot(state,report,instant);
-  return {...result,status:result.status==='already_captured'?'already_captured':report.complete?'rss_captured':'rss_capture_incomplete',modelCalls:0,records:report.records.length,
+  return {...result,status:result.status==='already_captured'?'already_captured':report.complete?'rss_captured':publicationReady(report,dailyFeeds)?'rss_captured_partial':'rss_capture_incomplete',modelCalls:0,records:report.records.length,
     failedFeeds:report.feeds.filter(feed=>feed.status==='failed').map(feed=>feed.id)};
 }
 function snapshotHours(window, instant) {
@@ -105,11 +105,12 @@ function mergeRecords(report, snapshots, window) {
 }
 async function collectArchived(input,{state,instant=new Date(),collect=collectFeeds,retainLive=true}={}) {
   const live=await collect(input,{concurrency:4,fetch:url=>fetchFeed(url,{timeoutMs:8000})});
-  if(!live.valid || !live.report?.complete)return live;
-  if(JSON.stringify(live.report.feeds?.map(feed=>feed.id))!==JSON.stringify(input.feeds))throw new Error('incomplete_collection');
+  if(!live.valid)return live;
+  if(!publicationReady(live.report,input.feeds))return {...live,valid:false,report:live.report && {...live.report,publicationReady:false}};
   // The morning observation also preserves newly arriving current-day RSS for tomorrow.
   const saved=retainLive?await saveSnapshot(state,live.report,instant):{status:'trial_read_only'};
-  const hours=snapshotHours(input.window,instant),snapshots=[],coverage={expected:hours.length,present:0,missing:[],failedReads:[],incomplete:[],missingFeeds:[],saved};
+  const hours=snapshotHours(input.window,instant),snapshots=[],coverage={expected:hours.length,present:0,missing:[],failedReads:[],incomplete:[],missingFeeds:[],
+    optionalFeedFailures:live.report.feeds.filter(feed=>feed.status==='failed').map(feed=>feed.id),saved};
   for(let i=0;i<hours.length;i+=4){
     const results=await Promise.all(hours.slice(i,i+4).map(async hour=>{
       try{return {hour,object:await state.read(key(hour),{timeoutMs:3000})};}catch(error){if(error instanceof SyntaxError || error.message==='response_size_limit')throw new Error('invalid_rss_snapshot');return {hour,error:true};}
@@ -124,7 +125,8 @@ async function collectArchived(input,{state,instant=new Date(),collect=collectFe
     }
   }
   const merged=mergeRecords(live.report,snapshots,input.window);
-  merged.report.archive={...coverage,...merged.audit,coverageComplete:coverage.missing.length===0 && coverage.failedReads.length===0 && coverage.incomplete.length===0 && coverage.missingFeeds.length===0};
+  merged.report.publicationReady=true;
+  merged.report.archive={...coverage,...merged.audit,coverageComplete:coverage.missing.length===0 && coverage.failedReads.length===0 && coverage.incomplete.length===0 && coverage.missingFeeds.length===0 && coverage.optionalFeedFailures.length===0};
   return {...live,report:merged.report};
 }
 function runtimeMode(args,instant=new Date()) {

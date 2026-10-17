@@ -8,6 +8,17 @@ const FEEDS = Object.freeze(Object.fromEntries(registry.sources
   .filter(source => source.reviewStatus === 'private_metadata_trial')
   .flatMap(source => source.feeds.map(feed => [feed.id, feed]))));
 const MAX_COLLECTION_RECORDS = 500;
+const FAILURE_CODES = new Set(['feed_timeout','feed_dns_rejected','feed_network_error','feed_response_rejected',
+  'feed_size_limit','feed_request_rejected','feed_retrieval_failed','invalid_or_oversized_rss','collection_record_limit']);
+function publicationReady(report, requestedFeeds) {
+  if (!Array.isArray(report?.feeds) || !Array.isArray(requestedFeeds) || !requestedFeeds.length || requestedFeeds.length>16 ||
+      new Set(requestedFeeds).size!==requestedFeeds.length || requestedFeeds.some(id=>!Object.hasOwn(FEEDS,id)) ||
+      JSON.stringify(report.feeds.map(feed=>feed?.id)) !== JSON.stringify(requestedFeeds) ||
+      typeof report.complete!=='boolean' || report.complete!==report.feeds.every(feed=>feed.status==='ok') ||
+      !report.feeds.some(feed=>feed.status==='ok')) return false;
+  return report.feeds.every(feed=>FEEDS[feed.id] && feed.url===FEEDS[feed.id].url && Number.isInteger(feed.itemCount) && feed.itemCount>=0 && feed.itemCount<=200 &&
+    (feed.status==='ok' ? feed.error===null : feed.status==='failed' && FEEDS[feed.id]?.dailyOptional===true && feed.itemCount===0 && FAILURE_CODES.has(feed.error)));
+}
 const shape = (value, keys) => value && typeof value === 'object' && !Array.isArray(value) &&
   Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
 function selectionRequest(window, articles = [], hosts = ['www.antaranews.com']) {
@@ -50,11 +61,18 @@ async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date(), 
     retrieved.set(id, parsed);
   }
   for (let i = 0; i < input.feeds.length; i += concurrency) await Promise.all(input.feeds.slice(i, i + concurrency).map(retrieve));
-  for (const id of input.feeds) {
+  let allocated=0;
+  // Optional enrichment must not consume capacity needed by the original required feeds.
+  for (const id of [...input.feeds.filter(id=>!FEEDS[id].dailyOptional),...input.feeds.filter(id=>FEEDS[id].dailyOptional)]) {
     let parsed = retrieved.get(id);
-    if (parsed.valid && report.records.length + parsed.records.length > MAX_COLLECTION_RECORDS) {
+    if (parsed.valid && allocated + parsed.records.length > MAX_COLLECTION_RECORDS) {
       parsed = { valid: false, code: 'collection_record_limit' };
     }
+    if(parsed.valid)allocated+=parsed.records.length;
+    retrieved.set(id,parsed);
+  }
+  for (const id of input.feeds) {
+    const parsed = retrieved.get(id);
     if (!parsed.valid) {
       report.complete = false;
       report.feeds.push({ id, url: FEEDS[id].url, status: 'failed', itemCount: 0, error: parsed.code });
@@ -69,6 +87,7 @@ async function collectFeeds(input, { fetch = fetchFeed, now = () => new Date(), 
       try { allowed = FEEDS[feedId].allowedHosts.includes(new URL(url).hostname); } catch { /* Reject below. */ }
       return { url: allowed ? url : null, publishedAt };
     }), [...new Set(input.feeds.flatMap(id => FEEDS[id].allowedHosts))])).selection;
+  report.publicationReady = publicationReady(report,input.feeds);
   return { valid: true, errors: [], report };
 }
 async function collectFile(source, destination, dependencies) {
@@ -95,4 +114,4 @@ if (require.main === module) {
     : collectFile(process.argv[2], process.argv[3])).catch(() => ({ valid: false, errors: [{ code: 'collection_failed' }] }))
     .then(result => { console.log(JSON.stringify(result)); process.exitCode = usage ? 2 : result.valid ? 0 : 1; });
 }
-module.exports = { FEEDS, collectFeeds, collectFile, validRequest, normalizeRecord };
+module.exports = { FEEDS, collectFeeds, collectFile, validRequest, normalizeRecord, publicationReady };
