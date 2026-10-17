@@ -1,0 +1,178 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "jpcert",
+      "stream": "security",
+      "name": "JPCERT/CC",
+      "country": "JP",
+      "type": "institution",
+      "format": "xml",
+      "url": "https://www.jpcert.or.jp/rss/jpcert.rdf",
+      "articleHost": "www.jpcert.or.jp",
+      "articlePath": "^/(at|wr)/",
+      "evidence": "excerpt",
+      "review": "Official publicly offered RSS; short original factual notes with attribution; no blanket republication license claimed."
+    },
+    {
+      "id": "cisa",
+      "stream": "security",
+      "name": "CISA",
+      "country": "US",
+      "type": "institution",
+      "format": "cisa",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories",
+      "articleHost": "www.cisa.gov",
+      "articlePath": "^/news-events/cybersecurity-advisories/",
+      "evidence": "title",
+      "review": "Official public advisory index; title/date only. Full RSS and KEV catalog exceed the one-MiB bound and are not collected."
+    },
+    {
+      "id": "cncert",
+      "stream": "security",
+      "name": "CNCERT/CC",
+      "country": "CN",
+      "type": "institution",
+      "format": "cncert",
+      "url": "https://www.cert.org.cn/publish/main/index.html",
+      "articleHost": "www.cert.org.cn",
+      "articlePath": "^/publish/main/(10|11|44)/[0-9]{4}/",
+      "evidence": "title",
+      "review": "Official Chinese public warning/report index; title/date only, allegations remain attributed; no PDF/body extraction or republication rights assumed."
+    },
+    {
+      "id": "cert-eu",
+      "stream": "security",
+      "name": "CERT-EU",
+      "country": "EU",
+      "type": "institution",
+      "format": "xml",
+      "url": "https://cert.europa.eu/publications/security-advisories-rss",
+      "articleHost": "cert.europa.eu",
+      "articlePath": "^/publications/security-advisories/",
+      "evidence": "excerpt",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "review": "Official public security-advisory RSS; legal notice authorizes CC BY4 with attribution and adaptation notice. No restricted TLP intelligence feeds/PDFs.",
+      "dateZones": {
+        "CEST": "+0200",
+        "CET": "+0100"
+      }
+    },
+    {
+      "id": "ncsc",
+      "stream": "security",
+      "name": "NCSC",
+      "country": "GB",
+      "type": "institution",
+      "format": "xml",
+      "url": "https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml",
+      "articleHost": "www.ncsc.gov.uk",
+      "articlePath": "^/(news|report|blog-post|guidance|collection)/",
+      "evidence": "excerpt",
+      "review": "Official publicly offered index; bounded title/excerpt factual notes, no images/full-body reproduction."
+    },
+    {
+      "id": "claude-code",
+      "stream": "developer",
+      "name": "Anthropic Claude Code",
+      "country": "US",
+      "type": "company",
+      "format": "xml",
+      "url": "https://github.com/anthropics/claude-code/releases.atom",
+      "articleHost": "github.com",
+      "articlePath": "^/anthropics/claude-code/releases/tag/",
+      "evidence": "excerpt",
+      "review": "Official repository release Atom; short original release facts, source link and vendor attribution; no binary redistribution."
+    },
+    {
+      "id": "codex",
+      "stream": "developer",
+      "name": "OpenAI Codex",
+      "country": "US",
+      "type": "company",
+      "format": "github",
+      "url": "https://api.github.com/repos/openai/codex/releases/latest",
+      "articleHost": "github.com",
+      "articlePath": "^/openai/codex/releases/tag/",
+      "evidence": "excerpt",
+      "review": "Official latest stable release endpoint from the Apache-2.0 repository; excludes alpha/repeated empty release tags; bounded original release facts, no code reproduction."
+    },
+    {
+      "id": "google-developers",
+      "stream": "developer",
+      "name": "Google for Developers",
+      "country": "US",
+      "type": "company",
+      "format": "google",
+      "url": "https://developers.googleblog.com/",
+      "articleHost": "developers.googleblog.com",
+      "articlePath": "^/[a-z0-9-]+/$",
+      "evidence": "excerpt",
+      "review": "Official dated Latest blogs cards only, short original factual notes and source link; no article body/images or blanket license assumption."
+    },
+    {
+      "id": "apple-developer",
+      "stream": "developer",
+      "name": "Apple Developer",
+      "country": "US",
+      "type": "company",
+      "format": "xml",
+      "url": "https://developer.apple.com/news/rss/news.rss",
+      "articleHost": "developer.apple.com",
+      "articlePath": "^/news/",
+      "evidence": "excerpt",
+      "review": "Official publicly offered developer news RSS; concise original factual notes with source/date; no full announcement or images reproduced.",
+      "dateZones": {
+        "PDT": "-0700",
+        "PST": "-0800"
+      }
+    },
+    {
+      "id": "deepseek",
+      "stream": "developer",
+      "name": "DeepSeek",
+      "country": "CN",
+      "type": "company",
+      "format": "deepseek",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "articleHost": "api-docs.deepseek.com",
+      "articlePath": "^/updates/$",
+      "evidence": "excerpt",
+      "review": "Official dated change-log sections; first explanatory paragraph only, distinct section anchors, vendor claims attributed; no benchmarks treated as independently verified."
+    }
+  ],
+  "socialQueries": [
+    {
+      "stream": "security",
+      "query": "cyberattack"
+    },
+    {
+      "stream": "security",
+      "query": "ransomware"
+    },
+    {
+      "stream": "security",
+      "query": "security vulnerability"
+    },
+    {
+      "stream": "developer",
+      "query": "Claude Code"
+    },
+    {
+      "stream": "developer",
+      "query": "Codex"
+    },
+    {
+      "stream": "developer",
+      "query": "DeepSeek"
+    },
+    {
+      "stream": "developer",
+      "query": "Gemini developer"
+    },
+    {
+      "stream": "developer",
+      "query": "Apple Xcode"
+    }
+  ]
+}
