@@ -23,6 +23,9 @@ function scale(value, power) {
   return (digits.padStart(-places + 1, '0').slice(0, places) + '.' + digits.padStart(-places + 1, '0').slice(places));
 }
 function numericFacts(text, locale = 'en') {
+  // Match ordinal day counts only in explicit day contexts; avoid seconds/time units.
+  const dayOrdinals=locale==='id-ID'?['pertama','kedua','ketiga','keempat','kelima','keenam','ketujuh','kedelapan','kesembilan','kesepuluh']:['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth'];
+  for(const [i,word]of dayOrdinals.entries())text=text.replace(new RegExp(locale==='id-ID'?`\\bhari\\s+${word}\\b`:`\\b${word}\\s+day\\b`,'gi'),`${i+1} day`);
   // Clock punctuation is distinct from Indonesian decimal/thousands punctuation.
   text = text.replace(locale === 'id-ID' ? /\bpukul\s+(\d{1,2})[.:](\d{2})\b/gi : /\b(\d{1,2}):(\d{2})\b/g,
     (_, hour, minute) => `${hour}${minute === '00' ? '' : ' ' + minute}`);

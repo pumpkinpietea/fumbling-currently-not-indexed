@@ -42,7 +42,7 @@ async function review(){
       page.on('pageerror',error=>errors.push(error.message));
       page.on('response',response=>{if(response.url().startsWith(base+'/')&&response.status()>=400)broken.push({status:response.status(),pathname:new URL(response.url()).pathname});});
       const prefix=language==='jp'?'/jp':'';
-      const routes=[['home',prefix+'/'],['news',prefix+'/news/'],...(!preview || Object.hasOwn(previewFiles,`content/${language}/article/${previewDate}-southeast-asia-tech.md`)?[['article',prefix+`/article/southeast-asia-tech-${previewDate || '2026-10-11'}/`]]:[]),...(preview && Object.hasOwn(previewFiles,`content/${language}/article/${previewDate}-indonesia-news.md`)?[['indonesia',prefix+`/article/indonesia-news-${previewDate}/`]]:[]),['search',prefix+'/search/']];
+      const routes=[['home',prefix+'/'],['news',prefix+'/news/'],...(!preview || Object.hasOwn(previewFiles,`content/${language}/article/${previewDate}-southeast-asia-tech.md`)?[['article',prefix+`/article/southeast-asia-tech-${previewDate || '2026-10-11'}/`]]:[]),...(preview && Object.hasOwn(previewFiles,`content/${language}/article/${previewDate}-indonesia-news.md`)?[['indonesia',prefix+`/article/indonesia-news-${previewDate}/`]]:[]),...(['world-cybersecurity','developer-tools'].filter(slug=>preview&&Object.hasOwn(previewFiles,`content/${language}/article/${previewDate}-${slug}.md`)).map(slug=>[slug,prefix+`/article/${slug}-${previewDate}/`])),['search',prefix+'/search/']];
       for(const [name,route] of routes){
         const response=await page.goto(base+route,{waitUntil:'networkidle'});assert.equal(response.status(),200);
         await page.evaluate(()=>document.fonts.ready);
@@ -73,7 +73,7 @@ async function review(){
           const heading=page.locator('.news-card h2 a[href*="#"]').first();await heading.click();await page.waitForURL(/#./);
           const anchor=decodeURIComponent(new URL(page.url()).hash.slice(1));assert.equal(await page.locator(`[id="${anchor}"]`).count(),1);
         }
-        if(name==='article'||name==='indonesia'){
+        if(['article','indonesia','world-cybersecurity','developer-tools'].includes(name)){
           if(preview){
             const highlights=page.locator('.post-content a[href^="#news-"]');
             if(await highlights.count()){await highlights.first().click();await page.waitForURL(/#news-/);const id=new URL(page.url()).hash.slice(1);assert.equal(await page.locator(`h2[id="${id}"]`).count(),1);}
