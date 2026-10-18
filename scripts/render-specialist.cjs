@@ -3,11 +3,11 @@ const {registry,dateValue,validWindow,evidence,hash,outsideRepository}=require('
 const {numericFacts}=require('./news-numbers.cjs');
 const plain=(s,max)=>typeof s==='string'&&s.length>=8&&s.length<=max&&!/[\r\n<>\[\]{}\\`]/.test(s)&&!/https?:|www\./i.test(s);
 const numbers=s=>JSON.stringify(numericFacts(s));
-function validateCandidate(candidate,report){
+function validateCandidate(candidate,report,{previousDay=false}={}){
   if(report?.schemaVersion!==1||!validWindow(report.window)||!Array.isArray(report.records)||report.records.length>500||
     candidate?.schemaVersion!==1||dateValue(candidate.editionDate)?.precision!=='day'||dateValue(candidate.publishedAt)?.precision!=='second'||candidate.publishedAt.slice(0,10)!==candidate.editionDate||
     !Array.isArray(candidate.events)||!candidate.events.length||candidate.events.length>40||!Array.isArray(candidate.observations)||candidate.observations.length>3)throw Error('invalid_specialist_candidate');
-  if(report.window.end!==new Date(Date.parse(candidate.editionDate)+86400000).toISOString().slice(0,10))throw Error('specialist_edition_window_mismatch');
+  if(report.window.end!==(previousDay?candidate.editionDate:new Date(Date.parse(candidate.editionDate)+86400000).toISOString().slice(0,10)))throw Error('specialist_edition_window_mismatch');
   const ids=new Set(),urls=new Set();for(const source of report.records){const policy=registry.sources.find(s=>s.id===source.sourceId);if(!policy||!['published','updated','distributed'].includes(source.dateBasis))throw Error('unreviewed_specialist_source');
     const desc=source.excerpt?.startsWith(source.title+'\n')?source.excerpt.slice(source.title.length+1):'';
     const reconstructed=evidence({title:source.title,url:source.url,dateRaw:source.dateRaw,dateBasis:source.dateBasis,description:desc},policy);
@@ -26,8 +26,8 @@ function validateCandidate(candidate,report){
     const available=observation.eventIds.flatMap(id=>numericFacts(candidate.events.find(e=>e.id===id).en.title+' '+candidate.events.find(e=>e.id===id).en.summary));if(numericFacts(observation.en).some(n=>!available.includes(n)))throw Error('unsupported_observation_number');}
   return {counts,usedIds:[...used]};
 }
-function renderSpecialist(candidate,report,review){
-  const {usedIds}=validateCandidate(candidate,report);
+function renderSpecialist(candidate,report,review,options={}){
+  const {usedIds}=validateCandidate(candidate,report,options);
   if(review?.approved!==true||!Array.isArray(review.checkedIds)||JSON.stringify([...review.checkedIds].sort())!==JSON.stringify([...usedIds].sort()))throw Error('specialist_review_required');
   const files={};for(const stream of ['security','developer']){const events=candidate.events.filter(e=>e.stream===stream);if(!events.length)continue;
     const slug=stream==='security'?'world-cybersecurity':'developer-tools';

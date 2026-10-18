@@ -35,3 +35,10 @@ test('schema4 accepts lexical equivalence but rejects unsupported values and kee
   const unsupported=structuredClone(event);unsupported.en.summary+=' There were 25 others.';unsupported.jp.summary+='他に25人。';assert.throws(()=>validateEvents([unsupported],[source]),/unsupported_number/);
   const legacy=structuredClone(event);delete legacy.editions;assert.throws(()=>validateEvents([legacy],[source]),/translation_number_conflict/);
 });
+
+test('explicit English/Indonesian ordinal day counts match Japanese digits without treating seconds as ordinals',()=>{
+  assert.deepEqual(numericFacts('second day: 9 victories'),numericFacts('2日目に9勝'));
+  assert.deepEqual(numericFacts('hari kedua dengan sembilan kemenangan','id-ID'),['2','9']);
+  assert.deepEqual(numericFacts('a second response'),[]);
+  assert.notDeepEqual(numericFacts('third day'),numericFacts('2日目'));
+});
