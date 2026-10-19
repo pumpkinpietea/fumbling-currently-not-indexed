@@ -42,3 +42,17 @@ test('explicit English/Indonesian ordinal day counts match Japanese digits witho
   assert.deepEqual(numericFacts('a second response'),[]);
   assert.notDeepEqual(numericFacts('third day'),numericFacts('2日目'));
 });
+
+test('rank ordinals and trillion quantities match October19 evidence without broad ordinal guessing',()=>{
+ assert.deepEqual(numericFacts('posisi kedua Moto3 Junior 2026','id-ID'),numericFacts('2nd place Moto3 Junior 2026'));
+ assert.deepEqual(numericFacts('runner-up in Misano'),['2']);
+ assert.deepEqual(numericFacts('second place'),['2']);
+ assert.deepEqual(numericFacts('kedua negara','id-ID'),[]);
+ assert.deepEqual(numericFacts('second response'),[]);
+ assert.notDeepEqual(numericFacts('posisi ketiga','id-ID'),['2']);
+ assert.deepEqual(numericFacts('Rp225 triliun','id-ID'),numericFacts('225,000,000,000,000 rupiah'));
+ assert.deepEqual(numericFacts('1,25 triliun','id-ID'),numericFacts('1.25 trillion'));
+ assert.deepEqual(numericFacts('225兆'),numericFacts('225 trillion'));
+ assert.deepEqual(numericFacts('1兆2500億'),numericFacts('1,250,000,000,000'));
+ assert.throws(()=>numericFacts('1億2兆'),/unsupported_number/);
+});

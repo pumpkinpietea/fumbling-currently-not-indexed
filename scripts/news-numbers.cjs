@@ -23,9 +23,10 @@ function scale(value, power) {
   return (digits.padStart(-places + 1, '0').slice(0, places) + '.' + digits.padStart(-places + 1, '0').slice(places));
 }
 function numericFacts(text, locale = 'en') {
-  // Match ordinal day counts only in explicit day contexts; avoid seconds/time units.
+  // Match ordinals only in explicit day or ranking contexts; avoid time units and "both".
   const dayOrdinals=locale==='id-ID'?['pertama','kedua','ketiga','keempat','kelima','keenam','ketujuh','kedelapan','kesembilan','kesepuluh']:['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth'];
-  for(const [i,word]of dayOrdinals.entries())text=text.replace(new RegExp(locale==='id-ID'?`\\bhari\\s+${word}\\b`:`\\b${word}\\s+day\\b`,'gi'),`${i+1} day`);
+  for(const [i,word]of dayOrdinals.entries())text=text.replace(new RegExp(locale==='id-ID'?`\\b(?:hari|posisi|peringkat|urutan)\\s+${word}\\b`:`\\b${word}\\s+(?:day|place|position)\\b`,'gi'),`${i+1} day`);
+  text=text.replace(/(?<![\w-])runner[- ]up(?![\w-])/gi,' 2 ');
   // Clock punctuation is distinct from Indonesian decimal/thousands punctuation.
   text = text.replace(locale === 'id-ID' ? /\bpukul\s+(\d{1,2})[.:](\d{2})\b/gi : /\b(\d{1,2}):(\d{2})\b/g,
     (_, hour, minute) => `${hour}${minute === '00' ? '' : ' ' + minute}`);
@@ -35,13 +36,13 @@ function numericFacts(text, locale = 'en') {
   for (const [index, month] of (months[locale] || months.en).entries())
     text = text.replace(new RegExp(`\\b${month}\\b(?=\\s+\\d)|(?<=\\d[–—\\-\\d ]{0,12})\\b${month}\\b`, 'gi'), String(index + 1) + ' ');
   text = canonicalNumbers(text, locale);
-  text = text.replace(/(\d+(?:\.\d+)?)\s+(million|billion|juta|miliar)\b/gi,
-    (_, number, unit) => scale(number, /^(billion|miliar)$/i.test(unit) ? 9 : 6));
-  text = text.replace(/(?:\d+(?:\.\d+)?[億万])+\d*/g, expression => {
-    const parts = [...expression.matchAll(/(\d+(?:\.\d+)?)(億|万)?/g)];
+  text = text.replace(/(\d+(?:\.\d+)?)\s+(million|billion|trillion|juta|miliar|triliun)\b/gi,
+    (_, number, unit) => scale(number, /^(trillion|triliun)$/i.test(unit) ? 12 : /^(billion|miliar)$/i.test(unit) ? 9 : 6));
+  text = text.replace(/(?:\d+(?:\.\d+)?[兆億万])+\d*/g, expression => {
+    const parts = [...expression.matchAll(/(\d+(?:\.\d+)?)(兆|億|万)?/g)];
     let last = Infinity, sum = 0n;
     for (const [, number, unit] of parts) {
-      const power = unit === '億' ? 8 : unit === '万' ? 4 : 0;
+      const power = unit === '兆' ? 12 : unit === '億' ? 8 : unit === '万' ? 4 : 0;
       if (power >= last) throw new Error('unsupported_number');
       const value = scale(number, power);
       if (value.includes('.')) throw new Error('unsupported_number');

@@ -246,6 +246,7 @@
       "feeds": [
         {
           "id": "jetro-biznews-ja",
+          "dailyOptional": true,
           "url": "https://www.jetro.go.jp/rss2/biznews.xml",
           "allowedHosts": [
             "www.jetro.go.jp"
