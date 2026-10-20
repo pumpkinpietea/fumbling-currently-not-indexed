@@ -3,7 +3,7 @@ function validateEditorialHistory(value, date, instant) {
       value.schemaVersion !== 1 || value.status !== 'published' || value.editionDate !== date ||
       typeof value.publishedAt !== 'string' || !Number.isFinite(Date.parse(value.publishedAt)) ||
       Date.parse(value.publishedAt) > instant.getTime() ||
-      new Date(Date.parse(value.publishedAt)+25200000).toISOString().slice(0,10) !== date ||
+      new Date(Date.parse(value.publishedAt)+25200000).toISOString().slice(0,10) < date ||
       !Array.isArray(value.sourceUrls) || !value.sourceUrls.length || value.sourceUrls.length > 40 ||
       new Set(value.sourceUrls).size !== value.sourceUrls.length ||
       value.sourceUrls.some(url=>{
