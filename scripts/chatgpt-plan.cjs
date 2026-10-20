@@ -103,7 +103,8 @@ async function completedText(response) {
   }
   for await (const chunk of response.body) {
     size += chunk.byteLength;
-    if (size > 1048576) fail('stream_size_limit');
+    // Bound protocol overhead separately from the finalized 256 KiB text limit.
+    if (size > 8388608) fail('stream_size_limit');
     pending += decoder.decode(chunk, { stream: true });
     pending = pending.replace(/\r\n/g, '\n');
     let end;

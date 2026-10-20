@@ -99,7 +99,7 @@ test('input and stream caps reject oversized work', async t => {
   const f = fixture(t);
   assert.equal((await runPlan({ ...request, input: 'x'.repeat(196609) }, f.credentialFile, f.outputFile, { fetch: f.fetch })).valid, false);
   assert.equal(f.calls.length, 0);
-  await assert.rejects(completedText(new Response('x'.repeat(1048577), { headers: { 'content-type': 'text/event-stream' } })), /stream_size_limit/);
+  await assert.rejects(completedText(new Response('x'.repeat(8388609), { headers: { 'content-type': 'text/event-stream' } })), /stream_size_limit/);
 });
 test('a failure after text deltas never writes output', async t => {
   const f = fixture(t);
@@ -156,4 +156,13 @@ test('larger bounded text input remains one inference request with no automatic 
   const f=fixture(t);
   assert.equal((await runPlan({...request,input:'x'.repeat(180000)},f.credentialFile,f.outputFile,{fetch:f.fetch})).valid,true);
   assert.equal(f.calls.length,3);
+});
+
+test('many streamed deltas may exceed one MiB without enlarging final output allowance', async()=>{
+ const delta='data: '+JSON.stringify({type:'response.output_text.delta',delta:'x'.repeat(64)})+'\n\n';
+ const body=delta.repeat(12000)+'data: '+JSON.stringify(terminal)+'\n\n';
+ assert.ok(Buffer.byteLength(body)>1048576);
+ assert.equal(await completedText(new Response(body,{headers:{'content-type':'text/event-stream'}})),'Fixture result.');
+ const oversized=structuredClone(terminal);oversized.response.output[0].content[0].text='x'.repeat(262145);
+ await assert.rejects(completedText(stream(oversized)),/output_size_limit/);
 });
