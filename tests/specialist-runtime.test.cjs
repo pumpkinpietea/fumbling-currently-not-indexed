@@ -33,3 +33,10 @@ test('empty four-topic input has zero model calls and partial specialist health 
   const partial=report([]);partial.complete=false;partial.feeds[0]={id:'jpcert',stream:'security',status:'failed',error:'feed_timeout'};
   const b=makeFour({date,revision:'a'.repeat(40),sources:[source],events:[daily],report:partial,specialistEvents:[],observations:[],publishedAt:instant.toISOString(),review:{approved:true,checkedIds:[source.id]}});assert.equal(Object.keys(b.files).length,4);
 });
+
+test('delayed specialist publication records actual time without allowing premature or future markers',()=>{
+ const now=new Date('2026-10-20T12:00:00Z');
+ const h={schemaVersion:1,status:'published',editionDate:date,publishedAt:'2026-10-20T10:00:00Z',sources:[{sourceId:'apple-developer',url:'https://developer.apple.com/news/?id=example'}],eventHints:['Apple announces developer updates']};
+ assert.equal(validateSpecialistHistory(h,date,now),h);
+ for(const publishedAt of ['2026-10-17T16:59:59Z','2026-10-20T12:00:01Z'])assert.throws(()=>validateSpecialistHistory({...h,publishedAt},date,now),/invalid_specialist_history/);
+});

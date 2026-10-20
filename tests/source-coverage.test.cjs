@@ -54,3 +54,10 @@ test('Yahoo provider names cannot masquerade as Thailand or supply a missing tec
  assert.deepEqual(shortlist(records,accepted(records),[]),[]);
  const legitimate={...records[0],title:'タイ、携帯電話の緊急速報サービスを拡充(ケータイ Watch)'};assert.deepEqual(shortlist([legitimate],accepted([legitimate]),[]),[legitimate]);
 });
+
+test('delayed editorial publication keeps actual time and rejects pre-edition dates',()=>{
+ const now=new Date('2026-10-15T12:00:00Z');
+ const restored={...editorial,publishedAt:'2026-10-14T18:00:00Z'};
+ assert.equal(validateEditorialHistory(restored,'2026-10-13',now),restored);
+ for(const publishedAt of ['2026-10-12T16:59:59Z','2026-10-15T12:00:01Z'])assert.throws(()=>validateEditorialHistory({...editorial,publishedAt},'2026-10-13',now),/invalid_editorial_history/);
+});
