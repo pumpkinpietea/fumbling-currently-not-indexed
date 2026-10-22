@@ -58,7 +58,7 @@ function validateSelected(bundle,date){
   return reconstructed.files;
 }
 function historyHints(values){
-  if(values.some(v=>typeof v!=='string'||v.length<8||v.length>100||/[\r\n<>]/.test(v)))throw Error('invalid_event_history');
+  if(values.some(v=>typeof v!=='string'||v.length<8||v.length>500||/[\r\n<>]/.test(v)))throw Error('invalid_event_history');
   const unique=[...new Set(values)];if(unique.length>560)throw Error('invalid_event_history');return unique;
 }
 module.exports={digest,candidates,preflight,select,validateSelected,historyHints};

@@ -68,7 +68,7 @@ test('preflight handles malformed individual drafts, repeated sources and observ
  const c=itemContext(),g=itemDrafts();g.events.push(null,copy(g.events[0]),{quotes:[],editions:['indonesia']});g.observations=[{eventIds:['unknown'],en:'Unsupported world observation.',jp:'根拠のない世界の動向についての記述。'}];const p=items.preflight(c,g);assert.equal(p.retained.length,3);assert.equal(p.quarantined.length,4);assert.equal(items.select(c,g,itemDecisions(c,g)).specialist.candidate.events.length,2);
 });
 test('semantic history includes older hints beyond 40, deduplicates and rejects overflow or invalid entries',()=>{
- const hints=Array.from({length:560},(_,i)=>`Distinct previous event ${i}`);assert.equal(items.historyHints([...hints,hints[0]]).length,560);assert.ok(items.historyHints(hints).includes(hints[500]));assert.throws(()=>items.historyHints([...hints,'One extra previous event']),/invalid_event_history/);assert.throws(()=>items.historyHints(['short']),/invalid_event_history/);
+ const hints=Array.from({length:560},(_,i)=>`Distinct previous event ${i}`);assert.equal(items.historyHints([...hints,hints[0]]).length,560);assert.ok(items.historyHints(hints).includes(hints[500]));assert.throws(()=>items.historyHints([...hints,'One extra previous event']),/invalid_event_history/);assert.equal(items.historyHints(['A'.repeat(137)])[0].length,137);assert.throws(()=>items.historyHints(['A'.repeat(501)]),/invalid_event_history/);assert.throws(()=>items.historyHints(['short']),/invalid_event_history/);
 });
 
 test('producer publishes valid peers in two calls and records all-rejected as failed, never no_news',async()=>{
