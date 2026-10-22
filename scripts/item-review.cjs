@@ -20,6 +20,7 @@ function preflight(context,generated){
       quarantined.push({id:item.id,digest:item.digest,code:'invalid_item'});continue;
     }
     try{
+      if(item.kind!=='observation'&&!Array.isArray(item.value.sourceIds))throw Error('invalid_event_sources');
       if(item.kind==='daily'&&!Object.hasOwn(item.value,'editions'))throw Error('invalid_edition_membership');
       if(item.kind!=='observation'&&(!Array.isArray(item.value.quotes)||item.value.quotes.some(q=>!q||typeof q!=='object')))throw Error('unsupported_quote');
       if(item.kind!=='observation'&&Array.isArray(item.value.sourceIds)&&item.value.sourceIds.some(id=>retained.some(i=>i.kind!=='observation'&&i.value.sourceIds.includes(id))))throw Error('invalid_event_sources');
