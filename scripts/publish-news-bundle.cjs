@@ -7,6 +7,7 @@ const { validateBundle, renderDailyEditions } = require('./daily-news.cjs');
 const REPO = 'pumpkinpietea/fumbling-currently-not-indexed';
 const AUTHOR = 'News Publishing Bot';
 const EMAIL = '41898282+github-actions[bot]@users.noreply.github.com';
+const CI_WAIT_MS = 15 * 60 * 1000, CI_MAX_POLLS = 180;
 const git = (...args) => execFileSync('git', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 async function github(endpoint, method = 'GET', body) {
   const r = await fetch(`https://api.github.com/repos/${REPO}/${endpoint}`, { method, redirect: 'error',
@@ -18,11 +19,14 @@ async function github(endpoint, method = 'GET', body) {
   return text ? JSON.parse(text) : null;
 }
 async function validatePr(ref, sha, number, verifyScope, { api = github,
-  delay = () => new Promise(resolve => setTimeout(resolve, 5000)) } = {}) {
+  delay = () => new Promise(resolve => setTimeout(resolve, 5000)), now = Date.now } = {}) {
   let approved = false;
-  for (let i = 0; i < 60; i++) {
+  const deadline = now() + CI_WAIT_MS;
+  for (let i = 0; i < CI_MAX_POLLS; i++) {
     await delay();
+    if (now() >= deadline) break;
     const result = await api(`actions/workflows/validate.yml/runs?event=pull_request&head_sha=${sha}&per_page=10`);
+    if (now() >= deadline) break;
     const run = result.workflow_runs.find(r => r.event === 'pull_request' && r.head_sha === sha && r.head_branch === ref &&
       r.path === '.github/workflows/validate.yml' && r.pull_requests?.some(p => p.number === number));
     if (!run) continue;
@@ -40,11 +44,14 @@ async function validatePr(ref, sha, number, verifyScope, { api = github,
   throw new Error('validation_timeout');
 }
 async function validateMain(sha, { api = github,
-  delay = () => new Promise(resolve => setTimeout(resolve, 5000)) } = {}) {
+  delay = () => new Promise(resolve => setTimeout(resolve, 5000)), now = Date.now } = {}) {
+  const deadline = now() + CI_WAIT_MS;
   await api('actions/workflows/validate.yml/dispatches', 'POST', { ref: 'main' });
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < CI_MAX_POLLS; i++) {
     await delay();
+    if (now() >= deadline) break;
     const result = await api(`actions/workflows/validate.yml/runs?event=workflow_dispatch&head_sha=${sha}&per_page=10`);
+    if (now() >= deadline) break;
     const run = result.workflow_runs.find(r => r.event === 'workflow_dispatch' && r.head_sha === sha &&
       r.head_branch === 'main' && r.path === '.github/workflows/validate.yml');
     if (!run || run.status !== 'completed') continue;

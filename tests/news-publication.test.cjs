@@ -117,3 +117,27 @@ test('retained schema two empty-page rehearsal produces no drafts',()=>{
   const bundle={schemaVersion:2,editionDate:date,revision:'a'.repeat(40),sources:[],events:[],review:{approved:true,checkedIds:[]},files:renderDailyEditions(date,[],[],{includeEmpty:true})};
   assert.deepEqual(rehearsalFiles(bundle,date),{});
 });
+
+test('delayed PR and main CI can succeed after the former 60-poll cutoff without changing identity gates',async()=>{
+ const sha='e'.repeat(40),ref='news/2026-10-23';let prPolls=0,mainPolls=0;const posts=[];
+ const pr={id:401,event:'pull_request',head_sha:sha,head_branch:ref,path:'.github/workflows/validate.yml',pull_requests:[{number:9}],status:'completed',conclusion:'success',html_url:'https://github.com/synthetic/late-pr'};
+ const options={now:()=>0,delay:async()=>{},api:async()=>({workflow_runs:++prPolls<=80?[{...pr,status:'in_progress',conclusion:null},{...pr,head_sha:'f'.repeat(40)}]:[pr]})};
+ assert.equal(await validatePr(ref,sha,9,async()=>{},options),pr.html_url);assert.equal(prPolls,81);
+ const main={id:402,event:'workflow_dispatch',head_sha:sha,head_branch:'main',path:'.github/workflows/validate.yml',status:'completed',conclusion:'success',html_url:'https://github.com/synthetic/late-main'};
+ assert.equal(await validateMain(sha,{now:()=>0,delay:async()=>{},api:async(endpoint,method,body)=>{if(method==='POST'){posts.push({endpoint,body});return null;}return {workflow_runs:++mainPolls<=80?[{...main,status:'queued',conclusion:null},{...main,head_sha:'f'.repeat(40)}]:[main]};}}),main.html_url);
+ assert.equal(mainPolls,81);assert.equal(posts.length,2);assert.equal(posts[1].body.inputs.validation_run,'402');
+});
+test('permanent CI delays stop by elapsed deadline or poll count and never dispatch Hosting',async()=>{
+ for(const elapsed of [true,false]){
+  let clock=0,polls=0,posts=0;const opts={now:()=>clock,delay:async()=>{if(elapsed)clock+=5*60*1000;},api:async(_endpoint,method)=>{if(method==='POST'){posts++;return null;}polls++;return {workflow_runs:[]};}};
+  await assert.rejects(validatePr('news/example','a'.repeat(40),3,async()=>{},opts),/validation_timeout/);assert.equal(polls,elapsed?2:180);assert.equal(posts,0);
+  clock=0;polls=0;await assert.rejects(validateMain('a'.repeat(40),opts),/main_validation_timeout/);assert.equal(polls,elapsed?2:180);assert.equal(posts,1);
+ }
+});
+test('a successful response arriving beyond the elapsed deadline cannot authorize publication',async()=>{
+ const sha='a'.repeat(40);let clock=0,posts=0;
+ const pr={id:501,event:'pull_request',head_sha:sha,head_branch:'news/example',path:'.github/workflows/validate.yml',pull_requests:[{number:5}],status:'completed',conclusion:'success'};
+ const opts={now:()=>clock,delay:async()=>{},api:async(_endpoint,method)=>{if(method==='POST'){posts++;return null;}clock=900001;return {workflow_runs:[pr]};}};
+ await assert.rejects(validatePr('news/example',sha,5,async()=>{},opts),/validation_timeout/);assert.equal(posts,0);
+ clock=0;await assert.rejects(validateMain(sha,{...opts,api:async(_endpoint,method)=>{if(method==='POST'){posts++;return null;}clock=900001;return {workflow_runs:[{...pr,event:'workflow_dispatch',head_branch:'main'}]};}}),/main_validation_timeout/);assert.equal(posts,1);
+});
