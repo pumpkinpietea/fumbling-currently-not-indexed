@@ -276,7 +276,7 @@ test('large single-publisher candidate pools respect total cap and preserve both
   assert.equal(selected.filter(r=>r.title.startsWith('Indonesia')).length,20);
   assert.equal(selected.filter(r=>r.title.startsWith('Vietnam')).length,20);
 });
-test('schema5 producer supplies newest history first rather than oldest tail, within40 hints',async()=>{
+test('producer supplies the complete bounded history with newest hints first',async()=>{
  const h=harness(),read=h.options.state.read,infer=h.options.infer,requests=[];
  h.options.state.read=async name=>{
   if(name==='runs/2026-10-10.json')return {value:{sourceUrls:[],eventHints:Array.from({length:40},(_,i)=>`Recent synthetic event ${i}`)}};
@@ -284,5 +284,5 @@ test('schema5 producer supplies newest history first rather than oldest tail, wi
   return read(name);
  };
  h.options.infer=async(request,...args)=>{requests.push(JSON.parse(request.input));return infer(request,...args);};
- try{await produce(h.options);for(const request of requests){assert.equal(request.previousEvents.length,40);assert.equal(request.previousEvents[0],'Recent synthetic event 0');assert.equal(request.previousEvents.at(-1),'Recent synthetic event 39');}assert.equal(h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value.schemaVersion,5);}finally{h.cleanup();}
+ try{await produce(h.options);for(const request of requests){assert.equal(request.previousEvents.length,80);assert.equal(request.previousEvents[0],'Recent synthetic event 0');assert.equal(request.previousEvents.at(-1),'Older synthetic event 39');}assert.equal(h.objects.get('evidence/trial-bundle-aaaaaaaaaaaa-2026-10-11.json').value.schemaVersion,5);}finally{h.cleanup();}
 });
