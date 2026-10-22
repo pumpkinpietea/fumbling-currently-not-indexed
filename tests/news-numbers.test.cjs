@@ -56,3 +56,17 @@ test('rank ordinals and trillion quantities match October19 evidence without bro
  assert.deepEqual(numericFacts('1兆2500億'),numericFacts('1,250,000,000,000'));
  assert.throws(()=>numericFacts('1億2兆'),/unsupported_number/);
 });
+
+test('month-only dates, exchange-rate denominators and medal ordinals retain equivalence',()=>{
+ assert.deepEqual(numericFacts('November summit'),numericFacts('11月の首脳会議'));
+ assert.deepEqual(numericFacts('projects in September'),numericFacts('9月の事業'));
+ assert.deepEqual(numericFacts('KTT ASEAN November','id-ID'),['11']);
+ assert.deepEqual(numericFacts('Rp17,992 per US dollar'),numericFacts('1米ドル＝Rp17,992'));
+ assert.deepEqual(numericFacts('Nilai tukar rupiah terhadap dolar AS Rp17.992','id-ID'),['1','17992']);
+ assert.deepEqual(numericFacts('emas kedelapan','id-ID'),numericFacts('8th gold'));
+ assert.deepEqual(numericFacts('perak ketiga','id-ID'),['3']);
+ assert.deepEqual(numericFacts('May improve; march forward; kedua negara'),[]);
+ assert.deepEqual(numericFacts('US dollar demand'),[]);
+ assert.deepEqual(numericFacts('in May'),['5']);
+ assert.notDeepEqual(numericFacts('8th gold'),numericFacts('emas ketujuh','id-ID'));
+});

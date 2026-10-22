@@ -23,9 +23,9 @@ function scale(value, power) {
   return (digits.padStart(-places + 1, '0').slice(0, places) + '.' + digits.padStart(-places + 1, '0').slice(places));
 }
 function numericFacts(text, locale = 'en') {
-  // Match ordinals only in explicit day or ranking contexts; avoid time units and "both".
+  // Match ordinals in explicit day, ranking or medal contexts; avoid time units and "both".
   const dayOrdinals=locale==='id-ID'?['pertama','kedua','ketiga','keempat','kelima','keenam','ketujuh','kedelapan','kesembilan','kesepuluh']:['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth'];
-  for(const [i,word]of dayOrdinals.entries())text=text.replace(new RegExp(locale==='id-ID'?`\\b(?:hari|posisi|peringkat|urutan)\\s+${word}\\b`:`\\b${word}\\s+(?:day|place|position)\\b`,'gi'),`${i+1} day`);
+  for(const [i,word]of dayOrdinals.entries())text=text.replace(new RegExp(locale==='id-ID'?`\\b(?:hari|posisi|peringkat|urutan|emas|perak|perunggu|medali)\\s+${word}\\b`:`\\b${word}\\s+(?:day|place|position)\\b`,'gi'),`${i+1} day`);
   text=text.replace(/(?<![\w-])runner[- ]up(?![\w-])/gi,' 2 ');
   // Clock punctuation is distinct from Indonesian decimal/thousands punctuation.
   text = text.replace(locale === 'id-ID' ? /\bpukul\s+(\d{1,2})[.:](\d{2})\b/gi : /\b(\d{1,2}):(\d{2})\b/g,
@@ -33,8 +33,14 @@ function numericFacts(text, locale = 'en') {
   text = text.replace(/(\d{1,2})時(?:(\d{1,2})分)?/g, (_, hour, minute) => `${hour}${minute && minute !== '00' && minute !== '0' ? ' ' + minute : ''}`);
   for (const [index, word] of [...(words[locale] || words.en).entries()].sort((a,b) => b[1].length - a[1].length))
     text = text.replace(new RegExp(`(?<![\\w-])${word}(?![\\w-]|\\s+Data\\b)`, 'gi'), String(index));
-  for (const [index, month] of (months[locale] || months.en).entries())
-    text = text.replace(new RegExp(`\\b${month}\\b(?=\\s+\\d)|(?<=\\d[–—\\-\\d ]{0,12})\\b${month}\\b`, 'gi'), String(index + 1) + ' ');
+  for (const [index, month] of (months[locale] || months.en).entries()) {
+    // May and March can be ordinary English verbs, so retain explicit date contexts.
+    const ambiguous = locale !== 'id-ID' && ['May', 'March'].includes(month);
+    const pattern = ambiguous
+      ? `\\b${month}\\b(?=\\s+\\d)|(?<=\\d[–—\\-\\d ]{0,12})\\b${month}\\b|(?<=\\b(?:in|during|by|this|next|last)\\s+)\\b${month}\\b`
+      : `\\b${month}\\b`;
+    text = text.replace(new RegExp(pattern, 'gi'), String(index + 1) + ' ');
+  }
   text = canonicalNumbers(text, locale);
   text = text.replace(/(\d+(?:\.\d+)?)\s+(million|billion|trillion|juta|miliar|triliun)\b/gi,
     (_, number, unit) => scale(number, /^(trillion|triliun)$/i.test(unit) ? 12 : /^(billion|miliar)$/i.test(unit) ? 9 : 6));
@@ -52,6 +58,8 @@ function numericFacts(text, locale = 'en') {
   });
   // A per-gram quote explicitly denotes a denominator of one gram.
   text = text.replace(/\bper\s+gram\b|\/\s*gr\b/gi, ' 1 gram ');
+  // Explicit exchange-rate quotations use a denominator of one US dollar.
+  text = text.replace(locale === 'id-ID' ? /\b(?:per|terhadap)\s+dolar\s+AS\b/gi : /\bper\s+US\s+dollar\b/gi, ' 1 USD ');
   const numbers = (text.match(/\d+(?:[.,]\d+)*/g) || []).map(number => {
     if (!/^\d+(?:\.\d+)?$/.test(number)) return number;
     const [whole, fraction = ''] = number.split('.');
