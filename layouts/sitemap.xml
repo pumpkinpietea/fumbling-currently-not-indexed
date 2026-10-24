@@ -1,0 +1,7 @@
+{{- $xml := partial "sitemap-urlset.xml" . -}}
+{{- if eq .Site.Language.Lang "en" -}}
+  {{- $resource := resources.FromString "sitemap-en.xml" $xml -}}
+  {{- /* Accessing RelPermalink publishes the resource without changing page URLs. */ -}}
+  {{- $published := $resource.RelPermalink -}}
+{{- end -}}
+{{- $xml | safeHTML -}}
