@@ -5,6 +5,13 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/en/sitemap.xml",
+        "destination": "/sitemap-en.xml",
+        "type": 301
+      }
     ]
   }
 }
