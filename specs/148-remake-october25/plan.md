@@ -1,0 +1,7 @@
+# Operator plan
+
+Use the existing Cloud Run job with a one-off `--trial-date 2026-10-25` argument override and the authoritative rotating app session. The trial namespace is distinct from production and metadata. Snapshot original GCS generations before invocation and inspect active execution/global lease/trial conflicts. Preserve all scheduler/job defaults.
+
+Validate/reconstruct the private schema8 trial bundle. Perform operator source/translation/prior-event review without additional inference. Replace today's public Markdown from that exact approved output, allowing only an explicit audited frontmatter date/lastmod transformation: preserve existing first-publication dates and add a truthful operator update timestamp; new pages use the operator preparation time. Remove stale topic EN/JP files omitted by the complete replacement. The operator PR can modify existing editions; the autonomous consumer's existing-edition protection is unchanged.
+
+Preview the replacement branch in Chromium across EN/JP, three viewport classes and both themes, including affected topic/article and discovery layouts. Run portable checks, exact staged privacy review, required PR/main CI and Hosting. Verify live hashes and screenshots. Save actual release histories create-only through existing editorial/specialist history schemas so subsequent runs see newly public sources/events. Original prepared history remains conservative deduplication context, even for removed notes. No private source text or generated input enters Git.
