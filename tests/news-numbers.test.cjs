@@ -70,3 +70,13 @@ test('month-only dates, exchange-rate denominators and medal ordinals retain equ
  assert.deepEqual(numericFacts('in May'),['5']);
  assert.notDeepEqual(numericFacts('8th gold'),numericFacts('emas ketujuh','id-ID'));
 });
+
+test('schema 8 milestone ordinals preserve the JETRO first-strategy meaning without changing legacy numbers',()=>{
+ const options={milestones:true};
+ for(const [en,jp]of [['1st national semiconductor strategy','初の国家半導体戦略'],['first national semiconductor strategy','初の国家半導体戦略'],['first national plan','初の国家計画'],['second national strategy','第2の国家戦略']])assert.deepEqual(numericFacts(en,'en',options),numericFacts(jp,'en',options));
+ assert.deepEqual(numericFacts('初の国家半導体戦略'),[]);
+ assert.deepEqual(numericFacts('first national semiconductor strategy'),[]);
+ assert.deepEqual(numericFacts('first aid, first class, a second response; 初の訪問','en',options),[]);
+ assert.notDeepEqual(numericFacts('2nd national semiconductor strategy','en',options),numericFacts('初の国家半導体戦略','en',options));
+ assert.notDeepEqual(numericFacts('first national strategy','en',options),numericFacts('初の国家戦略と2工場','en',options));
+});

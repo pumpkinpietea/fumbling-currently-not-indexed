@@ -22,10 +22,16 @@ function scale(value, power) {
   if (places >= 0) return digits + '0'.repeat(places);
   return (digits.padStart(-places + 1, '0').slice(0, places) + '.' + digits.padStart(-places + 1, '0').slice(places));
 }
-function numericFacts(text, locale = 'en') {
+function numericFacts(text, locale = 'en', { milestones = false } = {}) {
   // Match ordinals in explicit day, ranking or medal contexts; avoid time units and "both".
   const dayOrdinals=locale==='id-ID'?['pertama','kedua','ketiga','keempat','kelima','keenam','ketujuh','kedelapan','kesembilan','kesepuluh']:['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth'];
   for(const [i,word]of dayOrdinals.entries())text=text.replace(new RegExp(locale==='id-ID'?`\\b(?:hari|posisi|peringkat|urutan|emas|perak|perunggu|medali)\\s+${word}\\b`:`\\b${word}\\s+(?:day|place|position)\\b`,'gi'),`${i+1} day`);
+  if (milestones) {
+    // Institutional milestone ordinals are numeric; first aid/class and time units are not.
+    for (const [i, word] of dayOrdinals.entries())
+      if (locale !== 'id-ID') text = text.replace(new RegExp(`\\b${word}(?=\\s+(?:(?:national|semiconductor|digital|industrial|economic|security)\\s+){0,3}(?:strategy|policy|plan)\\b)`, 'gi'), String(i + 1));
+    text = text.replace(/初(?=の(?:国家|半導体|デジタル|産業|経済|安全保障){0,3}(?:戦略|政策|計画))/g, '1');
+  }
   text=text.replace(/(?<![\w-])runner[- ]up(?![\w-])/gi,' 2 ');
   // Clock punctuation is distinct from Indonesian decimal/thousands punctuation.
   text = text.replace(locale === 'id-ID' ? /\bpukul\s+(\d{1,2})[.:](\d{2})\b/gi : /\b(\d{1,2}):(\d{2})\b/g,
