@@ -7,9 +7,13 @@ const window={start:'2026-10-09T17:00:00Z',end:'2026-10-10T17:00:00Z'},instant=n
 const record={feedId:'antara-top-news',itemIndex:0,title:'Indonesia expands digital services',url:'https://www.antaranews.com/berita/1234567/indonesia-digital-services',publicationDatesRaw:['Sat, 10 Oct 2026 10:00:00 GMT'],publishedAt:'2026-10-10T10:00:00Z',description:'Indonesia announced an expansion of digital public services.'};
 function report(failures=['setkab-news-en']){return {schemaVersion:1,complete:!failures.length,feeds:dailyFeeds.map(id=>({id,url:FEEDS[id].url,status:failures.includes(id)?'failed':'ok',error:failures.includes(id)?'feed_timeout':null,itemCount:id===record.feedId&&!failures.includes(id)?1:0})),records:failures.includes(record.feedId)?[]:[record],selection:{accepted:[{normalizedUrl:record.url}],rejected:[],window}};}
 function memory(){const data=new Map();return {data,read:async name=>data.has(name)?{value:data.get(name)}:null,write:async(name,value)=>{if(data.has(name))throw Error('state_already_exists');data.set(name,value);return '1';}};}
-test('only four reviewed enrichment feeds are optional; required/all failures still block',()=>{
- assert.deepEqual(dailyFeeds.filter(id=>FEEDS[id].dailyOptional),['jetro-biznews-ja','vietnam-news-sci-tech','yahoo-it','setkab-news-en']);
- for(const failures of [[],['setkab-news-en'],['jetro-biznews-ja'],['jetro-biznews-ja','vietnam-news-sci-tech','yahoo-it','setkab-news-en']])assert.equal(publicationReady(report(failures),dailyFeeds),true);
+const vietNamNewsFeeds = ['vietnam-news-economy', 'vietnam-news-industries', 'vietnam-news-sci-tech'];
+test('reviewed enrichment outages are allowed while required and all-feed failures block',()=>{
+ const optional = ['jetro-biznews-ja', ...vietNamNewsFeeds, 'yahoo-it', 'setkab-news-en'];
+ assert.deepEqual(dailyFeeds.filter(id=>FEEDS[id].dailyOptional), optional);
+ for(const failures of [[], ['setkab-news-en'], ['jetro-biznews-ja'], vietNamNewsFeeds, optional]){
+  assert.equal(publicationReady(report(failures),dailyFeeds),true);
+ }
  for(const failures of [['ecns-news'],['antara-top-news'],dailyFeeds])assert.equal(publicationReady(report(failures),dailyFeeds),false);
  for(const alter of [r=>r.feeds.pop(),r=>r.feeds[0].id='unknown',r=>r.feeds.reverse(),r=>r.feeds.at(-1).error='unrecognized',r=>r.feeds.at(-1).itemCount=1]){const bad=report();alter(bad);assert.equal(publicationReady(bad,dailyFeeds),false);}
 });
@@ -27,8 +31,8 @@ test('optional partial snapshots retain honest coverage and can supply healthy o
 test('metadata producer proceeds on optional enrichment failure with zero inference and explicit health',async()=>{
  const state=memory(),input={schemaVersion:1,window,feeds:dailyFeeds};
  const result=await produce({instant,trial:true,metadataOnly:true,revision:'c'.repeat(40),model:'synthetic',state,
-  collect:request=>collectArchived(request,{state,instant,retainLive:false,collect:async()=>({valid:true,report:report()})}),infer:async()=>assert.fail('metadata cannot invoke model')});
- assert.equal(result.sources,1);assert.equal(result.modelCalls,0);const health=state.data.get('evidence/feed-health-metadata-cccccccccccc-2026-10-11.json');assert.equal(health.complete,false);assert.equal(health.publicationReady,true);assert.equal(health.feeds.find(f=>f.id==='setkab-news-en').status,'failed');assert.ok([...state.data.keys()].every(n=>!n.startsWith('bundles/')));
+  collect:request=>collectArchived(request,{state,instant,retainLive:false,collect:async()=>({valid:true,report:report(vietNamNewsFeeds)})}),infer:async()=>assert.fail('metadata cannot invoke model')});
+ assert.equal(result.sources,1);assert.equal(result.modelCalls,0);const health=state.data.get('evidence/feed-health-metadata-cccccccccccc-2026-10-11.json');assert.equal(health.complete,false);assert.equal(health.publicationReady,true);assert.deepEqual(health.feeds.filter(feed=>feed.status==='failed').map(feed=>feed.id),vietNamNewsFeeds);assert.ok([...state.data.keys()].every(n=>!n.startsWith('bundles/')));
 });
 test('optional enrichment cannot crowd required records out of the500-record collection budget',async()=>{
  const core=dailyFeeds.filter(id=>!FEEDS[id].dailyOptional),last=core.at(-1);
